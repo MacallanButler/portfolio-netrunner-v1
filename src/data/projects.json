@@ -1,0 +1,87 @@
+[
+  {
+    "id": "apex_drop",
+    "title": "Apex Drop",
+    "client": "Adventure Tourism",
+    "category": "Booking Platform",
+    "description": "A premium skydiving booking platform with transparent pricing, trust-first design, and a multi-step booking wizard. Features include experience tiers, safety prerequisites, and anxiety FAQs.",
+    "techStack": [
+      "Next.js",
+      "React",
+      "TypeScript",
+      "Tailwind CSS"
+    ],
+    "status": "COMPLETED",
+    "completionDate": "2026-02-13",
+    "repoUrl": "https://github.com",
+    "liveUrl": null
+  },
+  {
+    "id": "blue_horizon",
+    "title": "Blue Horizon",
+    "client": "Marine & Dive Industry",
+    "category": "Intelligence Platform",
+    "description": "A conservation-first scuba diving booking platform with marine life heatmaps, crowd forecasting, underwater topography maps, and a real-time cost calculator with itemized gear rental.",
+    "techStack": [
+      "React",
+      "TypeScript",
+      "Tailwind CSS",
+      "Framer Motion"
+    ],
+    "status": "COMPLETED",
+    "completionDate": "2026-02-13",
+    "repoUrl": "https://github.com",
+    "liveUrl": null
+  },
+  {
+    "id": "ghost_mountain",
+    "title": "Ghost of the Mountains",
+    "client": "Conservation / Non-Profit",
+    "category": "Interactive Storytelling",
+    "description": "An interactive conservation storytelling website following a snow leopard named Khangri. Features branching narrative choices, educational mini-games, habitat loss calculators, and donation integration.",
+    "techStack": [
+      "Next.js",
+      "React",
+      "TypeScript",
+      "Tailwind CSS"
+    ],
+    "status": "COMPLETED",
+    "completionDate": "2026-02-02",
+    "repoUrl": "https://github.com",
+    "liveUrl": null
+  },
+  {
+    "id": "solarpunk",
+    "title": "Solarpunk Architecture",
+    "client": "Architecture / Sustainability",
+    "category": "Portfolio Website",
+    "description": "A visually rich portfolio for a sustainable architecture firm. Features project galleries, an interactive philosophy section, and a nature-integrated design system with smooth page transitions.",
+    "techStack": [
+      "Next.js",
+      "React",
+      "TypeScript",
+      "Tailwind CSS"
+    ],
+    "status": "COMPLETED",
+    "completionDate": "2026-01-30",
+    "repoUrl": "https://github.com",
+    "liveUrl": null
+  },
+  {
+    "id": "f1_academy",
+    "title": "F1 Academy",
+    "client": "Motorsport / Education",
+    "category": "Learning Platform",
+    "description": "A premium motorsport learning platform with glassmorphism UI, performance tracking dashboards, and advanced lighting effects. Designed to educate beginners on Formula 1 fundamentals.",
+    "techStack": [
+      "React",
+      "TypeScript",
+      "Vite",
+      "Tailwind CSS"
+    ],
+    "status": "COMPLETED",
+    "completionDate": "2026-02-02",
+    "repoUrl": "https://github.com",
+    "liveUrl": null
+  }
+]

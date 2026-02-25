@@ -1,0 +1,76 @@
+{
+    "neural": [
+        {
+            "name": "JavaScript (ES6+)",
+            "level": 98
+        },
+        {
+            "name": "TypeScript",
+            "level": 95
+        },
+        {
+            "name": "HTML / CSS",
+            "level": 97
+        },
+        {
+            "name": "Ruby",
+            "level": 75
+        },
+        {
+            "name": "Python",
+            "level": 70
+        }
+    ],
+    "chrome": [
+        {
+            "name": "React / Next.js",
+            "level": 99
+        },
+        {
+            "name": "Tailwind CSS",
+            "level": 95
+        },
+        {
+            "name": "Framer Motion",
+            "level": 90
+        },
+        {
+            "name": "Ruby on Rails",
+            "level": 75
+        },
+        {
+            "name": "PostgreSQL",
+            "level": 80
+        },
+        {
+            "name": "Sanity CMS",
+            "level": 78
+        },
+        {
+            "name": "Git / GitHub",
+            "level": 92
+        }
+    ],
+    "firmware": [
+        {
+            "name": "Frontend Architecture",
+            "level": 92
+        },
+        {
+            "name": "UI/UX Design",
+            "level": 85
+        },
+        {
+            "name": "Responsive Design",
+            "level": 95
+        },
+        {
+            "name": "SEO & Accessibility",
+            "level": 80
+        },
+        {
+            "name": "API Integration",
+            "level": 82
+        }
+    ]
+}
