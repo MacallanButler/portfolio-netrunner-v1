@@ -8,14 +8,18 @@ interface HoloCardProps {
     children: React.ReactNode;
     className?: string;
     title?: string;
+    style?: React.CSSProperties;
+    onClick?: () => void;
 }
 
-export function HoloCard({ children, className, title }: HoloCardProps) {
+export function HoloCard({ children, className, title, style, onClick }: HoloCardProps) {
     return (
         <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.3 }}
+            style={style}
+            onClick={onClick}
             className={cn(
                 "relative overflow-hidden rounded-sm border border-white/10 bg-surface-card p-6 shadow-lg backdrop-blur-sm transition-all duration-300 hover:border-neon-cyan/50 hover:shadow-[0_0_15px_rgba(0,255,255,0.1)]",
                 className

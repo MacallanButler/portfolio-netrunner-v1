@@ -7,7 +7,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
 import {
     FolderKanban,
-    Terminal,
+    Workflow,
     BarChart3,
     Mail,
     LayoutTemplate,
@@ -21,7 +21,7 @@ const NAVIGATION = [
     { name: "PROJECTS", path: "/gigs", icon: FolderKanban },
     { name: "SKILLS", path: "/cyberware", icon: BarChart3 },
     { name: "CONTACT", path: "/comms", icon: Mail },
-    { name: "SYSTEM", path: "/design-system", icon: Terminal },
+    { name: "PROCESS", path: "/design-system", icon: Workflow },
 ];
 
 export function Sidebar() {
@@ -55,9 +55,11 @@ export function Sidebar() {
                             <div className="w-2 h-2 bg-neon-cyan rounded-full animate-pulse" />
                             <span className="text-xs font-mono text-neon-cyan tracking-widest">NETRUNNER_OS</span>
                         </div>
-                        <h1 className="text-xl font-bold tracking-tighter">
-                            <GlitchText text="MB_SYSTEMS" />
-                        </h1>
+                        <Link href="/" onClick={() => setIsOpen(false)}>
+                            <h1 className="text-xl font-bold tracking-tighter hover:text-neon-cyan transition-colors cursor-pointer">
+                                <GlitchText text="MB_SYSTEMS" />
+                            </h1>
+                        </Link>
                     </div>
 
                     {/* Navigation */}

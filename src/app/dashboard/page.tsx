@@ -7,6 +7,7 @@ import { GlitchText } from "@/components/core/GlitchText";
 import { NeonButton } from "@/components/core/NeonButton";
 import { SystemBadge } from "@/components/core/SystemBadge";
 import { TerminalPrompt } from "@/components/core/TerminalPrompt";
+import { getTechColor } from "@/lib/techColors";
 import projects from "@/data/projects.json";
 
 export default function DashboardPage() {
@@ -145,10 +146,19 @@ export default function DashboardPage() {
                                             <p className="text-sm text-text-muted max-w-xl">{project.description}</p>
                                         </div>
 
-                                        <div className="flex gap-2 flex-shrink-0">
-                                            {project.techStack.slice(0, 3).map(tech => (
-                                                <SystemBadge key={tech} label={tech} status="neutral" className="border-white/10 text-text-muted" />
-                                            ))}
+                                        <div className="flex gap-2 flex-shrink-0 flex-wrap">
+                                            {project.techStack.slice(0, 3).map(tech => {
+                                                const colors = getTechColor(tech);
+                                                return (
+                                                    <span
+                                                        key={tech}
+                                                        className="text-[10px] font-mono px-2 py-0.5 rounded border tracking-wider"
+                                                        style={{ backgroundColor: colors.bg, color: colors.text, borderColor: colors.border }}
+                                                    >
+                                                        {tech}
+                                                    </span>
+                                                );
+                                            })}
                                         </div>
                                     </div>
                                 </HoloCard>
