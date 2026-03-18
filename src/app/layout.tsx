@@ -31,6 +31,19 @@ export default function RootLayout({
         <Shell>
           {children}
         </Shell>
+
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-FXCR09481R"
+          strategy="afterInteractive"
+        />
+        <Script id="ga-init" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-G-FXCR09481R');
+          `}
+        </Script>
       </body>
     </html>
   );
