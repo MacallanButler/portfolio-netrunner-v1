@@ -58,7 +58,7 @@ export default function CommsPage() {
                 </p>
             </div>
 
-            <div className="grid lg:grid-cols-2 gap-8">
+            <div className="max-w-2xl">
                 {/* Contact Form */}
                 <HoloCard title="MESSAGE">
                     <form onSubmit={handleSubmit} className="space-y-6">
@@ -116,33 +116,6 @@ export default function CommsPage() {
                         </div>
                     </form>
                 </HoloCard>
-
-                {/* Status Log */}
-                <div className="space-y-6">
-                    <HoloCard title="STATUS" className="h-full min-h-[300px]">
-                        <div className="font-mono text-xs space-y-2 h-full overflow-y-auto max-h-[400px]">
-                            <p className="text-text-muted opacity-50">Connection established...</p>
-                            <p className="text-text-muted opacity-50">Listening for input...</p>
-                            {logs.map((log, i) => (
-                                <p key={i} className="text-neon-cyan animate-pulse">
-                                    {">"} {log}
-                                </p>
-                            ))}
-                            {status === "SUCCESS" && (
-                                <div className="mt-4 p-4 border border-neon-cyan/30 bg-neon-cyan/5 text-neon-cyan">
-                                    <p className="font-bold">✓ MESSAGE DELIVERED</p>
-                                    <p className="opacity-70 mt-1">Thanks! I&apos;ll get back to you soon.</p>
-                                </div>
-                            )}
-                            {status === "ERROR" && (
-                                <div className="mt-4 p-4 border border-neon-red/30 bg-neon-red/5 text-neon-red">
-                                    <p className="font-bold">⚠ DELIVERY FAILED</p>
-                                    <p className="opacity-70 mt-1">Something went wrong. Please try again.</p>
-                                </div>
-                            )}
-                        </div>
-                    </HoloCard>
-                </div>
             </div>
         </div>
     );

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
@@ -19,7 +19,6 @@ import { GlitchText } from "@/components/core/GlitchText";
 const NAVIGATION = [
     { name: "DASHBOARD", path: "/dashboard", icon: LayoutTemplate },
     { name: "PROJECTS", path: "/gigs", icon: FolderKanban },
-    { name: "SKILLS", path: "/cyberware", icon: BarChart3 },
     { name: "CONTACT", path: "/comms", icon: Mail },
     { name: "PROCESS", path: "/design-system", icon: Workflow },
 ];
@@ -27,6 +26,52 @@ const NAVIGATION = [
 export function Sidebar() {
     const pathname = usePathname();
     const [isOpen, setIsOpen] = useState(false);
+
+    // Interactive Task Manager State
+    const [visitedPaths, setVisitedPaths] = useState<Set<string>>(new Set());
+    const [sessionTime, setSessionTime] = useState(0);
+    const [isAudioEnabled, setIsAudioEnabled] = useState(false);
+
+    useEffect(() => {
+        if (pathname) {
+            setVisitedPaths(prev => new Set(prev).add(pathname));
+        }
+    }, [pathname]);
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setSessionTime(prev => prev + 1);
+        }, 1000);
+        return () => clearInterval(interval);
+    }, []);
+
+    const playClick = () => {
+        if (!isAudioEnabled) return;
+        try {
+            const AudioContext = window.AudioContext || (window as any).webkitAudioContext;
+            const ctx = new AudioContext();
+            const osc = ctx.createOscillator();
+            const gain = ctx.createGain();
+            osc.type = "sine";
+            osc.frequency.setValueAtTime(800, ctx.currentTime);
+            osc.frequency.exponentialRampToValueAtTime(300, ctx.currentTime + 0.1);
+            gain.gain.setValueAtTime(0.1, ctx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.1);
+            osc.connect(gain);
+            gain.connect(ctx.destination);
+            osc.start();
+            osc.stop(ctx.currentTime + 0.1);
+        } catch(e) {}
+    };
+
+    const formatTime = (seconds: number) => {
+        const min = Math.floor(seconds / 60);
+        const sec = seconds % 60;
+        return `${min}:${sec.toString().padStart(2, "0")}`;
+    };
+
+    // Assuming 5 main routes: /, /dashboard, /gigs, /comms, /design-system
+    const progress = Math.min((visitedPaths.size / 5) * 100, 100).toFixed(0);
 
     return (
         <>
@@ -78,7 +123,10 @@ export function Sidebar() {
                                             ? "border-neon-cyan bg-neon-cyan/5 text-neon-cyan"
                                             : "border-transparent text-text-muted hover:text-text-primary hover:bg-white/5 hover:border-white/20"
                                     )}
-                                    onClick={() => setIsOpen(false)}
+                                    onClick={() => {
+                                        setIsOpen(false);
+                                        playClick();
+                                    }}
                                 >
                                     <Icon size={18} className={cn("transition-colors", isActive ? "text-neon-cyan" : "text-text-muted group-hover:text-text-primary")} />
                                     <span>{item.name}</span>
@@ -97,19 +145,19 @@ export function Sidebar() {
                     <div className="p-6 border-t border-white/10 relative z-10">
                         <div className="space-y-4">
                             <div className="flex justify-between text-xs font-mono text-text-muted">
-                                <span>CPU</span>
-                                <span>12%</span>
+                                <span>DATA_LINK</span>
+                                <span>{progress}%</span>
                             </div>
                             <div className="w-full h-1 bg-surface-dark">
-                                <div className="w-[12%] h-full bg-neon-cyan/50" />
+                                <div className="h-full bg-neon-cyan/50 transition-all duration-1000" style={{ width: `${progress}%` }} />
                             </div>
 
                             <div className="flex justify-between text-xs font-mono text-text-muted">
-                                <span>MEM</span>
-                                <span>34%</span>
+                                <span>SYS_UPTIME</span>
+                                <span>{formatTime(sessionTime)}</span>
                             </div>
-                            <div className="w-full h-1 bg-surface-dark">
-                                <div className="w-[34%] h-full bg-neon-cyan/50" />
+                            <div className="w-full h-1 bg-surface-dark overflow-hidden">
+                                <div className="h-full bg-neon-cyan/30 animate-pulse w-full" />
                             </div>
 
                             <div className="pt-4 flex items-center justify-between text-[10px] text-text-muted uppercase tracking-widest border-t border-white/5 mt-4">
@@ -119,8 +167,14 @@ export function Sidebar() {
 
                             <div className="flex items-center justify-between text-[10px] text-text-muted uppercase tracking-widest pt-2">
                                 <span>Audio:</span>
-                                <button className="text-white hover:text-neon-cyan transition-colors">
-                                    [ MUTE ]
+                                <button 
+                                    onClick={() => {
+                                        setIsAudioEnabled(!isAudioEnabled);
+                                        if (!isAudioEnabled) playClick();
+                                    }}
+                                    className={cn("transition-colors", isAudioEnabled ? "text-neon-cyan" : "text-white hover:text-neon-cyan")}
+                                >
+                                    {isAudioEnabled ? "[ ON ]" : "[ MUTE ]"}
                                 </button>
                             </div>
                         </div>

@@ -19,69 +19,43 @@ import { cn } from "@/lib/utils";
 const PROCESS_STEPS = [
   {
     id: "01",
-    label: "DISCOVERY",
-    title: "Discovery & Consultation",
-    icon: Search,
-    duration: "1–2 days",
+    label: "ARCHITECTURE",
+    title: "Discovery & Architecture",
+    icon: Compass,
     color: "#00FFFF",
     description:
-      "We start with a focused conversation to understand your goals, audience, and constraints. I'll ask the right questions, challenge assumptions where needed, and leave with a clear picture of what success looks like for your project.",
-    deliverables: ["Project brief", "Scope definition", "Timeline estimate", "Tech stack recommendation"],
+      "We start with a focused conversation to understand your goals, followed by mapping out the full structure: information architecture, component hierarchy, data flow, and visual direction.",
+    deliverables: ["Project brief & scope", "Tech stack recommendation", "Sitemap & user flow", "Design system tokens"],
   },
   {
     id: "02",
-    label: "ARCHITECTURE",
-    title: "Design & Architecture",
-    icon: Compass,
-    duration: "3–5 days",
-    color: "#BB4B8F",
-    description:
-      "Before a single line of code is written, I map out the full structure: information architecture, component hierarchy, data flow, and visual direction. You'll see exactly what's being built before it's built.",
-    deliverables: ["Sitemap / user flow", "Component wireframes", "Design system tokens", "Tech architecture doc"],
-  },
-  {
-    id: "03",
     label: "DEVELOPMENT",
     title: "Build & Development",
     icon: Code2,
-    duration: "1–4 weeks",
     color: "#339933",
     description:
-      "This is where I write clean, maintainable, production-grade code. I work in focused sprints and share progress regularly so you're never left guessing. The stack is always chosen for your use case, not my convenience.",
-    deliverables: ["Staged builds (dev URL)", "Progress updates", "Responsive implementation", "Accessible markup"],
+      "This is where I write clean, maintainable, production-grade code. I work in focused sprints and share progress regularly so you're never left guessing.",
+    deliverables: ["Staged builds (dev URL)", "Responsive implementation", "Accessible markup", "Progress updates"],
+  },
+  {
+    id: "03",
+    label: "QA_REVIEW",
+    title: "Testing & Review",
+    icon: FlaskConical,
+    color: "#F7DF1E",
+    description:
+      "Every project goes through a thorough review cycle: cross-browser testing, performance audits, accessibility checks, and a structured feedback loop with you.",
+    deliverables: ["Lighthouse performance audit", "Cross-browser QA", "Revision rounds", "Final sign-off"],
   },
   {
     id: "04",
-    label: "QA & REVIEW",
-    title: "Testing & Review",
-    icon: FlaskConical,
-    duration: "2–3 days",
-    color: "#F7DF1E",
-    description:
-      "Every project goes through a thorough review cycle: cross-browser testing, performance audits (Lighthouse), accessibility checks, and a structured feedback loop with you. Nothing ships until it's right.",
-    deliverables: ["Lighthouse audit", "Cross-browser QA", "Revision rounds", "Final sign-off"],
-  },
-  {
-    id: "05",
-    label: "LAUNCH",
-    title: "Deployment & Handoff",
+    label: "DEPLOYMENT",
+    title: "Deployment & Support",
     icon: Rocket,
-    duration: "1 day",
     color: "#FF8A65",
     description:
-      "I handle the full deployment pipeline — domain config, environment variables, CI/CD setup, and a production build verification. You get a live URL and full ownership of your codebase, with nothing locked behind proprietary systems.",
-    deliverables: ["Production deployment", "Domain / DNS setup", "Codebase handoff", "Documentation"],
-  },
-  {
-    id: "06",
-    label: "SUPPORT",
-    title: "Post-Launch Support",
-    icon: Headphones,
-    duration: "Ongoing",
-    color: "#9B9EFF",
-    description:
-      "Shipping is the beginning, not the end. I offer retainer-based support for bug fixes, feature additions, and performance monitoring. You'll always have a direct line to the developer who built it.",
-    deliverables: ["Bug fix SLA", "Feature requests", "Analytics review", "Performance monitoring"],
+      "I handle the full deployment pipeline. You get a live URL and full ownership of your codebase. After launch, I offer support for bug fixes, additions, and monitoring.",
+    deliverables: ["Production deployment & DNS", "Codebase handoff & docs", "Bug fix support", "Performance monitoring"],
   },
 ];
 
@@ -164,9 +138,6 @@ export default function ProcessPage() {
                           </h3>
                         </div>
                         <div className="flex items-center gap-3">
-                          <span className="text-[10px] font-mono text-text-muted border border-white/10 px-2 py-1">
-                            EST: {step.duration}
-                          </span>
                           <span
                             className="font-mono text-xs"
                             style={{ color: step.color }}

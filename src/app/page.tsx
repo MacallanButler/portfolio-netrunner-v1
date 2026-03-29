@@ -67,11 +67,11 @@ export default function BootSequence() {
             </div>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <NeonButton variant="primary" onClick={() => router.push("/dashboard")}>
-                VIEW_PORTFOLIO
+              <NeonButton variant="primary" onClick={() => router.push("/gigs")}>
+                View Projects
               </NeonButton>
-              <NeonButton variant="secondary" onClick={() => router.push("/gigs")}>
-                SEE_PROJECTS
+              <NeonButton variant="secondary" onClick={() => router.push("/comms")}>
+                Contact
               </NeonButton>
             </div>
           </motion.div>

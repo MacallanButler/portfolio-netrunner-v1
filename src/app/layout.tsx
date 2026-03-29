@@ -14,7 +14,7 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Netrunner Portfolio | Night City Build",
+  title: "Macallan Butler's Portfolio",
   description: "A cyberpunk portfolio interface for netrunners.",
 };
 
@@ -32,18 +32,18 @@ export default function RootLayout({
           {children}
         </Shell>
 
-        <Script
+        <script
           src="https://www.googletagmanager.com/gtag/js?id=G-FXCR09481R"
           strategy="afterInteractive"
         />
-        <Script id="ga-init" strategy="afterInteractive">
+        <script id="ga-init" strategy="afterInteractive">
           {`
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
             gtag('config', 'G-G-FXCR09481R');
           `}
-        </Script>
+        </script>
       </body>
     </html>
   );

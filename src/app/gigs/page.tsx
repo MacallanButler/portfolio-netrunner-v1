@@ -13,9 +13,15 @@ import { cn } from "@/lib/utils";
 export default function GigsPage() {
   const [filter, setFilter] = useState("ALL");
 
+  const allTechStacks = React.useMemo(() => {
+    const stacks = new Set<string>();
+    projectsData.forEach(p => p.techStack.forEach(t => stacks.add(t)));
+    return ["ALL", ...Array.from(stacks)].sort();
+  }, []);
+
   const filteredProjects = projectsData.filter(project => {
     if (filter === "ALL") return true;
-    return project.status === filter;
+    return project.techStack.includes(filter);
   });
 
   return (
@@ -34,19 +40,19 @@ export default function GigsPage() {
 
       {/* Filter Bar */}
       <div className="flex flex-wrap gap-2">
-        {["ALL", "COMPLETED", "IN_PROGRESS", "ARCHIVED"].map(status => (
+        {allTechStacks.map(tech => (
           <button
-            key={status}
-            onClick={() => setFilter(status)}
+            key={tech}
+            onClick={() => setFilter(tech)}
             className={cn(
               "px-4 py-2 border text-xs font-mono tracking-wider transition-all duration-300 relative",
-              filter === status
+              filter === tech
                 ? "border-neon-cyan text-neon-cyan bg-neon-cyan/10"
                 : "border-white/10 text-text-muted hover:border-white/30 hover:text-white"
             )}
           >
-            {status.replace("_", " ")}
-            {filter === status && (
+            {tech}
+            {filter === tech && (
               <div className="absolute bottom-0 left-0 w-full h-[2px] bg-neon-cyan shadow-[0_0_10px_#00FFFF]" />
             )}
           </button>
@@ -74,7 +80,6 @@ export default function GigsPage() {
                   <span className="text-white/40 font-mono text-xs uppercase">Industry: </span>
                   {project.client}
                 </p>
-                <p className="leading-relaxed">{project.description}</p>
               </div>
 
               {/* Colored Tech Stack */}
