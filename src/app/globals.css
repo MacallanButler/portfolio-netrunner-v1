@@ -28,7 +28,7 @@
 }
 
 :root {
-  --neon-cyan: #00FFFF;
+  --neon-cyan: #00FF00;
   --neon-red: #FF003C;
   --surface-dark: #0D0D0D;
   --surface-card: #111111;
@@ -88,5 +88,5 @@ body {
 }
 
 @utility box-glow {
-  box-shadow: 0 0 10px var(--neon-cyan), inset 0 0 20px rgba(0, 255, 255, 0.1);
+  box-shadow: 0 0 10px var(--neon-cyan), inset 0 0 20px rgba(0, 255, 0, 0.1);
 }

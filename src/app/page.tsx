@@ -20,13 +20,22 @@ export default function BootSequence() {
   const [bootComplete, setBootComplete] = useState(false);
 
   useEffect(() => {
+    if (sessionStorage.getItem("bootComplete") === "true") {
+      setLogs(BOOT_LOGS);
+      setBootComplete(true);
+      return;
+    }
+
     let delay = 0;
     BOOT_LOGS.forEach((log, index) => {
       delay += Math.random() * 500 + 300;
       setTimeout(() => {
         setLogs((prev) => [...prev, log]);
         if (index === BOOT_LOGS.length - 1) {
-          setTimeout(() => setBootComplete(true), 800);
+          setTimeout(() => {
+            setBootComplete(true);
+            sessionStorage.setItem("bootComplete", "true");
+          }, 800);
         }
       }, delay);
     });

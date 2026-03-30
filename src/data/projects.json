@@ -50,23 +50,7 @@
     "repoUrl": "https://github.com",
     "liveUrl": null
   },
-  {
-    "id": "solarpunk",
-    "title": "Solarpunk Architecture",
-    "client": "Architecture / Sustainability",
-    "category": "Portfolio Website",
-    "description": "A visually rich portfolio for a sustainable architecture firm. Features project galleries, an interactive philosophy section, and a nature-integrated design system with smooth page transitions.",
-    "techStack": [
-      "Next.js",
-      "React",
-      "TypeScript",
-      "Tailwind CSS"
-    ],
-    "status": "COMPLETED",
-    "completionDate": "2026-01-30",
-    "repoUrl": "https://github.com",
-    "liveUrl": null
-  },
+
   {
     "id": "f1_academy",
     "title": "F1 Academy",

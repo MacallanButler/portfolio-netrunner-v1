@@ -32,18 +32,17 @@ export default function RootLayout({
           {children}
         </Shell>
 
-        <script
-          src="https://www.googletagmanager.com/gtag/js?id=G-FXCR09481R"
-          strategy="afterInteractive"
-        />
-        <script id="ga-init" strategy="afterInteractive">
-          {`
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'G-G-FXCR09481R');
-          `}
-        </script>
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-FXCR09481R"></script>
+          <script
+            dangerouslySetInnerHTML={{
+              __html: `
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date());
+                gtag('config', 'G-FXCR09481R');
+              `,
+            }}
+          />
       </body>
     </html>
   );
