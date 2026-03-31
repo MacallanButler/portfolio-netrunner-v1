@@ -81,6 +81,7 @@ export default function DashboardPage() {
                                                 <SystemBadge
                                                     label={project.category}
                                                     status="neutral"
+                                                    className="whitespace-normal text-center"
                                                 />
                                             </div>
                                         </div>

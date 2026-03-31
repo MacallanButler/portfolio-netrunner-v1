@@ -27,8 +27,8 @@ export async function POST(request: Request) {
 
         // Real send
         const data = await resend.emails.send({
-            from: 'Netrunner Portfolio <onboarding@resend.dev>', // Update with verify domain in prod
-            to: ['delivered@resend.dev'], // Update to real email in prod
+            from: 'Macallan Butler <macallan@macallanbutler.com>', // Update with verify domain in prod
+            to: ['macallan@macallanbutler.com'], // Update to real email in prod
             subject: `New Transmission from ${name}`,
             text: `Name: ${name}\nEmail: ${email}\nMessage: ${message}`,
             replyTo: email,

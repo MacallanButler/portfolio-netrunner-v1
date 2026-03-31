@@ -98,7 +98,7 @@ export function Sidebar() {
                     <div className="p-6 border-b border-white/10 relative z-10">
                         <div className="flex items-center gap-2 mb-2">
                             <div className="w-2 h-2 bg-neon-cyan rounded-full animate-pulse" />
-                            <span className="text-xs font-mono text-neon-cyan tracking-widest">NETRUNNER_OS</span>
+                            <span className="text-xs font-mono text-neon-cyan tracking-widest">PORTFOLIO_OS</span>
                         </div>
                         <Link href="/" onClick={() => setIsOpen(false)}>
                             <h1 className="text-xl font-bold tracking-tighter hover:text-neon-cyan transition-colors cursor-pointer">

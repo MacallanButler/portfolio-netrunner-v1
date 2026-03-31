@@ -189,7 +189,7 @@ export default function ProcessPage() {
           <p className="text-sm text-text-muted font-mono max-w-md mx-auto">
             Every project begins with a conversation. No commitment, no pressure — just a clear picture of what we can build together.
           </p>
-          <div className="flex justify-center">
+          <div className="flex justify-center mt-8">
             <Link href="/comms">
               <NeonButton variant="primary">Start a Conversation</NeonButton>
             </Link>

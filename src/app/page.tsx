@@ -71,7 +71,7 @@ export default function BootSequence() {
                 <GlitchText text="MACALLAN_BUTLER" />
               </h1>
               <p className="text-text-muted font-mono text-sm md:text-base">
-                Full-Stack Developer // UI Architect
+                Full-Stack Developer
               </p>
             </div>
 
