@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Inter, JetBrains_Mono } from "next/font/google";
 import { Shell } from "@/components/layout/Shell";
 import { ProjectModalProvider } from "@/context/ProjectModalContext";
-import { ModalOrchestrator } from "@/components/core/ModalOrchestrator";
+import { ProjectModal } from "@/components/core/ProjectModal";
 import "./globals.css";
 
 const inter = Inter({
@@ -34,7 +34,7 @@ export default function RootLayout({
           <Shell>
             {children}
           </Shell>
-          <ModalOrchestrator />
+          <ProjectModal />
         </ProjectModalProvider>
 
         <script async src="https://www.googletagmanager.com/gtag/js?id=G-FXCR09481R"></script>

@@ -66,6 +66,7 @@ export default function GigsPage() {
         {filteredProjects.map((project) => (
           <motion.div
             key={project.id}
+            layoutId={`project-card-${project.id}`}
             onClick={() => openProject(project)}
             className="group cursor-pointer relative overflow-hidden rounded-sm border border-white/10 bg-surface-card shadow-lg flex flex-col h-full"
             whileHover={{

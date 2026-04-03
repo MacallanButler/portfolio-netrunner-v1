@@ -65,7 +65,10 @@ export default function DashboardPage() {
           <HoloCard title="ABOUT">
             <div className="space-y-3 text-sm text-text-muted leading-relaxed">
               <p>
-                Full-stack developer building high-fidelity interfaces and interactive experiences. I work across the stack with a focus on React, Next.js, and motion-driven UI.
+                Full-stack developer specialising in high-fidelity web interfaces and interactive experiences. I build products that feel as sharp as they look.
+              </p>
+              <p>
+                Comfortable across the stack — from API design to animation systems — with a focus on React, Next.js, and thoughtful UI architecture.
               </p>
             </div>
           </HoloCard>
@@ -115,6 +118,7 @@ export default function DashboardPage() {
             {recentProjects.map((project) => (
               <motion.div
                 key={project.id}
+                layoutId={`project-card-${project.id}`}
                 onClick={() => openProject(project)}
                 className="group cursor-pointer relative overflow-hidden rounded-sm border border-white/10 bg-surface-card p-6 shadow-lg"
                 whileHover={{
@@ -128,11 +132,13 @@ export default function DashboardPage() {
                 <div className="absolute bottom-0 right-0 h-2 w-2 border-b-2 border-r-2 border-neon-cyan opacity-30 group-hover:opacity-70 transition-opacity" />
 
                 <div className="flex flex-col md:flex-row gap-4 justify-between md:items-center">
-                  <div className="flex flex-col gap-1">
-                    <h3 className="text-lg font-bold text-white group-hover:text-neon-cyan transition-colors">
-                      {project.title}
-                    </h3>
-                    <SystemBadge label={project.category} status="neutral" className="self-start" />
+                  <div className="space-y-2">
+                    <div className="flex flex-wrap items-center gap-3">
+                      <h3 className="text-lg font-bold text-white group-hover:text-neon-cyan transition-colors">
+                        {project.title}
+                      </h3>
+                      <SystemBadge label={project.category} status="neutral" className="whitespace-normal text-center" />
+                    </div>
                   </div>
                   <div className="flex gap-2 flex-shrink-0 flex-wrap">
                     {project.techStack.slice(0, 3).map(tech => {
