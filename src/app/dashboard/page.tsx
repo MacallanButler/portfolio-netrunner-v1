@@ -7,12 +7,9 @@ import { HoloCard } from "@/components/core/HoloCard";
 import { GlitchText } from "@/components/core/GlitchText";
 import { NeonButton } from "@/components/core/NeonButton";
 import { SystemBadge } from "@/components/core/SystemBadge";
-import { StatBar } from "@/components/core/StatBar";
-import { TerminalPrompt } from "@/components/core/TerminalPrompt";
 import { getTechColor } from "@/lib/techColors";
 import { useProjectModal } from "@/context/ProjectModalContext";
 import projects from "@/data/projects.json";
-import skills from "@/data/skills.json";
 
 export default function DashboardPage() {
   const recentProjects = projects.slice(0, 3);
@@ -70,33 +67,7 @@ export default function DashboardPage() {
             </div>
           </HoloCard>
 
-          {/* Terminal */}
-          <HoloCard>
-            <TerminalPrompt
-              command="whoami --verbose"
-              output={
-                <div className="space-y-1 text-xs">
-                  <p><span className="text-neon-cyan">location:</span> Available remotely</p>
-                  <p><span className="text-neon-cyan">focus:</span> React · Next.js · TypeScript</p>
-                  <p><span className="text-neon-cyan">status:</span> Open to full-time & contract</p>
-                </div>
-              }
-            />
-          </HoloCard>
 
-          {/* Skills */}
-          <HoloCard title="NEURAL_LINKS">
-            <div className="space-y-1">
-              {skills.neural.slice(0, 4).map((skill) => (
-                <StatBar
-                  key={skill.name}
-                  label={skill.name}
-                  value={skill.level}
-                  color="#00FF00"
-                />
-              ))}
-            </div>
-          </HoloCard>
         </div>
 
         {/* ── RIGHT: Recent Projects ── */}

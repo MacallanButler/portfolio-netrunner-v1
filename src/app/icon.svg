@@ -1,73 +1,60 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="100%" height="100%">
   <defs>
-    <!-- Glow filter -->
-    <filter id="glow-cyan" x="-20%" y="-20%" width="140%" height="140%">
-      <feGaussianBlur stdDeviation="5" result="blur" />
+    <!-- Vibrant Neon Green Glow -->
+    <filter id="neon-glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="8" result="blur" />
       <feMerge>
         <feMergeNode in="blur" />
         <feMergeNode in="SourceGraphic" />
       </feMerge>
     </filter>
-    <filter id="glow-red" x="-20%" y="-20%" width="140%" height="140%">
-      <feGaussianBlur stdDeviation="5" result="blur" />
-      <feMerge>
-        <feMergeNode in="blur" />
-        <feMergeNode in="SourceGraphic" />
-      </feMerge>
-    </filter>
-    
-    <!-- Glitch cut mask -->
-    <mask id="glitch-mask-1">
-      <rect x="0" y="0" width="512" height="512" fill="white" />
-      <rect x="0" y="220" width="512" height="30" fill="black" />
-    </mask>
-    <mask id="glitch-mask-2">
-      <rect x="0" y="0" width="512" height="512" fill="white" />
-      <rect x="0" y="140" width="512" height="25" fill="black" />
-    </mask>
   </defs>
-
-  <!-- Solid background for high contrast in light/dark browser tabs -->
-  <rect width="512" height="512" rx="96" fill="#0D0D0D" />
-
-  <!-- Monogram MB - Green Layer (Offset Right) -->
-  <path 
-    d="M 51,430 L 51,82 L 196,290 L 341,82 L 341,430 M 341,82 L 401,82 L 441,122 L 441,216 L 401,256 L 341,256 M 341,256 L 411,256 L 451,296 L 451,390 L 411,430 L 341,430" 
-    fill="none" 
-    stroke="#00FF00" 
-    stroke-width="46" 
-    stroke-linecap="miter" 
+  
+  <!-- Sleek dark background with thin border -->
+  <rect width="512" height="512" rx="110" fill="#0A0E12" stroke="#1E293B" stroke-width="12" />
+  
+  <!-- Cyberpunk grid/decor accents -->
+  <line x1="80" y1="60" x2="432" y2="60" stroke="#1E293B" stroke-width="4" stroke-dasharray="8 12" />
+  <line x1="80" y1="452" x2="432" y2="452" stroke="#1E293B" stroke-width="4" stroke-dasharray="8 12" />
+  
+  <!-- Cyberpunk Stencil 'M' - Red offset glitch -->
+  <path
+    d="M 110,390 L 110,130 L 256,276 L 402,130 L 402,390"
+    fill="none"
+    stroke="#FF003C"
+    stroke-width="70"
+    stroke-linecap="square"
     stroke-linejoin="miter"
-    filter="url(#glow-cyan)"
-    mask="url(#glitch-mask-1)"
-    transform="translate(8, 6)"
+    opacity="0.75"
+    transform="translate(-6, -4)"
+  />
+  
+  <!-- Cyberpunk Stencil 'M' - Core Green Glow Layer -->
+  <path
+    d="M 110,390 L 110,130 L 256,276 L 402,130 L 402,390"
+    fill="none"
+    stroke="#00FF00"
+    stroke-width="70"
+    stroke-linecap="square"
+    stroke-linejoin="miter"
+    filter="url(#neon-glow)"
   />
 
-  <!-- Monogram MB - Red Layer (Offset Left) -->
-  <path 
-    d="M 51,430 L 51,82 L 196,290 L 341,82 L 341,430 M 341,82 L 401,82 L 441,122 L 441,216 L 401,256 L 341,256 M 341,256 L 411,256 L 451,296 L 451,390 L 411,430 L 341,430" 
-    fill="none" 
-    stroke="#FF003C" 
-    stroke-width="46" 
-    stroke-linecap="miter" 
-    stroke-linejoin="miter"
-    filter="url(#glow-red)"
-    mask="url(#glitch-mask-2)"
-    transform="translate(-8, -6)"
-  />
-
-  <!-- Monogram MB - Core White Layer (Centered) -->
-  <path 
-    d="M 51,430 L 51,82 L 196,290 L 341,82 L 341,430 M 341,82 L 401,82 L 441,122 L 441,216 L 401,256 L 341,256 M 341,256 L 411,256 L 451,296 L 451,390 L 411,430 L 341,430" 
-    fill="none" 
-    stroke="#FFFFFF" 
-    stroke-width="30" 
-    stroke-linecap="miter" 
+  <!-- Core White Stencil Layer (adds crisp sharpness inside the glow) -->
+  <path
+    d="M 110,390 L 110,130 L 256,276 L 402,130 L 402,390"
+    fill="none"
+    stroke="#FFFFFF"
+    stroke-width="24"
+    stroke-linecap="square"
     stroke-linejoin="miter"
     opacity="0.95"
   />
 
-  <!-- Larger, highly visible glitch blocks -->
-  <rect x="25" y="220" width="50" height="30" fill="#00FF00" />
-  <rect x="430" y="140" width="55" height="25" fill="#FF003C" />
+  <!-- Cyberpunk Corner Accents -->
+  <rect x="75" y="75" width="25" height="4" fill="#00FF00" />
+  <rect x="75" y="75" width="4" height="25" fill="#00FF00" />
+  
+  <rect x="412" y="412" width="25" height="4" fill="#00FF00" />
+  <rect x="433" y="391" width="4" height="25" fill="#00FF00" />
 </svg>

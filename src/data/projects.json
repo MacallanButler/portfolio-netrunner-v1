@@ -49,23 +49,5 @@
     "completionDate": "2026-02-02",
     "repoUrl": "https://github.com",
     "liveUrl": null
-  },
-
-  {
-    "id": "f1_academy",
-    "title": "F1 Academy",
-    "client": "Motorsport / Education",
-    "category": "Learning Platform",
-    "description": "A premium motorsport learning platform with glassmorphism UI, performance tracking dashboards, and advanced lighting effects. Designed to educate beginners on Formula 1 fundamentals.",
-    "techStack": [
-      "React",
-      "TypeScript",
-      "Vite",
-      "Tailwind CSS"
-    ],
-    "status": "COMPLETED",
-    "completionDate": "2026-02-02",
-    "repoUrl": "https://github.com",
-    "liveUrl": null
   }
 ]
