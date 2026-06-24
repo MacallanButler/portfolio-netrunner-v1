@@ -5,6 +5,7 @@ import { HoloCard } from "@/components/core/HoloCard";
 import { GlitchText } from "@/components/core/GlitchText";
 import { NeonButton } from "@/components/core/NeonButton";
 import { cn } from "@/lib/utils";
+import { trackContactSubmit } from "@/lib/analytics";
 
 export default function CommsPage() {
     const [formData, setFormData] = useState({
@@ -37,6 +38,7 @@ export default function CommsPage() {
                 addToLog("STATUS: 200 OK");
                 setStatus("SUCCESS");
                 setFormData({ name: "", email: "", message: "" });
+                trackContactSubmit("email");
             } else {
                 throw new Error("Server rejected connection");
             }

@@ -3,6 +3,7 @@ import { Inter, JetBrains_Mono } from "next/font/google";
 import Script from "next/script";
 import { Shell } from "@/components/layout/Shell";
 import { ProjectModalProvider } from "@/context/ProjectModalContext";
+import { AudioProvider } from "@/context/AudioContext";
 import { ModalOrchestrator } from "@/components/core/ModalOrchestrator";
 import "./globals.css";
 
@@ -34,12 +35,14 @@ export default function RootLayout({
       <body
         className={`${inter.variable} ${jetbrainsMono.variable} antialiased bg-surface-dark text-text-primary selection:bg-neon-cyan/30 selection:text-neon-cyan`}
       >
-        <ProjectModalProvider>
-          <Shell>
-            {children}
-          </Shell>
-          <ModalOrchestrator />
-        </ProjectModalProvider>
+        <AudioProvider>
+          <ProjectModalProvider>
+            <Shell>
+              {children}
+            </Shell>
+            <ModalOrchestrator />
+          </ProjectModalProvider>
+        </AudioProvider>
 
         <Script
           async

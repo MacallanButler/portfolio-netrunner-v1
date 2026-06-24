@@ -1,6 +1,7 @@
 "use client";
 
 import React, { createContext, useContext, useState, useCallback, useRef } from "react";
+import { trackProjectView } from "@/lib/analytics";
 
 export interface Project {
   id: string;
@@ -37,6 +38,7 @@ export function ProjectModalProvider({ children }: { children: React.ReactNode }
     pendingProject.current = project;
     setIsTransitioning(true);
     document.body.style.overflow = "hidden";
+    trackProjectView(project.id, project.title);
   }, []);
 
   const onTransitionComplete = useCallback(() => {

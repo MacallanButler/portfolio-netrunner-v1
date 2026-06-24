@@ -15,6 +15,8 @@ import {
     X
 } from "lucide-react";
 import { GlitchText } from "@/components/core/GlitchText";
+import { useAudio } from "@/context/AudioContext";
+import { trackAudioToggle } from "@/lib/analytics";
 
 const NAVIGATION = [
     { name: "DASHBOARD", path: "/dashboard", icon: LayoutTemplate },
@@ -27,10 +29,11 @@ export function Sidebar() {
     const pathname = usePathname();
     const [isOpen, setIsOpen] = useState(false);
 
+    const { isAudioEnabled, toggleAudio, playClick } = useAudio();
+
     // Interactive Task Manager State
     const [visitedPaths, setVisitedPaths] = useState<Set<string>>(new Set());
     const [sessionTime, setSessionTime] = useState(0);
-    const [isAudioEnabled, setIsAudioEnabled] = useState(false);
 
     useEffect(() => {
         if (pathname) {
@@ -44,25 +47,6 @@ export function Sidebar() {
         }, 1000);
         return () => clearInterval(interval);
     }, []);
-
-    const playClick = () => {
-        if (!isAudioEnabled) return;
-        try {
-            const AudioContext = window.AudioContext || (window as any).webkitAudioContext;
-            const ctx = new AudioContext();
-            const osc = ctx.createOscillator();
-            const gain = ctx.createGain();
-            osc.type = "sine";
-            osc.frequency.setValueAtTime(800, ctx.currentTime);
-            osc.frequency.exponentialRampToValueAtTime(300, ctx.currentTime + 0.1);
-            gain.gain.setValueAtTime(0.1, ctx.currentTime);
-            gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.1);
-            osc.connect(gain);
-            gain.connect(ctx.destination);
-            osc.start();
-            osc.stop(ctx.currentTime + 0.1);
-        } catch(e) {}
-    };
 
     const formatTime = (seconds: number) => {
         const min = Math.floor(seconds / 60);
@@ -145,14 +129,17 @@ export function Sidebar() {
                     <div className="p-6 border-t border-white/10 relative z-10">
                         <div className="space-y-4">
                             <div className="flex justify-between text-xs font-mono text-text-muted">
-                                <span>DATA_LINK</span>
+                                <span>EXPLORATION_SYNC</span>
                                 <span>{progress}%</span>
                             </div>
                             <div className="w-full h-1 bg-surface-dark">
                                 <div className="h-full bg-neon-cyan/50 transition-all duration-1000" style={{ width: `${progress}%` }} />
                             </div>
+                            <span className="text-[9px] font-mono text-text-muted/50 block leading-tight">
+                                Visit core site sectors to sync portfolio data link
+                            </span>
 
-                            <div className="flex justify-between text-xs font-mono text-text-muted">
+                            <div className="flex justify-between text-xs font-mono text-text-muted mt-2">
                                 <span>SYS_UPTIME</span>
                                 <span>{formatTime(sessionTime)}</span>
                             </div>
@@ -169,8 +156,9 @@ export function Sidebar() {
                                 <span>Audio:</span>
                                 <button 
                                     onClick={() => {
-                                        setIsAudioEnabled(!isAudioEnabled);
-                                        if (!isAudioEnabled) playClick();
+                                        const nextState = !isAudioEnabled;
+                                        toggleAudio();
+                                        trackAudioToggle(nextState);
                                     }}
                                     className={cn("transition-colors", isAudioEnabled ? "text-neon-cyan" : "text-white hover:text-neon-cyan")}
                                 >
