@@ -200,7 +200,7 @@ export function CorruptedTransition({ isPlaying, mode, onComplete }: CorruptedTr
                   <div
                     ref={barFillRef}
                     className="absolute inset-y-0 left-0 w-full bg-neon-cyan origin-left"
-                    style={{ scaleX: isClose ? 1 : 0 }}
+                    style={{ transform: isClose ? "scaleX(1)" : "scaleX(0)" }}
                   />
                   <div
                     ref={glitchChunkRef}

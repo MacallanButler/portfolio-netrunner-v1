@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter, JetBrains_Mono } from "next/font/google";
+import Script from "next/script";
 import { Shell } from "@/components/layout/Shell";
 import { ProjectModalProvider } from "@/context/ProjectModalContext";
 import { ModalOrchestrator } from "@/components/core/ModalOrchestrator";
@@ -18,6 +19,9 @@ const jetbrainsMono = JetBrains_Mono({
 export const metadata: Metadata = {
   title: "Macallan Butler's Portfolio",
   description: "A cyberpunk portfolio interface for netrunners.",
+  icons: {
+    icon: "/icon.svg",
+  },
 };
 
 export default function RootLayout({
@@ -37,17 +41,19 @@ export default function RootLayout({
           <ModalOrchestrator />
         </ProjectModalProvider>
 
-        <script async src="https://www.googletagmanager.com/gtag/js?id=G-FXCR09481R"></script>
-          <script
-            dangerouslySetInnerHTML={{
-              __html: `
-                window.dataLayer = window.dataLayer || [];
-                function gtag(){dataLayer.push(arguments);}
-                gtag('js', new Date());
-                gtag('config', 'G-FXCR09481R');
-              `,
-            }}
-          />
+        <Script
+          async
+          src="https://www.googletagmanager.com/gtag/js?id=G-FXCR09481R"
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-FXCR09481R');
+          `}
+        </Script>
       </body>
     </html>
   );
