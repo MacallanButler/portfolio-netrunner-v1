@@ -19,7 +19,6 @@ import { useAudio } from "@/context/AudioContext";
 import { trackAudioToggle } from "@/lib/analytics";
 
 const NAVIGATION = [
-    { name: "DASHBOARD", path: "/dashboard", icon: LayoutTemplate },
     { name: "PROJECTS", path: "/gigs", icon: FolderKanban },
     { name: "CONTACT", path: "/comms", icon: Mail },
     { name: "PROCESS", path: "/design-system", icon: Workflow },
@@ -54,8 +53,8 @@ export function Sidebar() {
         return `${min}:${sec.toString().padStart(2, "0")}`;
     };
 
-    // Assuming 5 main routes: /, /dashboard, /gigs, /comms, /design-system
-    const progress = Math.min((visitedPaths.size / 5) * 100, 100).toFixed(0);
+    // Assuming 4 main routes: /, /gigs, /comms, /design-system
+    const progress = Math.min((visitedPaths.size / 4) * 100, 100).toFixed(0);
 
     return (
         <>

@@ -21,37 +21,37 @@
     x="252" 
     y="252" 
     font-family="Courier New, Courier, monospace" 
-    font-size="200" 
+    font-size="240" 
     font-weight="900" 
     fill="#FF003C" 
     text-anchor="middle" 
     dominant-baseline="central"
     opacity="0.75"
-  >MB</text>
+  >M</text>
 
   <!-- Glowing Green Core Text Layer -->
   <text 
     x="256" 
     y="256" 
     font-family="Courier New, Courier, monospace" 
-    font-size="200" 
+    font-size="240" 
     font-weight="900" 
     fill="#00FF00" 
     text-anchor="middle" 
     dominant-baseline="central"
     filter="url(#neon-glow)"
-  >MB</text>
+  >M</text>
 
   <!-- Core Crisp White Layer for legibility at small sizes -->
   <text 
     x="256" 
     y="256" 
     font-family="Courier New, Courier, monospace" 
-    font-size="200" 
+    font-size="240" 
     font-weight="900" 
     fill="#FFFFFF" 
     text-anchor="middle" 
     dominant-baseline="central"
     opacity="0.95"
-  >MB</text>
+  >M</text>
 </svg>
