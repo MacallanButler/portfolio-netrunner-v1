@@ -17,14 +17,14 @@ export default function DashboardPage() {
   const { openProject } = useProjectModal();
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-6 w-full">
       {/* Header */}
-      <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-white/10 pb-6">
+      <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-white/10 pb-4">
         <div>
-          <h1 className="text-4xl font-bold tracking-tighter mb-2">
+          <h1 className="text-4xl font-bold tracking-tighter mb-1">
             <GlitchText text="DASHBOARD" />
           </h1>
-          <p className="text-text-muted font-mono text-sm">
+          <p className="text-text-muted font-mono text-xs">
             Portfolio overview. All systems operational.
           </p>
         </div>
@@ -34,84 +34,87 @@ export default function DashboardPage() {
         </div>
       </div>
 
-      <div className="grid lg:grid-cols-12 gap-8">
+      {/* Three Column Grid for Single Screen Fit */}
+      <div className="grid lg:grid-cols-12 gap-6 items-start">
 
-        {/* ── LEFT: Identity + Bio ── */}
-        <div className="lg:col-span-4 space-y-4">
-
-          {/* Identity card */}
+        {/* ── COLUMN 1: Identity ── */}
+        <div className="lg:col-span-4 w-full">
           <HoloCard>
-            <div className="flex flex-col items-center text-center space-y-4">
-              <div className="w-24 h-24 rounded-full bg-surface-dark border-2 border-neon-cyan flex items-center justify-center relative overflow-hidden group">
+            <div className="flex flex-col items-center text-center space-y-4 py-2">
+              <div className="w-20 h-20 rounded-full bg-surface-dark border-2 border-neon-cyan flex items-center justify-center relative overflow-hidden group">
                 <div className="absolute inset-0 bg-neon-cyan/20 animate-pulse group-hover:bg-neon-cyan/40 transition-colors" />
-                <span className="font-mono text-3xl font-bold text-neon-cyan relative z-10">MB</span>
+                <span className="font-mono text-2xl font-bold text-neon-cyan relative z-10">MB</span>
               </div>
               <div>
-                <h2 className="text-xl font-bold tracking-tight text-white mb-1">Macallan Butler</h2>
-                <p className="text-xs font-mono text-neon-cyan tracking-widest uppercase">Full-Stack Developer</p>
-                <p className="text-xs font-mono text-text-muted tracking-wider uppercase mt-1">UI Architect</p>
+                <h2 className="text-lg font-bold tracking-tight text-white mb-0.5">Macallan Butler</h2>
+                <p className="text-[10px] font-mono text-neon-cyan tracking-widest uppercase">// Full-Stack Developer</p>
+                <p className="text-[9px] font-mono text-text-muted tracking-wider uppercase mt-0.5">UI Architect</p>
               </div>
-              <SystemBadge label="OPEN TO WORK" status="success" />
-              <Link href="/comms" className="w-full mt-4">
-                <NeonButton variant="primary" className="w-full">Get In Touch</NeonButton>
+              <SystemBadge label="OPEN TO WORK" status="success" className="text-[9px] px-2 py-0.5" />
+              <Link href="/comms" className="w-full pt-2">
+                <NeonButton variant="primary" className="w-full text-xs py-1.5">Get In Touch</NeonButton>
               </Link>
             </div>
           </HoloCard>
+        </div>
 
-          {/* Bio */}
-          <HoloCard title="ABOUT">
-            <div className="space-y-3 text-sm text-text-muted leading-relaxed">
+        {/* ── COLUMN 2: About ── */}
+        <div className="lg:col-span-4 w-full">
+          <HoloCard title="ABOUT_OPERATOR">
+            <div className="space-y-3 text-xs text-text-muted leading-relaxed font-mono py-1">
               <p>
                 Full-stack developer building high-fidelity interfaces and interactive experiences. I work across the stack with a focus on React, Next.js, and motion-driven UI.
               </p>
+              <p>
+                Specializing in bridging rich styling designs with solid, responsive, and performance-optimized front-end codebases.
+              </p>
             </div>
           </HoloCard>
-
-
         </div>
 
-        {/* ── RIGHT: Recent Projects ── */}
-        <div className="lg:col-span-8 space-y-4">
-          <div className="flex justify-between items-end mb-4">
-            <h2 className="text-xl font-mono text-neon-cyan flex items-center gap-2">
-              <span className="w-2 h-2 bg-neon-cyan" />
+        {/* ── COLUMN 3: Recent Projects ── */}
+        <div className="lg:col-span-4 w-full space-y-3">
+          <div className="flex justify-between items-end pb-1">
+            <h2 className="text-xs font-mono text-neon-cyan flex items-center gap-1.5">
+              <span className="w-1.5 h-1.5 bg-neon-cyan animate-pulse" />
               RECENT_PROJECTS
             </h2>
-            <Link href="/gigs" className="text-xs text-text-muted hover:text-neon-cyan transition-colors font-mono">
+            <Link href="/gigs" className="text-[10px] text-text-muted hover:text-neon-cyan transition-colors font-mono">
               VIEW_ALL &rarr;
             </Link>
           </div>
 
-          <div className="space-y-4">
+          <div className="space-y-3">
             {recentProjects.map((project) => (
               <motion.div
                 key={project.id}
                 onClick={() => openProject(project)}
-                className="group cursor-pointer relative overflow-hidden rounded-sm border border-white/10 bg-surface-card p-6 shadow-lg"
+                className="group cursor-pointer relative overflow-hidden rounded-sm border border-white/10 bg-surface-card p-4 shadow-lg"
                 whileHover={{
                   y: -2,
                   borderColor: "rgba(0,255,0,0.5)",
-                  boxShadow: "0 0 15px rgba(0,255,0,0.08)",
+                  boxShadow: "0 0 12px rgba(0,255,0,0.06)",
                 }}
                 transition={{ type: "spring", stiffness: 300, damping: 20 }}
               >
-                <div className="absolute top-0 left-0 h-2 w-2 border-t-2 border-l-2 border-neon-cyan opacity-30 group-hover:opacity-70 transition-opacity" />
-                <div className="absolute bottom-0 right-0 h-2 w-2 border-b-2 border-r-2 border-neon-cyan opacity-30 group-hover:opacity-70 transition-opacity" />
+                {/* Corner cyber ticks */}
+                <div className="absolute top-0 left-0 h-1.5 w-1.5 border-t-2 border-l-2 border-neon-cyan opacity-30 group-hover:opacity-70 transition-opacity" />
+                <div className="absolute bottom-0 right-0 h-1.5 w-1.5 border-b-2 border-r-2 border-neon-cyan opacity-30 group-hover:opacity-70 transition-opacity" />
 
-                <div className="flex flex-col md:flex-row gap-4 justify-between md:items-center">
-                  <div className="flex flex-col gap-1">
-                    <h3 className="text-lg font-bold text-white group-hover:text-neon-cyan transition-colors">
+                <div className="flex flex-col gap-2">
+                  <div className="flex justify-between items-start gap-2">
+                    <h3 className="text-xs font-bold text-white group-hover:text-neon-cyan transition-colors truncate max-w-[150px]">
                       {project.title}
                     </h3>
-                    <SystemBadge label={project.category} status="neutral" className="self-start" />
+                    <SystemBadge label={project.category} status="neutral" className="text-[9px] px-1.5 py-0.2" />
                   </div>
-                  <div className="flex gap-2 flex-shrink-0 flex-wrap">
+                  <div className="flex gap-1 flex-wrap">
                     {project.techStack.slice(0, 3).map(tech => {
                       const colors = getTechColor(tech);
                       return (
                         <span
                           key={tech}
-                          className="text-[10px] font-mono px-2 py-0.5 rounded border tracking-wider"
+                          className="text-[9px] font-mono px-1.5 py-0.2 rounded border tracking-wider"
                           style={{ backgroundColor: colors.bg, color: colors.text, borderColor: colors.border }}
                         >
                           {tech}
@@ -124,6 +127,7 @@ export default function DashboardPage() {
             ))}
           </div>
         </div>
+
       </div>
     </div>
   );
