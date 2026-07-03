@@ -18,10 +18,40 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Macallan Butler's Portfolio",
-  description: "A cyberpunk portfolio interface for netrunners.",
+  title: {
+    default: "Macallan Butler | Full-Stack Developer & UI Architect",
+    template: "%s | Macallan Butler"
+  },
+  description: "Macallan Butler is a freelance Full-Stack Developer & UI Architect specializing in high-fidelity React, Next.js, and motion-driven user interfaces.",
+  keywords: ["Macallan Butler", "Full-Stack Developer", "UI Architect", "React Developer", "Next.js", "TypeScript", "Web Developer Portfolio", "Freelance Developer"],
+  authors: [{ name: "Macallan Butler" }],
+  creator: "Macallan Butler",
   icons: {
     icon: "/icon.svg",
+  },
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    url: "https://macallanbutler.com",
+    title: "Macallan Butler | Full-Stack Developer & UI Architect",
+    description: "Freelance Full-Stack Developer & UI Architect specializing in high-fidelity React, Next.js, and motion-driven user interfaces. Explore my projects and process.",
+    siteName: "Macallan Butler Portfolio",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Macallan Butler | Full-Stack Developer & UI Architect",
+    description: "Freelance Full-Stack Developer & UI Architect specializing in high-fidelity React, Next.js, and motion-driven user interfaces.",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
   },
 };
 
