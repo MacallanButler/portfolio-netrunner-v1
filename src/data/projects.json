@@ -1,5 +1,22 @@
 [
   {
+    "id": "ghost_mountain",
+    "title": "Ghost of the Mountains",
+    "client": "Conservation / Non-Profit",
+    "category": "Interactive Storytelling",
+    "description": "An interactive conservation storytelling website following a snow leopard named Khangri. Features branching narrative choices, educational mini-games, habitat loss calculators, and donation integration.",
+    "techStack": [
+      "Next.js",
+      "React",
+      "TypeScript",
+      "Tailwind CSS"
+    ],
+    "status": "COMPLETED",
+    "completionDate": "2026-02-02",
+    "repoUrl": "https://github.com/MacallanButler",
+    "liveUrl": "https://ghostmountain.macallanbutler.com"
+  },
+  {
     "id": "apex_drop",
     "title": "Apex Drop",
     "client": "Adventure Tourism",
@@ -32,22 +49,5 @@
     "completionDate": "2026-02-13",
     "repoUrl": "https://github.com/MacallanButler",
     "liveUrl": "https://bluehorizon.macallanbutler.com"
-  },
-  {
-    "id": "ghost_mountain",
-    "title": "Ghost of the Mountains",
-    "client": "Conservation / Non-Profit",
-    "category": "Interactive Storytelling",
-    "description": "An interactive conservation storytelling website following a snow leopard named Khangri. Features branching narrative choices, educational mini-games, habitat loss calculators, and donation integration.",
-    "techStack": [
-      "Next.js",
-      "React",
-      "TypeScript",
-      "Tailwind CSS"
-    ],
-    "status": "COMPLETED",
-    "completionDate": "2026-02-02",
-    "repoUrl": "https://github.com/MacallanButler",
-    "liveUrl": "https://ghostmountain.macallanbutler.com"
   }
 ]
