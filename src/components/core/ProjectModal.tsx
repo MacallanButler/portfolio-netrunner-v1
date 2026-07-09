@@ -70,12 +70,6 @@ export function ProjectModal() {
                     [ SOURCE ]
                   </a>
                 )}
-                {activeProject?.liveUrl && (
-                  <a href={activeProject.liveUrl} target="_blank" rel="noopener noreferrer"
-                    className="hover:text-neon-cyan transition-colors tracking-widest uppercase">
-                    [ LIVE ]
-                  </a>
-                )}
               </div>
             </div>
 
@@ -139,6 +133,19 @@ export function ProjectModal() {
                     }) : ""}
                   </p>
                 </div>
+
+                {/* Prominent LAUNCH SITE button */}
+                {activeProject?.liveUrl && (
+                  <a
+                    href={activeProject.liveUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="mt-2 flex items-center justify-center gap-3 w-full px-4 py-3 border border-neon-cyan text-neon-cyan font-mono text-xs tracking-widest uppercase transition-all duration-200 hover:bg-neon-cyan/10 hover:shadow-[0_0_20px_rgba(0,255,0,0.2)] group"
+                  >
+                    <span>LAUNCH SITE</span>
+                    <span className="transition-transform duration-200 group-hover:translate-x-1">&rarr;</span>
+                  </a>
+                )}
               </motion.div>
 
               {/* RIGHT: Showcase panel */}
