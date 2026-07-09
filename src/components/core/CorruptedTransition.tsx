@@ -155,7 +155,7 @@ export function CorruptedTransition({ isPlaying, mode, onComplete }: CorruptedTr
         <div className="fixed inset-0 z-[60] pointer-events-none">
           <div
             ref={overlayRef}
-            className="absolute inset-0 bg-surface-dark/95"
+            className="absolute inset-0 bg-[#0A0E12]"
             style={{ opacity: 0 }}
           >
             <div className="absolute inset-0 bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.35)_50%)] bg-[length:100%_3px] opacity-60" />
