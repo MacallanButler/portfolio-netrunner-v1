@@ -4,7 +4,7 @@
     "title": "Ghost of the Mountains",
     "client": "Conservation / Non-Profit",
     "category": "Interactive Storytelling",
-    "description": "An interactive conservation storytelling website following a snow leopard named Khangri. Features branching narrative choices, educational mini-games, habitat loss calculators, and donation integration.",
+    "description": "An interactive conservation storytelling website following a snow leopard named Khangri through branching narrative choices and educational mini-games.",
     "techStack": [
       "Next.js",
       "React",
@@ -21,7 +21,7 @@
     "title": "Apex Drop",
     "client": "Adventure Tourism",
     "category": "Booking Platform",
-    "description": "A premium skydiving booking platform with transparent pricing, trust-first design, and a multi-step booking wizard. Features include experience tiers, safety prerequisites, and anxiety FAQs.",
+    "description": "A premium skydiving booking platform featuring transparent pricing, experience tiers, and a streamlined multi-step booking wizard.",
     "techStack": [
       "Next.js",
       "React",
@@ -38,7 +38,7 @@
     "title": "Blue Horizon",
     "client": "Marine & Dive Industry",
     "category": "Intelligence Platform",
-    "description": "A conservation-first scuba diving booking platform with marine life heatmaps, crowd forecasting, underwater topography maps, and a real-time cost calculator with itemized gear rental.",
+    "description": "A conservation-first scuba diving booking platform featuring marine life heatmaps, crowd forecasting, and real-time gear rental cost calculations.",
     "techStack": [
       "React",
       "TypeScript",

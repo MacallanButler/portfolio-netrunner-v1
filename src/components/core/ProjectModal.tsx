@@ -97,7 +97,7 @@ export function ProjectModal() {
                       src={PREVIEW_MAP[activeProject?.id ?? ""]}
                       alt={`${activeProject?.title ?? ""} showcase`}
                       fill
-                      className="object-cover object-top"
+                      className="object-cover lg:object-contain object-top bg-surface-dark/20"
                       sizes="(max-width: 1024px) 100vw, 60vw"
                       priority
                     />
