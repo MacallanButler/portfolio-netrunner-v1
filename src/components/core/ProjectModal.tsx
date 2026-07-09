@@ -76,23 +76,23 @@ export function ProjectModal() {
             {/* Body */}
             <div className="relative z-10 flex flex-col lg:flex-row flex-1 overflow-hidden">
 
-              {/* LEFT: Meta panel */}
+              {/* LEFT: Meta panel — flex column, button pinned to bottom */}
               <motion.div
-                className="lg:w-72 xl:w-80 flex-shrink-0 border-b lg:border-b-0 lg:border-r border-white/10 p-6 overflow-y-auto space-y-6"
+                className="lg:w-64 xl:w-72 flex-shrink-0 border-b lg:border-b-0 lg:border-r border-white/10 p-5 flex flex-col gap-3 overflow-hidden"
                 initial={{ opacity: 0, x: -16 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.1, duration: 0.3, ease: "easeOut" }}
               >
-                {/* Title → category badge → client, all left-aligned */}
-                <div className="space-y-2">
-                  <h2 className="text-2xl font-bold tracking-tight text-white leading-tight">
+                {/* Title + category + client */}
+                <div className="space-y-1.5">
+                  <h2 className="text-xl font-bold tracking-tight text-white leading-tight">
                     <GlitchText text={activeProject?.title ?? ""} hover={false} />
                   </h2>
                   <SystemBadge
                     label={activeProject?.category ?? ""}
                     status="neutral"
                   />
-                  <p className="font-mono text-xs text-text-muted tracking-widest uppercase">
+                  <p className="font-mono text-[10px] text-text-muted tracking-widest uppercase">
                     {activeProject?.client}
                   </p>
                 </div>
@@ -102,20 +102,22 @@ export function ProjectModal() {
                   status={activeProject?.status === "COMPLETED" ? "success" : "warning"}
                 />
 
+                {/* Description — clamped to 3 lines */}
                 <div>
-                  <p className="font-mono text-[10px] text-text-muted uppercase tracking-widest mb-2">// OVERVIEW</p>
-                  <p className="text-sm text-text-muted leading-relaxed">{activeProject?.description}</p>
+                  <p className="font-mono text-[10px] text-text-muted uppercase tracking-widest mb-1">// OVERVIEW</p>
+                  <p className="text-xs text-text-muted leading-relaxed line-clamp-3">{activeProject?.description}</p>
                 </div>
 
+                {/* Stack */}
                 <div>
-                  <p className="font-mono text-[10px] text-text-muted uppercase tracking-widest mb-3">// STACK</p>
-                  <div className="flex flex-wrap gap-2">
+                  <p className="font-mono text-[10px] text-text-muted uppercase tracking-widest mb-2">// STACK</p>
+                  <div className="flex flex-wrap gap-1.5">
                     {activeProject?.techStack.map((tech) => {
                       const colors = getTechColor(tech);
                       return (
                         <span
                           key={tech}
-                          className="text-[10px] font-mono px-2 py-1 rounded border tracking-wider"
+                          className="text-[9px] font-mono px-1.5 py-0.5 rounded border tracking-wider"
                           style={{ backgroundColor: colors.bg, color: colors.text, borderColor: colors.border }}
                         >
                           {tech}
@@ -125,22 +127,23 @@ export function ProjectModal() {
                   </div>
                 </div>
 
-                <div className="pt-2 border-t border-white/5">
-                  <p className="font-mono text-[10px] text-text-muted uppercase tracking-widest mb-1">// SHIPPED</p>
-                  <p className="font-mono text-xs text-white/60">
+                {/* Shipped date */}
+                <div className="border-t border-white/5 pt-2">
+                  <p className="font-mono text-[10px] text-text-muted uppercase tracking-widest mb-0.5">// SHIPPED</p>
+                  <p className="font-mono text-[10px] text-white/50">
                     {activeProject ? new Date(activeProject.completionDate).toLocaleDateString("en-US", {
-                      year: "numeric", month: "long", day: "numeric",
+                      year: "numeric", month: "long",
                     }) : ""}
                   </p>
                 </div>
 
-                {/* Prominent LAUNCH SITE button */}
+                {/* LAUNCH SITE — pinned to bottom */}
                 {activeProject?.liveUrl && (
                   <a
                     href={activeProject.liveUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="mt-2 flex items-center justify-center gap-3 w-full px-4 py-3 border border-neon-cyan text-neon-cyan font-mono text-xs tracking-widest uppercase transition-all duration-200 hover:bg-neon-cyan/10 hover:shadow-[0_0_20px_rgba(0,255,0,0.2)] group"
+                    className="mt-auto flex items-center justify-center gap-3 w-full px-4 py-3 border border-neon-cyan text-neon-cyan font-mono text-xs tracking-widest uppercase transition-all duration-200 hover:bg-neon-cyan/10 hover:shadow-[0_0_20px_rgba(0,255,0,0.2)] group flex-shrink-0"
                   >
                     <span>LAUNCH SITE</span>
                     <span className="transition-transform duration-200 group-hover:translate-x-1">&rarr;</span>

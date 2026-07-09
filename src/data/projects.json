@@ -14,7 +14,7 @@
     "status": "COMPLETED",
     "completionDate": "2026-02-13",
     "repoUrl": "https://github.com/MacallanButler",
-    "liveUrl": "https://proj-apex-drop.vercel.app"
+    "liveUrl": "https://apex.macallanbutler.com"
   },
   {
     "id": "blue_horizon",
@@ -31,7 +31,7 @@
     "status": "COMPLETED",
     "completionDate": "2026-02-13",
     "repoUrl": "https://github.com/MacallanButler",
-    "liveUrl": "https://proj-blue-horizon.vercel.app"
+    "liveUrl": "https://bluehorizon.macallanbutler.com"
   },
   {
     "id": "ghost_mountain",
@@ -48,6 +48,6 @@
     "status": "COMPLETED",
     "completionDate": "2026-02-02",
     "repoUrl": "https://github.com/MacallanButler",
-    "liveUrl": "https://proj-ghost-mountain.vercel.app"
+    "liveUrl": "https://ghostmountain.macallanbutler.com"
   }
 ]
