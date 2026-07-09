@@ -63,14 +63,14 @@ export default function ProcessPage() {
   const [activeStep, setActiveStep] = useState<string | null>(null);
 
   return (
-    <div className="space-y-10">
+    <div className="space-y-4 md:space-y-8 w-full py-4">
       {/* Header */}
-      <div className="border-b border-white/10 pb-6">
-        <h1 className="text-4xl font-bold tracking-tighter mb-2">
+      <div className="border-b border-white/10 pb-3 md:pb-6">
+        <h1 className="text-4xl font-bold tracking-tighter mb-1.5">
           <GlitchText text="THE_PROCESS" />
         </h1>
-        <p className="text-text-muted font-mono text-sm max-w-xl">
-          How we go from idea to shipped product. Six protocols, zero surprises.
+        <p className="text-text-muted font-mono text-xs md:text-sm max-w-xl">
+          How we go from idea to shipped product. Four protocols, zero surprises.
         </p>
       </div>
 
@@ -79,7 +79,7 @@ export default function ProcessPage() {
         {/* Vertical connector line */}
         <div className="absolute left-[2.25rem] top-8 bottom-8 w-px bg-white/10 hidden md:block" />
 
-        <div className="space-y-6">
+        <div className="space-y-2.5 md:space-y-6">
           {PROCESS_STEPS.map((step, index) => {
             const Icon = step.icon;
             const isActive = activeStep === step.id;
@@ -115,7 +115,7 @@ export default function ProcessPage() {
                   <div className="flex-1">
                     <HoloCard
                       className={cn(
-                        "transition-all duration-300",
+                        "transition-all duration-300 p-4 md:p-6",
                         isActive ? "border-white/20" : "hover:border-white/15"
                       )}
                       style={{
@@ -124,16 +124,16 @@ export default function ProcessPage() {
                       } as React.CSSProperties}
                     >
                       {/* Card Header */}
-                      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5">
                         <div className="flex items-center gap-3">
                           <span
-                            className="font-mono text-xs tracking-[0.3em] font-bold"
+                            className="font-mono text-[10px] tracking-[0.3em] font-bold"
                             style={{ color: step.color }}
                           >
                             PROTOCOL_{step.id}
                           </span>
                           <span className="text-white/10">|</span>
-                          <h3 className="text-lg font-bold text-white group-hover:text-white/90">
+                          <h3 className="text-base font-bold text-white group-hover:text-white/90">
                             {step.title}
                           </h3>
                         </div>
@@ -153,18 +153,18 @@ export default function ProcessPage() {
                           initial={{ opacity: 0, height: 0 }}
                           animate={{ opacity: 1, height: "auto" }}
                           transition={{ duration: 0.25 }}
-                          className="mt-4 pt-4 border-t border-white/10 grid md:grid-cols-3 gap-6"
+                          className="mt-3 pt-3 border-t border-white/10 grid md:grid-cols-3 gap-6"
                         >
-                          <p className="md:col-span-2 text-sm text-text-muted leading-relaxed">
+                          <p className="md:col-span-2 text-xs text-text-muted leading-relaxed">
                             {step.description}
                           </p>
                           <div>
-                            <p className="text-[10px] font-mono text-text-muted uppercase tracking-wider mb-2">
+                            <p className="text-[9px] font-mono text-text-muted uppercase tracking-wider mb-2">
                               Deliverables
                             </p>
                             <ul className="space-y-1">
                               {step.deliverables.map(d => (
-                                <li key={d} className="text-xs font-mono text-white/70 flex items-center gap-2">
+                                <li key={d} className="text-[10px] font-mono text-white/70 flex items-center gap-2">
                                   <span style={{ color: step.color }}>›</span>
                                   {d}
                                 </li>
@@ -182,16 +182,16 @@ export default function ProcessPage() {
         </div>
       </div>
 
-      {/* CTA */}
-      <div className="pt-4 border-t border-white/10">
-        <HoloCard className="text-center space-y-4">
-          <p className="text-lg font-bold text-white">Ready to start?</p>
-          <p className="text-sm text-text-muted font-mono max-w-md mx-auto">
+      {/* CTA (Hidden on mobile to keep layout compact and static) */}
+      <div className="hidden sm:block pt-3 border-t border-white/10">
+        <HoloCard className="text-center space-y-4 p-6">
+          <p className="text-base font-bold text-white">Ready to start?</p>
+          <p className="text-xs text-text-muted font-mono max-w-md mx-auto">
             Every project begins with a conversation. No commitment, no pressure — just a clear picture of what we can build together.
           </p>
-          <div className="flex justify-center mt-8">
+          <div className="flex justify-center">
             <Link href="/comms">
-              <NeonButton variant="primary">Start a Conversation</NeonButton>
+              <NeonButton variant="primary" className="text-xs py-2">Start a Conversation</NeonButton>
             </Link>
           </div>
         </HoloCard>

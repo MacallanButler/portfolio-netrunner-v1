@@ -1,7 +1,8 @@
 "use client";
 
-import React, { createContext, useContext, useState, useCallback, useRef } from "react";
+import React, { createContext, useContext, useState, useCallback, useEffect } from "react";
 import { trackProjectView } from "@/lib/analytics";
+import projectsData from "@/data/projects.json";
 
 export interface Project {
   id: string;
@@ -32,30 +33,67 @@ export function ProjectModalProvider({ children }: { children: React.ReactNode }
   const [activeProject, setActiveProject] = useState<Project | null>(null);
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [isClosing, setIsClosing] = useState(false);
-  const pendingProject = useRef<Project | null>(null);
+
+  // Sync modal state with browser history / URL query parameter
+  useEffect(() => {
+    const handleUrlChange = () => {
+      const params = new URLSearchParams(window.location.search);
+      const projectId = params.get("project");
+      
+      if (projectId) {
+        const project = projectsData.find(p => p.id === projectId);
+        if (project) {
+          setActiveProject((prev) => {
+            if (!prev || prev.id !== project.id) {
+              setIsTransitioning(true);
+              document.body.style.overflow = "hidden";
+              trackProjectView(project.id, project.title);
+              return project as Project;
+            }
+            return prev;
+          });
+        } else {
+          setActiveProject(null);
+          document.body.style.overflow = "";
+        }
+      } else {
+        setActiveProject((prev) => {
+          if (prev) {
+            setIsClosing(true);
+          }
+          return prev;
+        });
+      }
+    };
+
+    // Listen for back/forward buttons
+    window.addEventListener("popstate", handleUrlChange);
+    
+    // Initial sync
+    handleUrlChange();
+
+    return () => window.removeEventListener("popstate", handleUrlChange);
+  }, []);
 
   const openProject = useCallback((project: Project) => {
-    pendingProject.current = project;
-    setIsTransitioning(true);
-    document.body.style.overflow = "hidden";
-    trackProjectView(project.id, project.title);
+    const newUrl = `${window.location.pathname}?project=${project.id}`;
+    window.history.pushState({ project: project.id }, "", newUrl);
+    window.dispatchEvent(new Event("popstate"));
+  }, []);
+
+  const closeProject = useCallback(() => {
+    const newUrl = window.location.pathname;
+    window.history.pushState(null, "", newUrl);
+    window.dispatchEvent(new Event("popstate"));
   }, []);
 
   const onTransitionComplete = useCallback(() => {
     setIsTransitioning(false);
-    setActiveProject(pendingProject.current);
   }, []);
 
-  // Trigger the close bar — modal stays mounted until bar finishes
-  const closeProject = useCallback(() => {
-    setIsClosing(true);
-  }, []);
-
-  // Called by CorruptedTransition when close sequence finishes
   const onCloseTransitionComplete = useCallback(() => {
     setIsClosing(false);
     setActiveProject(null);
-    pendingProject.current = null;
     document.body.style.overflow = "";
   }, []);
 

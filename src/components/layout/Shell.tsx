@@ -1,12 +1,62 @@
 "use client";
 
-import React from "react";
+import React, { useRef } from "react";
+import { useRouter, usePathname } from "next/navigation";
 import { Sidebar } from "./Sidebar";
 import { ScanlineOverlay } from "@/components/core/ScanlineOverlay";
 
+const PAGES = ["/gigs", "/comms", "/design-system"];
+
 export function Shell({ children }: { children: React.ReactNode }) {
+    const router = useRouter();
+    const pathname = usePathname();
+    const touchStartRef = useRef<{ x: number; y: number } | null>(null);
+
+    const handleTouchStart = (e: React.TouchEvent) => {
+        const touch = e.touches[0];
+        touchStartRef.current = { x: touch.clientX, y: touch.clientY };
+    };
+
+    const handleTouchEnd = (e: React.TouchEvent) => {
+        if (!touchStartRef.current) return;
+
+        const touch = e.changedTouches[0];
+        const deltaX = touch.clientX - touchStartRef.current.x;
+        const deltaY = touch.clientY - touchStartRef.current.y;
+
+        // Reset touch start
+        touchStartRef.current = null;
+
+        // Skip swipe navigation if the project modal is open
+        if (typeof window !== "undefined" && window.location.search.includes("project=")) {
+            return;
+        }
+
+        // Validate horizontal swipe (minimum 100px swipe width, minimal vertical drift)
+        if (Math.abs(deltaX) > 100 && Math.abs(deltaY) < 60) {
+            const currentIndex = PAGES.indexOf(pathname);
+            if (currentIndex === -1) return;
+
+            if (deltaX < 0) {
+                // Swipe Left -> Navigate forward (Gigs -> Comms -> Process)
+                if (currentIndex < PAGES.length - 1) {
+                    router.push(PAGES[currentIndex + 1]);
+                }
+            } else {
+                // Swipe Right -> Navigate backward (Process -> Comms -> Gigs)
+                if (currentIndex > 0) {
+                    router.push(PAGES[currentIndex - 1]);
+                }
+            }
+        }
+    };
+
     return (
-        <div className="flex min-h-screen bg-surface-dark text-text-primary font-sans selection:bg-neon-cyan/30 selection:text-neon-cyan">
+        <div 
+            onTouchStart={handleTouchStart}
+            onTouchEnd={handleTouchEnd}
+            className="flex min-h-screen bg-surface-dark text-text-primary font-sans selection:bg-neon-cyan/30 selection:text-neon-cyan"
+        >
             <ScanlineOverlay />
 
             {/* Background Grid */}

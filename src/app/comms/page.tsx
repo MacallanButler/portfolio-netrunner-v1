@@ -49,16 +49,23 @@ export default function CommsPage() {
     };
 
     return (
-        <div className="flex flex-col justify-center min-h-[calc(100vh-8rem)] lg:min-h-[calc(100vh-10rem)] w-full">
-            <div className="grid lg:grid-cols-12 gap-8 items-start max-w-6xl w-full mx-auto">
+        <div className="flex flex-col justify-center min-h-[calc(100vh-4rem)] lg:min-h-[calc(100vh-10rem)] w-full py-4">
+            {/* Mobile Header (hidden on desktop) */}
+            <div className="md:hidden border-b border-white/10 pb-3 mb-4">
+                <h1 className="text-3xl font-bold tracking-tighter text-white">
+                    <GlitchText text="GET_IN_TOUCH" />
+                </h1>
+            </div>
+
+            <div className="grid md:grid-cols-12 gap-6 items-start max-w-6xl w-full mx-auto">
                 
-                {/* ── LEFT COLUMN: SECURE CONNECTION INFO ── */}
-                <div className="lg:col-span-5 space-y-6 border-b border-white/10 pb-6 lg:border-b-0 lg:pb-0 lg:border-r lg:border-white/10 lg:pr-8">
+                {/* ── LEFT COLUMN: SECURE CONNECTION INFO (Hidden on mobile) ── */}
+                <div className="hidden md:block md:col-span-5 space-y-4 md:border-r md:border-white/10 md:pr-6">
                     <div>
                         <span className="text-[10px] font-mono text-neon-cyan tracking-widest uppercase mb-1 block">
                             // SECURE_CHANNEL
                         </span>
-                        <h1 className="text-4xl font-bold tracking-tighter mb-4 text-white">
+                        <h1 className="text-4xl font-bold tracking-tighter mb-3 text-white">
                             <GlitchText text="GET_IN_TOUCH" />
                         </h1>
                         <p className="text-text-muted font-mono text-xs leading-relaxed">
@@ -67,7 +74,7 @@ export default function CommsPage() {
                     </div>
 
                     {/* Node status details */}
-                    <div className="space-y-2 pt-4 border-t border-white/5 font-mono text-[10px] text-text-muted">
+                    <div className="space-y-1.5 pt-3 border-t border-white/5 font-mono text-[10px] text-text-muted">
                         <div className="flex justify-between">
                            <span>COMMS_PORT:</span>
                            <span className="text-white">PORT_443 (TLS)</span>
@@ -84,7 +91,7 @@ export default function CommsPage() {
 
                     {/* Transmission Logs */}
                     {logs.length > 0 && (
-                        <div className="bg-surface-dark/50 border border-white/5 p-3 rounded-sm font-mono text-[9px] space-y-1 max-h-[110px] overflow-y-auto scrollbar-none">
+                        <div className="bg-surface-dark/50 border border-white/5 p-3 rounded-sm font-mono text-[9px] space-y-1 max-h-[100px] overflow-y-auto scrollbar-none">
                             {logs.map((log, i) => (
                                 <div key={i} className={cn(
                                     "text-text-muted",
@@ -98,11 +105,11 @@ export default function CommsPage() {
                 </div>
 
                 {/* ── RIGHT COLUMN: CONTACT FORM ── */}
-                <div className="lg:col-span-7">
+                <div className="md:col-span-7">
                     <HoloCard title="TRANSMIT_MESSAGE_PAYLOAD">
-                        <form onSubmit={handleSubmit} className="space-y-4">
+                        <form onSubmit={handleSubmit} className="space-y-3.5">
                             
-                            <div className="space-y-1.5">
+                            <div className="space-y-1">
                                 <label className="text-[10px] font-mono text-neon-cyan uppercase tracking-wider">
                                     Operator Name
                                 </label>
@@ -116,7 +123,7 @@ export default function CommsPage() {
                                 />
                             </div>
 
-                            <div className="space-y-1.5">
+                            <div className="space-y-1">
                                 <label className="text-[10px] font-mono text-neon-cyan uppercase tracking-wider">
                                     Routing Email
                                 </label>
@@ -130,12 +137,12 @@ export default function CommsPage() {
                                 />
                             </div>
 
-                            <div className="space-y-1.5">
+                            <div className="space-y-1">
                                 <label className="text-[10px] font-mono text-neon-cyan uppercase tracking-wider">
                                     Message Body
                                 </label>
                                 <textarea
-                                    rows={4}
+                                    rows={3}
                                     required
                                     value={formData.message}
                                     onChange={(e) => setFormData({ ...formData, message: e.target.value })}
@@ -149,7 +156,7 @@ export default function CommsPage() {
                                     variant="primary"
                                     type="submit"
                                     disabled={status === "SENDING" || status === "SUCCESS"}
-                                    className="w-full md:w-auto text-xs"
+                                    className="w-full md:w-auto text-xs py-2"
                                 >
                                     {status === "SENDING" ? "TRANSMITTING..." : status === "SUCCESS" ? "MESSAGE DELIVERED" : "TRANSMIT MESSAGE"}
                                 </NeonButton>

@@ -12,19 +12,7 @@ import projectsData from "@/data/projects.json";
 import { cn } from "@/lib/utils";
 
 export default function GigsPage() {
-  const [filter, setFilter] = useState("ALL");
   const { openProject } = useProjectModal();
-
-  const allTechStacks = React.useMemo(() => {
-    const stacks = new Set<string>();
-    projectsData.forEach(p => p.techStack.forEach(t => stacks.add(t)));
-    return ["ALL", ...Array.from(stacks)].sort();
-  }, []);
-
-  const filteredProjects = projectsData.filter(project => {
-    if (filter === "ALL") return true;
-    return project.techStack.includes(filter);
-  });
 
   return (
     <div className="space-y-8">
@@ -40,30 +28,9 @@ export default function GigsPage() {
         </div>
       </div>
 
-      {/* Filter Bar */}
-      <div className="flex flex-wrap gap-2">
-        {allTechStacks.map(tech => (
-          <button
-            key={tech}
-            onClick={() => setFilter(tech)}
-            className={cn(
-              "px-4 py-2 border text-xs font-mono tracking-wider transition-all duration-300 relative",
-              filter === tech
-                ? "border-neon-cyan text-neon-cyan bg-neon-cyan/10"
-                : "border-white/10 text-text-muted hover:border-white/30 hover:text-white"
-            )}
-          >
-            {tech}
-            {filter === tech && (
-              <div className="absolute bottom-0 left-0 w-full h-[2px] bg-neon-cyan shadow-[0_0_10px_#00FFFF]" />
-            )}
-          </button>
-        ))}
-      </div>
-
       {/* Projects Grid */}
       <div className="grid md:grid-cols-2 gap-8">
-        {filteredProjects.map((project) => (
+        {projectsData.map((project) => (
           <motion.div
             key={project.id}
             onClick={() => openProject(project)}
