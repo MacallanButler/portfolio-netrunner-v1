@@ -1,11 +1,18 @@
 "use client";
 
 import React, { useEffect } from "react";
+import NextImage from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { useProjectModal } from "@/context/ProjectModalContext";
 import { SystemBadge } from "@/components/core/SystemBadge";
 import { GlitchText } from "@/components/core/GlitchText";
 import { getTechColor } from "@/lib/techColors";
+
+const PREVIEW_MAP: Record<string, string> = {
+  apex_drop:      "/previews/apex_drop.png",
+  blue_horizon:   "/previews/blue_horizon.png",
+  ghost_mountain: "/previews/ghost_mountain.png",
+};
 
 export function ProjectModal() {
   const { activeProject, isClosing, closeProject } = useProjectModal();
@@ -153,40 +160,32 @@ export function ProjectModal() {
 
               {/* RIGHT: Showcase panel */}
               <motion.div
-                className="flex-1 relative overflow-hidden flex items-center justify-center p-6 lg:p-10"
+                className="flex-1 relative overflow-hidden"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.2, duration: 0.3 }}
               >
-                <ShowcasePlaceholder id={activeProject?.id ?? ""} />
+                {PREVIEW_MAP[activeProject?.id ?? ""] ? (
+                  <NextImage
+                    src={PREVIEW_MAP[activeProject?.id ?? ""]}
+                    alt={`${activeProject?.title ?? ""} showcase`}
+                    width={1920}
+                    height={1080}
+                    className="w-full h-auto object-contain"
+                    sizes="(max-width: 1024px) 100vw, 60vw"
+                    priority
+                  />
+                ) : (
+                  <div className="w-full h-full flex flex-col items-center justify-center border border-dashed border-white/10">
+                    <p className="font-mono text-[10px] text-neon-cyan/50 uppercase tracking-[0.3em]">SHOWCASE_PENDING</p>
+                    <p className="font-mono text-xs text-white/20 mt-2">{activeProject?.id}</p>
+                  </div>
+                )}
               </motion.div>
             </div>
           </motion.div>
         </>
       )}
     </AnimatePresence>
-  );
-}
-
-function ShowcasePlaceholder({ id }: { id: string }) {
-  return (
-    <div className="w-full h-full min-h-[300px] flex flex-col items-center justify-center border border-dashed border-white/10 rounded-sm relative overflow-hidden">
-      <div
-        className="absolute inset-0 opacity-10"
-        style={{
-          backgroundImage: `linear-gradient(rgba(0,255,0,0.2) 1px, transparent 1px), linear-gradient(90deg, rgba(0,255,0,0.2) 1px, transparent 1px)`,
-          backgroundSize: "32px 32px",
-        }}
-      />
-      <motion.div
-        className="absolute left-0 right-0 h-px bg-neon-cyan/30"
-        animate={{ top: ["0%", "100%"] }}
-        transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
-      />
-      <div className="relative z-10 text-center space-y-3">
-        <p className="font-mono text-[10px] text-neon-cyan/50 uppercase tracking-[0.3em]">SHOWCASE_PENDING</p>
-        <p className="font-mono text-xs text-white/20">{id}</p>
-      </div>
-    </div>
   );
 }
