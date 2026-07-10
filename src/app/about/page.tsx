@@ -34,16 +34,16 @@ export default function AboutPage() {
         {/* Body Copy */}
         <div className="max-w-[65ch] space-y-3.5 text-xs md:text-sm text-text-muted leading-relaxed font-sans">
           <p>
-            I&apos;m a full-stack developer and UI architect based in Charlotte, NC. I graduated from Arizona State University&apos;s Full Stack Web Development program, but the instinct that actually drives my work predates the degree — I care more about how something feels to use than how it looks frozen in a screenshot.
+            I&apos;m a Full Stack Developer based in Charlotte, NC, with a B.S. in Graphic Information Technology, emphasis in Full Stack Development, from Arizona State University. That technical training, paired with my own design principles, is what lets me build polished web experiences — whether I&apos;m doing it for a full-time team or my own freelance clients.
           </p>
           <p>
-            That&apos;s why my stack leans on React, Next.js, Supabase, and Tailwind: fast, unopinionated tools that stay out of the way of the actual product. Most of what I build sits at the intersection of motion and clarity — interfaces that respond to the person in front of them instead of just sitting there looking finished.
+            I&apos;m a devout believer in elegance — the ability to marry efficiency, simplicity, and usability into something seamless. That can sound abstract, so in practice it looks like this: tools like React, Next.js, Supabase, and Tailwind, used to build quickly and intuitively rather than getting in my own way. Building user-first and mobile-first lets me start from the core use case and work outward, checking that every component and feature is both necessary and on-brief. Done right, people get exactly what they came for — the booking, the donation, the information — without friction.
           </p>
           <p>
-            Recent work spans a multi-role skydiving platform (Apex), a scuba dive shop with live booking (Blue Horizon), and a conservation and education site for snow leopards (Ghost of the Mountains) — different industries, same underlying approach: understand the actual user flow before a single component gets built.
+            Recent projects: Blue Horizon, a scuba diving platform with booking, dive sites, and conservation events; Apex, a skydiving site with tiered access from guest to admin, each tier with its own features; and my proudest build, Ghost of the Mountains — a conservation platform educating the public on snow leopard ecology and driving donations toward securing the species&apos; survival.
           </p>
           <p>
-            Right now I&apos;m splitting my time between freelance client work and full-time opportunities. If there&apos;s a project or a role that fits, I&apos;d love to hear from you.
+            You can usually find me at a coffee shop somewhere in NC, splitting time between freelance work and full-time opportunities. Always looking for the next adventurous project — if your team needs help moving one forward, I&apos;m your guy.
           </p>
         </div>
       </div>

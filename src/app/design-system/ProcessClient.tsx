@@ -67,7 +67,7 @@ export default function ProcessClient() {
         {/* Header */}
       <div className="border-b border-white/10 pb-3 md:pb-6">
         <h1 className="text-4xl font-bold tracking-tighter mb-1.5">
-          <GlitchText text="How I build." />
+          <GlitchText text="BUILD_PROCESS" />
         </h1>
         <p className="text-text-muted font-mono text-xs md:text-sm max-w-xl">
           Every project starts the same way: I&apos;d rather ask an extra question up front than guess and rebuild later. Measure twice, cut once.
