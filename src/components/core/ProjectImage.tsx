@@ -11,13 +11,13 @@ interface ProjectImageProps {
 }
 
 const PREVIEW_MAP: Record<string, string> = {
-  apex_drop:      "/previews/apex_drop.png",
-  blue_horizon:   "/previews/blue_horizon.png",
-  ghost_mountain: "/previews/ghost_mountain.png",
+  apex_drop:      "/previews/apex_drop.webp",
+  blue_horizon:   "/previews/blue_horizon.webp",
+  ghost_mountain: "/previews/ghost_mountain.webp",
 };
 
 /**
- * Renders a project's hero image from /public/previews/{id}.png.
+ * Renders a project's hero image from /public/previews/{id}.webp.
  * Falls back to a styled placeholder if no preview exists for the project.
  */
 export function ProjectImage({ id, title, className }: ProjectImageProps) {
@@ -32,10 +32,10 @@ export function ProjectImage({ id, title, className }: ProjectImageProps) {
           <NextImage
             src={previewSrc}
             alt={`${title} preview`}
-            fill
-            className="object-cover object-top transition-transform duration-500 group-hover:scale-[1.02]"
+            width={600}
+            height={338}
+            className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-[1.02]"
             onError={() => setImgError(true)}
-            sizes="(max-width: 768px) 100vw, 50vw"
             priority={false}
           />
           {/* Subtle dark gradient overlay for text readability */}

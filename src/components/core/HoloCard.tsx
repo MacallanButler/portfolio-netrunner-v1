@@ -38,7 +38,7 @@ export function HoloCard({ children, className, title, style, onClick }: HoloCar
             {title && (
                 <div className="mb-4 flex items-center gap-2 border-b border-white/5 pb-2">
                     <div className="h-1.5 w-1.5 bg-neon-red animate-pulse" />
-                    <h3 className="text-sm font-bold tracking-widest text-text-muted uppercase">{title}</h3>
+                    <h2 className="text-sm font-bold tracking-widest text-text-muted uppercase">{title}</h2>
                 </div>
             )}
 

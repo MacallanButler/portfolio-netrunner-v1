@@ -9,9 +9,9 @@ import { GlitchText } from "@/components/core/GlitchText";
 import { getTechColor } from "@/lib/techColors";
 
 const PREVIEW_MAP: Record<string, string> = {
-  apex_drop:      "/previews/apex_drop.png",
-  blue_horizon:   "/previews/blue_horizon.png",
-  ghost_mountain: "/previews/ghost_mountain.png",
+  apex_drop:      "/previews/apex_drop.webp",
+  blue_horizon:   "/previews/blue_horizon.webp",
+  ghost_mountain: "/previews/ghost_mountain.webp",
 };
 
 export function ProjectModal() {
@@ -96,9 +96,9 @@ export function ProjectModal() {
                     <NextImage
                       src={PREVIEW_MAP[activeProject?.id ?? ""]}
                       alt={`${activeProject?.title ?? ""} showcase`}
-                      fill
-                      className="object-cover lg:object-contain object-top bg-surface-dark/20"
-                      sizes="(max-width: 1024px) 100vw, 60vw"
+                      width={1200}
+                      height={676}
+                      className="w-full h-full object-cover lg:object-contain object-top bg-surface-dark/20"
                       priority
                     />
                     {/* Mobile details overlay */}

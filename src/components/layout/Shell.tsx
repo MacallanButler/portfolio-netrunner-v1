@@ -5,7 +5,7 @@ import { useRouter, usePathname } from "next/navigation";
 import { Sidebar } from "./Sidebar";
 import { ScanlineOverlay } from "@/components/core/ScanlineOverlay";
 
-const PAGES = ["/gigs", "/comms", "/design-system"];
+const PAGES = ["/gigs", "/about", "/design-system", "/comms"];
 
 export function Shell({ children }: { children: React.ReactNode }) {
     const router = useRouter();

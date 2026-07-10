@@ -12,7 +12,8 @@ import {
     Mail,
     LayoutTemplate,
     Menu,
-    X
+    X,
+    User
 } from "lucide-react";
 import { GlitchText } from "@/components/core/GlitchText";
 import { useAudio } from "@/context/AudioContext";
@@ -20,8 +21,9 @@ import { trackAudioToggle } from "@/lib/analytics";
 
 const NAVIGATION = [
     { name: "PROJECTS", path: "/gigs", icon: FolderKanban },
-    { name: "CONTACT", path: "/comms", icon: Mail },
+    { name: "ABOUT", path: "/about", icon: User },
     { name: "PROCESS", path: "/design-system", icon: Workflow },
+    { name: "CONTACT", path: "/comms", icon: Mail },
 ];
 
 export function Sidebar() {
@@ -53,8 +55,8 @@ export function Sidebar() {
         return `${min}:${sec.toString().padStart(2, "0")}`;
     };
 
-    // Assuming 4 main routes: /, /gigs, /comms, /design-system
-    const progress = Math.min((visitedPaths.size / 4) * 100, 100).toFixed(0);
+    // Assuming 5 main routes: /, /gigs, /about, /design-system, /comms
+    const progress = Math.min((visitedPaths.size / 5) * 100, 100).toFixed(0);
 
     return (
         <>
@@ -84,9 +86,9 @@ export function Sidebar() {
                             <span className="text-xs font-mono text-neon-cyan tracking-widest">PORTFOLIO_OS</span>
                         </div>
                         <Link href="/" onClick={() => setIsOpen(false)}>
-                            <h1 className="text-xl font-bold tracking-tighter hover:text-neon-cyan transition-colors cursor-pointer">
+                            <div className="text-xl font-bold tracking-tighter hover:text-neon-cyan transition-colors cursor-pointer">
                                 <GlitchText text="MB_SYSTEMS" />
-                            </h1>
+                            </div>
                         </Link>
                     </div>
 
