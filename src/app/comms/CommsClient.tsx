@@ -52,9 +52,9 @@ export default function CommsClient() {
         <div className="flex flex-col justify-center min-h-[calc(100vh-4rem)] lg:min-h-[calc(100vh-10rem)] w-full py-4">
             {/* Unified Page Header */}
             <div className="border-b border-white/10 pb-3 md:pb-6 mb-6">
-                <h2 className="text-[10px] font-mono text-neon-cyan tracking-widest uppercase mb-1 block font-normal">
+                <span className="text-[10px] font-mono text-neon-cyan tracking-widest uppercase mb-1 block font-normal">
                     // SECURE_CHANNEL
-                </h2>
+                </span>
                 <h1 className="text-3xl md:text-4xl font-bold tracking-tighter text-white">
                     <GlitchText text="GET_IN_TOUCH" />
                 </h1>

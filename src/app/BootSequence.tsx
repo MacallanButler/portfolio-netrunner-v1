@@ -43,6 +43,7 @@ export default function BootSequence() {
 
   return (
     <div className="flex flex-col items-center justify-center min-h-[80vh] w-full max-w-2xl mx-auto p-4">
+      <h1 className="sr-only">Macallan Butler | PORTFOLIO_OS Terminal Client</h1>
 
       {/* Boot Logs */}
       <div className="font-mono text-xs md:text-sm text-text-muted self-start mb-8 space-y-1 h-32 overflow-hidden">
@@ -67,9 +68,9 @@ export default function BootSequence() {
             className="text-center space-y-8"
           >
             <div className="space-y-3">
-              <h1 className="text-5xl md:text-7xl font-bold tracking-tighter text-white">
+              <div className="text-5xl md:text-7xl font-bold tracking-tighter text-white">
                 <GlitchText text="MACALLAN_BUTLER" />
-              </h1>
+              </div>
               <h2 className="text-text-muted font-mono text-sm md:text-base font-normal">
                 Full-Stack Developer
               </h2>

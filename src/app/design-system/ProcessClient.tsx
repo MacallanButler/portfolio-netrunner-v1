@@ -62,8 +62,9 @@ export default function ProcessClient() {
   const [activeStep, setActiveStep] = useState<string | null>(null);
 
   return (
-    <div className="space-y-4 md:space-y-8 w-full py-4">
-      {/* Header */}
+    <div className="space-y-4 md:space-y-6 w-full py-2 md:py-4 min-h-[calc(100vh-4rem)] lg:min-h-[calc(100vh-10rem)] flex flex-col justify-between overflow-hidden">
+      <div className="space-y-4 md:space-y-6">
+        {/* Header */}
       <div className="border-b border-white/10 pb-3 md:pb-6">
         <h1 className="text-4xl font-bold tracking-tighter mb-1.5">
           <GlitchText text="How I build." />
@@ -179,6 +180,7 @@ export default function ProcessClient() {
             );
           })}
         </div>
+      </div>
       </div>
 
       {/* CTA */}
