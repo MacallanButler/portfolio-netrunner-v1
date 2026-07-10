@@ -10,7 +10,7 @@ import { SecureCTA } from "@/components/core/SecureCTA";
 import { useProjectModal } from "@/context/ProjectModalContext";
 import projectsData from "@/data/projects.json";
 import { cn } from "@/lib/utils";
-import { Check, ChevronDown, ChevronUp, Cpu, ShieldCheck, Zap } from "lucide-react";
+import { Check, ChevronDown, ChevronUp, Cpu, ShieldCheck, X, Zap } from "lucide-react";
 import Link from "next/link";
 
 const OVERVIEW_PILLARS = [
@@ -38,7 +38,7 @@ const ONE_TIME_TIERS = [
   {
     name: "STARTER",
     price: "$300–$500",
-    tag: "Simple presence.",
+    tag: "Simple presence",
     description: "You need to exist online. Clean, fast, and professional — a place to send people.",
     features: [
       "Up to 4 pages",
@@ -54,10 +54,10 @@ const ONE_TIME_TIERS = [
   {
     name: "STANDARD",
     price: "$500–$800",
-    tag: "Polished marketing.",
+    tag: "Polished marketing",
     description: "Best fit for most small businesses. Built to convert visitors, not just look credible.",
     features: [
-      "Everything in Starter",
+      "Everything in starter",
       "Up to 6 pages",
       "Gallery or portfolio section",
       "Testimonials section",
@@ -70,10 +70,10 @@ const ONE_TIME_TIERS = [
   {
     name: "CUSTOM",
     price: "$800+",
-    tag: "Custom build.",
+    tag: "Custom build",
     description: "You have specific functionality needs. Quoted after discovery — no surprises.",
     features: [
-      "Everything in Standard",
+      "Everything in standard",
       "Online booking or payments",
       "CMS — edit content yourself",
       "Email automations",
@@ -86,45 +86,49 @@ const ONE_TIME_TIERS = [
 const MONTHLY_TIERS = [
   {
     name: "BASIC",
-    price: "$75/month",
-    tag: "Keep the lights on.",
+    price: "$75 / month",
+    tag: "Keep the lights on",
     description: "The essentials. Your site stays live, secure, and up to date — with a little room for small changes.",
     features: [
-      "Uptime monitoring",
-      "SSL certificate checks",
-      "Dependency & security updates",
-      "Monthly backup verification",
-      "Domain & hosting renewal reminders",
-      "Up to 1hr of changes per month",
+      { name: "Uptime monitoring", included: true },
+      { name: "SSL certificate checks", included: true },
+      { name: "Dependency & security updates", included: true },
+      { name: "Monthly backup verification", included: true },
+      { name: "Domain & hosting renewal reminders", included: true },
+      { name: "Up to 1hr of changes per month", included: true },
+      { name: "Performance reporting", included: false },
+      { name: "Strategy calls", included: false },
     ],
   },
   {
     name: "GROWTH",
-    price: "$150/month",
-    tag: "Stay healthy & visible.",
+    price: "$150 / month",
+    tag: "Stay healthy & visible",
     description: "Everything in Basic, plus a monthly check-in on how your site is actually performing — in plain English.",
     features: [
-      "Everything in Basic",
-      "Monthly Lighthouse audit",
-      "Google Search Console review",
-      "Plain-English monthly report",
-      "Security headers audit",
-      "Up to 3hrs of work per month",
+      { name: "Everything in Basic", included: true },
+      { name: "Monthly Lighthouse audit", included: true },
+      { name: "Google Search Console review", included: true },
+      { name: "Plain-English monthly report", included: true },
+      { name: "Security headers audit", included: true },
+      { name: "Up to 3hrs of work per month", included: true },
+      { name: "Quarterly content refresh", included: false },
+      { name: "Strategy calls", included: false },
     ],
     highlight: true,
   },
   {
     name: "PARTNER",
-    price: "$350/month",
-    tag: "Grow together.",
+    price: "$350 / month",
+    tag: "Grow together",
     description: "A real ongoing relationship. Monthly strategy, deeper analytics, and enough hours to keep the site evolving.",
     features: [
-      "Everything in Growth",
-      "Monthly strategy call (30 min)",
-      "Google Analytics review & insights",
-      "Quarterly content refresh",
-      "Up to 6hrs of work per month",
-      "Priority turnaround (48hr)",
+      { name: "Everything in Growth", included: true },
+      { name: "Monthly strategy call (30 min)", included: true },
+      { name: "Google Analytics review & insights", included: true },
+      { name: "Quarterly content refresh", included: true },
+      { name: "Up to 6hrs of work per month", included: true },
+      { name: "Priority turnaround (48hr)", included: true },
     ],
   },
 ];
@@ -135,16 +139,16 @@ const COMPARISON_ROWS = [
   { name: "Dependency & security updates", basic: true, growth: true, partner: true },
   { name: "Monthly backup verification", basic: true, growth: true, partner: true },
   { name: "Domain & hosting renewal reminders", basic: true, growth: true, partner: true },
-  { name: "Up to 1hr of changes/month", basic: true, growth: true, partner: true },
+  { name: "Up to 1hr of changes per month", basic: true, growth: true, partner: true },
   { name: "Monthly Lighthouse performance audit", basic: false, growth: true, partner: true },
   { name: "Google Search Console review", basic: false, growth: true, partner: true },
   { name: "Plain-English monthly report", basic: false, growth: true, partner: true },
   { name: "Security headers & vulnerability audit", basic: false, growth: true, partner: true },
-  { name: "Up to 3hrs of work/month", basic: false, growth: true, partner: true },
+  { name: "Up to 3hrs of work per month", basic: false, growth: true, partner: true },
   { name: "Quarterly content refresh", basic: false, growth: false, partner: true },
   { name: "Monthly strategy call (30 min)", basic: false, growth: false, partner: true },
   { name: "Google Analytics review & insights", basic: false, growth: false, partner: true },
-  { name: "Up to 6hrs of work/month", basic: false, growth: false, partner: true },
+  { name: "Up to 6hrs of work per month", basic: false, growth: false, partner: true },
   { name: "Priority turnaround (48hr)", basic: false, growth: false, partner: true },
 ];
 
@@ -243,7 +247,7 @@ export default function ServicesClient() {
 
   return (
     <div className="space-y-16 w-full py-4 max-w-6xl mx-auto">
-      {/* ── 1. HERO ── */}
+      {/* ── HERO ── */}
       <div className="border-b border-white/10 pb-6">
         <div className="flex items-center gap-2 mb-2">
           <span className="font-mono text-[10px] text-text-muted uppercase tracking-widest">SERVICES_OS</span>
@@ -261,7 +265,7 @@ export default function ServicesClient() {
         </p>
       </div>
 
-      {/* ── 2. SERVICES PILLARS ── */}
+      {/* ── THREE PILLARS OVERVIEW ── */}
       <section className="space-y-6">
         <h2 className="font-mono text-[10px] text-text-muted uppercase tracking-widest">// THREE_PILLARS</h2>
         <div className="grid md:grid-cols-3 gap-6">
@@ -286,7 +290,7 @@ export default function ServicesClient() {
         </div>
       </section>
 
-      {/* ── 3. CASE STUDIES ── */}
+      {/* ── CASE STUDIES ── */}
       <section className="space-y-8">
         <h2 className="font-mono text-[10px] text-text-muted uppercase tracking-widest">// SHIPPED_PROOFS</h2>
 
@@ -355,7 +359,7 @@ export default function ServicesClient() {
         </div>
       </section>
 
-      {/* ── 4. PROCESS TEASER ── */}
+      {/* ── PROCESS TEASER ── */}
       <section className="pt-6 border-t border-white/10">
         <div className="bg-surface-card border border-white/10 p-5 rounded-sm flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
           <p className="text-xs md:text-sm text-text-muted leading-relaxed max-w-2xl font-sans">
@@ -367,73 +371,19 @@ export default function ServicesClient() {
         </div>
       </section>
 
-      {/* ── 5. PRICING: ONE-TIME BUILDS ── */}
+      {/* ── MONTHLY PLANS (NOW FIRST!) ── */}
       <section className="space-y-8 pt-6 border-t border-white/10">
-        <div className="space-y-2">
-          <h2 className="font-mono text-[10px] text-text-muted uppercase tracking-widest">// COMMERCIALS_ONE_TIME</h2>
-          <h3 className="text-2xl font-bold text-white">One-Time Build Packages</h3>
-          <p className="text-xs text-text-muted font-mono leading-relaxed max-w-3xl">
-            <strong>MACALLAN BUTLER — WEB DEVELOPMENT</strong><br />
-            Simple websites that work as hard as you do. Every project starts with a conversation. These tiers are a starting point — your actual quote depends on what you need. Not sure which fits? Pick the one that sounds closest and we&apos;ll figure it out together.
-          </p>
-        </div>
-
-        <div className="grid md:grid-cols-3 gap-6 items-stretch">
-          {ONE_TIME_TIERS.map((tier, idx) => (
-            <div
-              key={idx}
-              className={cn(
-                "relative overflow-hidden rounded-sm border bg-surface-card p-6 flex flex-col justify-between gap-6 transition-all duration-300",
-                tier.highlight
-                  ? "border-neon-cyan shadow-[0_0_20px_rgba(0,255,255,0.05)]"
-                  : "border-white/10 hover:border-white/20"
-              )}
-            >
-              {tier.highlight && (
-                <div className="absolute top-0 right-0 bg-neon-cyan text-surface-dark font-mono text-[9px] px-2 py-0.5 tracking-wider font-semibold rounded-bl-sm">
-                  POPULAR
-                </div>
-              )}
-              <div className="space-y-4">
-                <div className="space-y-1">
-                  <span className="font-mono text-[10px] text-neon-cyan uppercase tracking-wider block">
-                    {tier.name}
-                  </span>
-                  <div className="text-3xl font-bold text-white tracking-tight">{tier.price}</div>
-                  <span className="text-xs font-mono text-white/50 block italic">{tier.tag}</span>
-                </div>
-                <p className="text-xs text-text-muted leading-relaxed font-sans border-t border-white/5 pt-3">
-                  {tier.description}
-                </p>
-                <ul className="space-y-2 pt-2 border-t border-white/5">
-                  {tier.features.map((f, fIdx) => (
-                    <li key={fIdx} className="text-xs font-mono text-white/70 flex items-start gap-2">
-                      <Check size={14} className="text-neon-cyan mt-0.5 flex-shrink-0" />
-                      <span>{f}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-              <Link href="/comms" className="w-full">
-                <NeonButton variant={tier.highlight ? "primary" : "secondary"} className="w-full text-xs">
-                  Inquire Package
-                </NeonButton>
-              </Link>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* ── 6. PRICING: MONTHLY CARE PLANS ── */}
-      <section className="space-y-8 pt-8 border-t border-white/10">
         <div className="space-y-2">
           <h2 className="font-mono text-[10px] text-text-muted uppercase tracking-widest">// COMMERCIALS_MONTHLY</h2>
           <h3 className="text-2xl font-bold text-white">Monthly Care Plans</h3>
           <p className="text-xs text-text-muted font-mono leading-relaxed max-w-3xl">
             <strong>MACALLAN BUTLER — WEB DEVELOPMENT</strong><br />
-            Ongoing care for your website. Your site isn&apos;t a one-time thing — it needs to stay fast, secure, and up to date. These plans keep it that way so you never have to think about it. All plans are month-to-month with no long-term commitment.
+            Ongoing care for your website.<br />
+            Your site isn&apos;t a one-time thing — it needs to stay fast, secure, and up to date. These plans keep it that way so you never have to think about it. All plans are month-to-month with no long-term commitment.
           </p>
         </div>
+
+        <div className="font-mono text-xs font-bold text-neon-cyan tracking-widest mb-4">// MONTHLY PLANS</div>
 
         <div className="grid md:grid-cols-3 gap-6 items-stretch">
           {MONTHLY_TIERS.map((tier, idx) => (
@@ -464,9 +414,19 @@ export default function ServicesClient() {
                 </p>
                 <ul className="space-y-2 pt-2 border-t border-white/5">
                   {tier.features.map((f, fIdx) => (
-                    <li key={fIdx} className="text-xs font-mono text-white/70 flex items-start gap-2">
-                      <Check size={14} className="text-neon-cyan mt-0.5 flex-shrink-0" />
-                      <span>{f}</span>
+                    <li
+                      key={fIdx}
+                      className={cn(
+                        "text-xs font-mono flex items-start gap-2",
+                        f.included ? "text-white/70" : "text-white/20 line-through"
+                      )}
+                    >
+                      {f.included ? (
+                        <Check size={14} className="text-neon-cyan mt-0.5 flex-shrink-0" />
+                      ) : (
+                        <X size={14} className="text-neon-red mt-0.5 flex-shrink-0 opacity-40" />
+                      )}
+                      <span>{f.name}</span>
                     </li>
                   ))}
                 </ul>
@@ -481,10 +441,10 @@ export default function ServicesClient() {
         </div>
       </section>
 
-      {/* ── 7. PRICING COMPARISON TABLE ── */}
+      {/* ── FULL COMPARISON TABLE ── */}
       <section className="space-y-6 pt-8 border-t border-white/10">
         <h3 className="text-xl font-bold text-white font-mono tracking-tight text-center md:text-left">
-          // PLAN_COMPARISON
+          // FULL_COMPARISON
         </h3>
 
         {/* Desktop Table View (visible on md+) */}
@@ -552,11 +512,14 @@ export default function ServicesClient() {
         </div>
       </section>
 
-      {/* ── 8. WHAT'S ACTUALLY INCLUDED (ACCORDION DETAILS) ── */}
+      {/* ── WHAT'S ACTUALLY INCLUDED (ACCORDION DETAILS) ── */}
       <section className="space-y-6 pt-8 border-t border-white/10">
         <div className="space-y-1">
           <h2 className="font-mono text-[10px] text-text-muted uppercase tracking-widest">// OPERATIONS_DEEP_DIVE</h2>
           <h3 className="text-xl font-bold text-white">What&apos;s actually included</h3>
+          <p className="text-xs text-text-muted/75 font-sans italic">
+            These aren&apos;t buzzwords — here&apos;s what each service means in practice.
+          </p>
         </div>
 
         <div className="border border-white/10 bg-surface-card rounded-sm divide-y divide-white/10">
@@ -596,7 +559,7 @@ export default function ServicesClient() {
         </div>
       </section>
 
-      {/* ── 9. FAQS ── */}
+      {/* ── FAQS ── */}
       <section className="space-y-6 pt-8 border-t border-white/10">
         <div className="space-y-1">
           <h2 className="font-mono text-[10px] text-text-muted uppercase tracking-widest">// FREQUENT_QUERIES</h2>
@@ -640,10 +603,85 @@ export default function ServicesClient() {
         </div>
       </section>
 
-      {/* ── 10. CTA ── */}
+      {/* ── CTA FOR MONTHLY PLANS ── */}
       <SecureCTA
-        title="Ready to talk?"
-        description={`Ready to talk through your project? macallan@macallanbutler.com — no contracts, no pressure, just a conversation about what you need.\n\nPlans are month-to-month. No contracts, no commitments. Cancel any time.`}
+        title="Ready to get started?"
+        description={`Ready to get started? macallan@macallanbutler.com\nPlans are month-to-month. No contracts, no commitments. Cancel any time.`}
+        buttonText="Get in touch"
+        hideOnMobile={false}
+      />
+
+      {/* ── ONE-TIME BUILDS (NOW LAST!) ── */}
+      <section className="space-y-8 pt-8 border-t border-white/10">
+        <div className="space-y-2">
+          <h2 className="font-mono text-[10px] text-text-muted uppercase tracking-widest">// COMMERCIALS_ONE_TIME</h2>
+          <h3 className="text-2xl font-bold text-white">One-Time Build Packages</h3>
+          <p className="text-xs text-text-muted font-mono leading-relaxed max-w-3xl">
+            <strong>MACALLAN BUTLER — WEB DEVELOPMENT</strong><br />
+            Simple websites that work as hard as you do.<br />
+            Every project starts with a conversation. These tiers are a starting point — your actual quote depends on what you need. Not sure which fits? Pick the one that sounds closest and we&apos;ll figure it out together.
+          </p>
+        </div>
+
+        <div className="font-mono text-xs font-bold text-neon-cyan tracking-widest mb-4">// ONE-TIME BUILD</div>
+
+        <div className="grid md:grid-cols-3 gap-6 items-stretch">
+          {ONE_TIME_TIERS.map((tier, idx) => (
+            <div
+              key={idx}
+              className={cn(
+                "relative overflow-hidden rounded-sm border bg-surface-card p-6 flex flex-col justify-between gap-6 transition-all duration-300",
+                tier.highlight
+                  ? "border-neon-cyan shadow-[0_0_20px_rgba(0,255,255,0.05)]"
+                  : "border-white/10 hover:border-white/20"
+              )}
+            >
+              {tier.highlight && (
+                <div className="absolute top-0 right-0 bg-neon-cyan text-surface-dark font-mono text-[9px] px-2 py-0.5 tracking-wider font-semibold rounded-bl-sm">
+                  POPULAR
+                </div>
+              )}
+              <div className="space-y-4">
+                <div className="space-y-1">
+                  <span className="font-mono text-[10px] text-neon-cyan uppercase tracking-wider block">
+                    {tier.name}
+                  </span>
+                  <div className="text-3xl font-bold text-white tracking-tight">{tier.price}</div>
+                  <span className="text-xs font-mono text-white/50 block italic">{tier.tag}</span>
+                </div>
+                <p className="text-xs text-text-muted leading-relaxed font-sans border-t border-white/5 pt-3">
+                  {tier.description}
+                </p>
+                <ul className="space-y-2 pt-2 border-t border-white/5">
+                  {tier.features.map((f, fIdx) => (
+                    <li key={fIdx} className="text-xs font-mono text-white/70 flex items-start gap-2">
+                      <Check size={14} className="text-neon-cyan mt-0.5 flex-shrink-0" />
+                      <span>{f}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <Link href="/comms" className="w-full">
+                <NeonButton variant={tier.highlight ? "primary" : "secondary"} className="w-full text-xs">
+                  Inquire Package
+                </NeonButton>
+              </Link>
+            </div>
+          ))}
+        </div>
+
+        {/* A few things to know disclaimer */}
+        <div className="border border-white/10 bg-surface-dark/40 p-5 rounded-sm max-w-4xl mx-auto">
+          <p className="text-xs text-text-muted font-mono leading-relaxed">
+            <strong>A few things to know:</strong> All builds include deployment to a fast, reliable host. Copywriting and logo design are not included but can be quoted separately. A 50% deposit is required to begin — the remaining balance is due at launch. Retainer plans are month-to-month with no long-term commitment.
+          </p>
+        </div>
+      </section>
+
+      {/* ── FINAL CTA ── */}
+      <SecureCTA
+        title="Ready to get started?"
+        description="Ready to get started? macallan@macallanbutler.com"
         buttonText="Get in touch"
         hideOnMobile={false}
       />
