@@ -49,5 +49,21 @@
     "completionDate": "2026-02-13",
     "repoUrl": "https://github.com/MacallanButler",
     "liveUrl": "https://bluehorizon.macallanbutler.com"
+  },
+  {
+    "id": "cafe_du_monde",
+    "title": "Cafe Du Monde",
+    "client": "Cafe Du Monde",
+    "category": "Redesign Concept",
+    "description": "An unsolicited homepage redesign concept showcasing visual storytelling, modern web typography, and high-fidelity layout flow for the historic coffee brand.",
+    "techStack": [
+      "React",
+      "Tailwind CSS",
+      "Framer Motion"
+    ],
+    "status": "CONCEPT",
+    "completionDate": "2026-03-01",
+    "repoUrl": "https://github.com/MacallanButler",
+    "liveUrl": null
   }
 ]

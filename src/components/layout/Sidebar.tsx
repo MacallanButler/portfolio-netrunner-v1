@@ -21,6 +21,7 @@ import { trackAudioToggle } from "@/lib/analytics";
 
 const NAVIGATION = [
     { name: "PROJECTS", path: "/gigs", icon: FolderKanban },
+    { name: "SERVICES", path: "/services", icon: LayoutTemplate },
     { name: "ABOUT", path: "/about", icon: User },
     { name: "PROCESS", path: "/design-system", icon: Workflow },
     { name: "CONTACT", path: "/comms", icon: Mail },
@@ -55,8 +56,8 @@ export function Sidebar() {
         return `${min}:${sec.toString().padStart(2, "0")}`;
     };
 
-    // Assuming 5 main routes: /, /gigs, /about, /design-system, /comms
-    const progress = Math.min((visitedPaths.size / 5) * 100, 100).toFixed(0);
+    // Assuming 6 main routes: /, /gigs, /services, /about, /design-system, /comms
+    const progress = Math.min((visitedPaths.size / 6) * 100, 100).toFixed(0);
 
     return (
         <>
