@@ -371,8 +371,75 @@ export default function ServicesClient() {
         </div>
       </section>
 
-      {/* ── MONTHLY PLANS (NOW FIRST!) ── */}
+      {/* ── ONE-TIME BUILDS (FIRST AGAIN!) ── */}
       <section className="space-y-8 pt-6 border-t border-white/10">
+        <div className="space-y-2">
+          <h2 className="font-mono text-[10px] text-text-muted uppercase tracking-widest">// COMMERCIALS_ONE_TIME</h2>
+          <h3 className="text-2xl font-bold text-white">One-Time Build Packages</h3>
+          <p className="text-xs text-text-muted font-mono leading-relaxed max-w-3xl">
+            <strong>MACALLAN BUTLER — WEB DEVELOPMENT</strong><br />
+            Simple websites that work as hard as you do.<br />
+            Every project starts with a conversation. These tiers are a starting point — your actual quote depends on what you need. Not sure which fits? Pick the one that sounds closest and we&apos;ll figure it out together.
+          </p>
+        </div>
+
+        <div className="font-mono text-xs font-bold text-neon-cyan tracking-widest mb-4">// ONE-TIME BUILD</div>
+
+        <div className="grid md:grid-cols-3 gap-6 items-stretch">
+          {ONE_TIME_TIERS.map((tier, idx) => (
+            <div
+              key={idx}
+              className={cn(
+                "relative overflow-hidden rounded-sm border bg-surface-card p-6 flex flex-col justify-between gap-6 transition-all duration-300",
+                tier.highlight
+                  ? "border-neon-cyan shadow-[0_0_20px_rgba(0,255,255,0.05)]"
+                  : "border-white/10 hover:border-white/20"
+              )}
+            >
+              {tier.highlight && (
+                <div className="absolute top-0 right-0 bg-neon-cyan text-surface-dark font-mono text-[9px] px-2 py-0.5 tracking-wider font-semibold rounded-bl-sm">
+                  POPULAR
+                </div>
+              )}
+              <div className="space-y-4">
+                <div className="space-y-1">
+                  <span className="font-mono text-[10px] text-neon-cyan uppercase tracking-wider block">
+                    {tier.name}
+                  </span>
+                  <div className="text-3xl font-bold text-white tracking-tight">{tier.price}</div>
+                  <span className="text-xs font-mono text-white/50 block italic">{tier.tag}</span>
+                </div>
+                <p className="text-xs text-text-muted leading-relaxed font-sans border-t border-white/5 pt-3">
+                  {tier.description}
+                </p>
+                <ul className="space-y-2 pt-2 border-t border-white/5">
+                  {tier.features.map((f, fIdx) => (
+                    <li key={fIdx} className="text-xs font-mono text-white/70 flex items-start gap-2">
+                      <Check size={14} className="text-neon-cyan mt-0.5 flex-shrink-0" />
+                      <span>{f}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <Link href="/comms" className="w-full">
+                <NeonButton variant={tier.highlight ? "primary" : "secondary"} className="w-full text-xs">
+                  Inquire Package
+                </NeonButton>
+              </Link>
+            </div>
+          ))}
+        </div>
+
+        {/* A few things to know disclaimer */}
+        <div className="border border-white/10 bg-surface-dark/40 p-5 rounded-sm max-w-4xl mx-auto">
+          <p className="text-xs text-text-muted font-mono leading-relaxed">
+            <strong>A few things to know:</strong> All builds include deployment to a fast, reliable host. Copywriting and logo design are not included but can be quoted separately. A 50% deposit is required to begin — the remaining balance is due at launch. Retainer plans are month-to-month with no long-term commitment.
+          </p>
+        </div>
+      </section>
+
+      {/* ── MONTHLY PLANS (SECOND!) ── */}
+      <section className="space-y-8 pt-8 border-t border-white/10">
         <div className="space-y-2">
           <h2 className="font-mono text-[10px] text-text-muted uppercase tracking-widest">// COMMERCIALS_MONTHLY</h2>
           <h3 className="text-2xl font-bold text-white">Monthly Care Plans</h3>
@@ -600,81 +667,6 @@ export default function ServicesClient() {
               </div>
             );
           })}
-        </div>
-      </section>
-
-      {/* ── CTA FOR MONTHLY PLANS ── */}
-      <SecureCTA
-        title="Ready to get started?"
-        description={`Ready to get started? macallan@macallanbutler.com\nPlans are month-to-month. No contracts, no commitments. Cancel any time.`}
-        buttonText="Get in touch"
-        hideOnMobile={false}
-      />
-
-      {/* ── ONE-TIME BUILDS (NOW LAST!) ── */}
-      <section className="space-y-8 pt-8 border-t border-white/10">
-        <div className="space-y-2">
-          <h2 className="font-mono text-[10px] text-text-muted uppercase tracking-widest">// COMMERCIALS_ONE_TIME</h2>
-          <h3 className="text-2xl font-bold text-white">One-Time Build Packages</h3>
-          <p className="text-xs text-text-muted font-mono leading-relaxed max-w-3xl">
-            <strong>MACALLAN BUTLER — WEB DEVELOPMENT</strong><br />
-            Simple websites that work as hard as you do.<br />
-            Every project starts with a conversation. These tiers are a starting point — your actual quote depends on what you need. Not sure which fits? Pick the one that sounds closest and we&apos;ll figure it out together.
-          </p>
-        </div>
-
-        <div className="font-mono text-xs font-bold text-neon-cyan tracking-widest mb-4">// ONE-TIME BUILD</div>
-
-        <div className="grid md:grid-cols-3 gap-6 items-stretch">
-          {ONE_TIME_TIERS.map((tier, idx) => (
-            <div
-              key={idx}
-              className={cn(
-                "relative overflow-hidden rounded-sm border bg-surface-card p-6 flex flex-col justify-between gap-6 transition-all duration-300",
-                tier.highlight
-                  ? "border-neon-cyan shadow-[0_0_20px_rgba(0,255,255,0.05)]"
-                  : "border-white/10 hover:border-white/20"
-              )}
-            >
-              {tier.highlight && (
-                <div className="absolute top-0 right-0 bg-neon-cyan text-surface-dark font-mono text-[9px] px-2 py-0.5 tracking-wider font-semibold rounded-bl-sm">
-                  POPULAR
-                </div>
-              )}
-              <div className="space-y-4">
-                <div className="space-y-1">
-                  <span className="font-mono text-[10px] text-neon-cyan uppercase tracking-wider block">
-                    {tier.name}
-                  </span>
-                  <div className="text-3xl font-bold text-white tracking-tight">{tier.price}</div>
-                  <span className="text-xs font-mono text-white/50 block italic">{tier.tag}</span>
-                </div>
-                <p className="text-xs text-text-muted leading-relaxed font-sans border-t border-white/5 pt-3">
-                  {tier.description}
-                </p>
-                <ul className="space-y-2 pt-2 border-t border-white/5">
-                  {tier.features.map((f, fIdx) => (
-                    <li key={fIdx} className="text-xs font-mono text-white/70 flex items-start gap-2">
-                      <Check size={14} className="text-neon-cyan mt-0.5 flex-shrink-0" />
-                      <span>{f}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-              <Link href="/comms" className="w-full">
-                <NeonButton variant={tier.highlight ? "primary" : "secondary"} className="w-full text-xs">
-                  Inquire Package
-                </NeonButton>
-              </Link>
-            </div>
-          ))}
-        </div>
-
-        {/* A few things to know disclaimer */}
-        <div className="border border-white/10 bg-surface-dark/40 p-5 rounded-sm max-w-4xl mx-auto">
-          <p className="text-xs text-text-muted font-mono leading-relaxed">
-            <strong>A few things to know:</strong> All builds include deployment to a fast, reliable host. Copywriting and logo design are not included but can be quoted separately. A 50% deposit is required to begin — the remaining balance is due at launch. Retainer plans are month-to-month with no long-term commitment.
-          </p>
         </div>
       </section>
 
