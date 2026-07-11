@@ -101,26 +101,6 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
     }
   }, [isAudioEnabled, startSynthLoop, stopSynthLoop]);
 
-  // Load initial preference from sessionStorage and wait for first user interaction to bypass autoplay blockers
-  useEffect(() => {
-    const handleFirstInteraction = () => {
-      const saved = sessionStorage.getItem("audioEnabled");
-      if (saved === "true") {
-        setIsAudioEnabled(true);
-      }
-      window.removeEventListener("click", handleFirstInteraction);
-      window.removeEventListener("keydown", handleFirstInteraction);
-    };
-
-    window.addEventListener("click", handleFirstInteraction);
-    window.addEventListener("keydown", handleFirstInteraction);
-
-    return () => {
-      window.removeEventListener("click", handleFirstInteraction);
-      window.removeEventListener("keydown", handleFirstInteraction);
-    };
-  }, []);
-
   const toggleAudio = useCallback(() => {
     setIsAudioEnabled((prev) => {
       const next = !prev;
