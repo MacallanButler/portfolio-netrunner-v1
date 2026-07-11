@@ -74,6 +74,74 @@ export default function RootLayout({
           </ProjectModalProvider>
         </AudioProvider>
 
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "ProfessionalService",
+              "name": "Macallan Butler Web Development",
+              "image": "https://macallanbutler.com/icon.svg",
+              "@id": "https://macallanbutler.com/#service",
+              "url": "https://macallanbutler.com",
+              "telephone": "",
+              "priceRange": "$$",
+              "address": {
+                "@type": "PostalAddress",
+                "addressLocality": "Charlotte",
+                "addressRegion": "NC",
+                "addressCountry": "US"
+              },
+              "geo": {
+                "@type": "GeoCoordinates",
+                "latitude": 35.227087,
+                "longitude": -80.843127
+              },
+              "sameAs": [
+                "https://github.com/MacallanButler"
+              ],
+              "description": "Macallan Butler is a freelance Full-Stack Developer & UI Architect specializing in high-fidelity React, Next.js, and motion-driven user interfaces.",
+              "provider": {
+                "@type": "Person",
+                "name": "Macallan Butler",
+                "jobTitle": "Full-Stack Developer & UI Architect"
+              },
+              "offers": [
+                {
+                  "@type": "Offer",
+                  "name": "Starter Web Build Package",
+                  "price": "300.00",
+                  "priceCurrency": "USD"
+                },
+                {
+                  "@type": "Offer",
+                  "name": "Standard Web Build Package",
+                  "price": "500.00",
+                  "priceCurrency": "USD"
+                },
+                {
+                  "@type": "Offer",
+                  "name": "Basic Monthly Care Plan",
+                  "price": "75.00",
+                  "priceCurrency": "USD"
+                },
+                {
+                  "@type": "Offer",
+                  "name": "Growth Monthly Care Plan",
+                  "price": "150.00",
+                  "priceCurrency": "USD"
+                },
+                {
+                  "@type": "Offer",
+                  "name": "Partner Monthly Care Plan",
+                  "price": "350.00",
+                  "priceCurrency": "USD"
+                }
+              ]
+            })
+          }}
+        />
+
         <Script
           async
           src="https://www.googletagmanager.com/gtag/js?id=G-FXCR09481R"
