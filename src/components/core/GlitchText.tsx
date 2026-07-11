@@ -38,7 +38,8 @@ export function GlitchText({ text, className, hover = true }: GlitchTextProps) {
                 setIsGlitching(false);
             }
 
-            iteration += 1 / 3;
+            // Speed up resolution for longer texts to prevent layout shifting/jittering
+            iteration += Math.max(1 / 3, text.length / 25);
         }, 30);
     }, [text, isGlitching]);
 

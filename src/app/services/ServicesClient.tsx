@@ -9,6 +9,7 @@ import { ProjectImage } from "@/components/core/ProjectImage";
 import { SecureCTA } from "@/components/core/SecureCTA";
 import { useProjectModal } from "@/context/ProjectModalContext";
 import projectsData from "@/data/projects.json";
+import { useAudio } from "@/context/AudioContext";
 import { cn } from "@/lib/utils";
 import { Check, ChevronDown, ChevronUp, Cpu, ShieldCheck, X, Zap } from "lucide-react";
 import Link from "next/link";
@@ -228,14 +229,17 @@ const FAQS = [
 
 export default function ServicesClient() {
   const { openProject } = useProjectModal();
+  const { playClick } = useAudio();
   const [openDetails, setOpenDetails] = useState<Record<string, boolean>>({});
   const [openFaq, setOpenFaq] = useState<Record<number, boolean>>({});
 
   const toggleDetail = (key: string) => {
+    playClick();
     setOpenDetails((prev) => ({ ...prev, [key]: !prev[key] }));
   };
 
   const toggleFaq = (idx: number) => {
+    playClick();
     setOpenFaq((prev) => ({ ...prev, [idx]: !prev[idx] }));
   };
 
@@ -306,7 +310,10 @@ export default function ServicesClient() {
             {portfolioBuilds.map((project) => (
               <div
                 key={project.id}
-                onClick={() => openProject(project as any)}
+                onClick={() => {
+                  playClick();
+                  openProject(project as any);
+                }}
                 className="group cursor-pointer border border-white/10 bg-surface-card rounded-sm overflow-hidden flex flex-col h-full hover:border-neon-cyan/50 hover:shadow-[0_0_15px_rgba(0,255,255,0.05)] transition-all duration-300"
               >
                 <ProjectImage id={project.id} title={project.title} className="h-32" />
@@ -338,7 +345,10 @@ export default function ServicesClient() {
             {conceptWork.map((project) => (
               <div
                 key={project.id}
-                onClick={() => openProject(project as any)}
+                onClick={() => {
+                  playClick();
+                  openProject(project as any);
+                }}
                 className="group cursor-pointer border border-white/10 bg-surface-card rounded-sm overflow-hidden flex flex-col h-full hover:border-neon-cyan/50 hover:shadow-[0_0_15px_rgba(0,255,255,0.05)] transition-all duration-300"
               >
                 <ProjectImage id={project.id} title={project.title} className="h-32" />

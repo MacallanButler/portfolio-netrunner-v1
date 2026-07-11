@@ -7,6 +7,7 @@ import { GlitchText } from "@/components/core/GlitchText";
 import { NeonButton } from "@/components/core/NeonButton";
 import Link from "next/link";
 import { SecureCTA } from "@/components/core/SecureCTA";
+import { useAudio } from "@/context/AudioContext";
 import {
   Compass,
   Code2,
@@ -59,7 +60,13 @@ const PROCESS_STEPS = [
 ];
 
 export default function ProcessClient() {
-  const [activeStep, setActiveStep] = useState<string | null>(null);
+  const { playClick } = useAudio();
+  const [openSteps, setOpenSteps] = useState<Record<string, boolean>>({ "1": true });
+
+  const toggleStep = (stepId: string) => {
+    playClick();
+    setOpenSteps((prev) => ({ ...prev, [stepId]: !prev[stepId] }));
+  };
 
   return (
     <div className="space-y-4 md:space-y-6 w-full py-2 md:py-4 min-h-[calc(100vh-4rem)] lg:min-h-[calc(100vh-10rem)] flex flex-col justify-between overflow-hidden">
@@ -82,7 +89,7 @@ export default function ProcessClient() {
         <div className="space-y-2.5 md:space-y-6">
           {PROCESS_STEPS.map((step, index) => {
             const Icon = step.icon;
-            const isActive = activeStep === step.id;
+            const isActive = !!openSteps[step.id];
 
             return (
               <motion.div
@@ -93,7 +100,7 @@ export default function ProcessClient() {
               >
                 <div
                   className="flex gap-6 cursor-pointer group"
-                  onClick={() => setActiveStep(isActive ? null : step.id)}
+                  onClick={() => toggleStep(step.id)}
                 >
                   {/* Step Icon */}
                   <div

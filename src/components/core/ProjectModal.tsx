@@ -7,6 +7,7 @@ import { useProjectModal } from "@/context/ProjectModalContext";
 import { SystemBadge } from "@/components/core/SystemBadge";
 import { GlitchText } from "@/components/core/GlitchText";
 import { getTechColor } from "@/lib/techColors";
+import { useAudio } from "@/context/AudioContext";
 
 const PREVIEW_MAP: Record<string, string> = {
   apex_drop:      "/previews/apex_drop.webp",
@@ -16,10 +17,16 @@ const PREVIEW_MAP: Record<string, string> = {
 
 export function ProjectModal() {
   const { activeProject, isClosing, closeProject } = useProjectModal();
+  const { playClick } = useAudio();
+
+  const handleClose = () => {
+    playClick();
+    closeProject();
+  };
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape" && activeProject && !isClosing) closeProject();
+      if (e.key === "Escape" && activeProject && !isClosing) handleClose();
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
@@ -39,7 +46,7 @@ export function ProjectModal() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.15 }}
-            onClick={!isClosing ? closeProject : undefined}
+            onClick={!isClosing ? handleClose : undefined}
           />
 
           {/* Modal Container */}
@@ -63,7 +70,7 @@ export function ProjectModal() {
             {/* Header bar */}
             <div className="relative z-10 flex items-center justify-between px-4 md:px-6 py-3.5 border-b border-white/10 flex-shrink-0">
               <button
-                onClick={!isClosing ? closeProject : undefined}
+                onClick={!isClosing ? handleClose : undefined}
                 disabled={isClosing}
                 className="group flex items-center gap-2 font-mono text-xs tracking-widest uppercase text-neon-red hover:text-white transition-colors duration-150 disabled:opacity-30 disabled:pointer-events-none"
               >

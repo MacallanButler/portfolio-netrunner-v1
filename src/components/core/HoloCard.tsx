@@ -21,7 +21,7 @@ export function HoloCard({ children, className, title, style, onClick }: HoloCar
             style={style}
             onClick={onClick}
             className={cn(
-                "relative overflow-hidden rounded-sm border border-white/10 bg-surface-card p-6 shadow-lg backdrop-blur-sm transition-all duration-300 hover:border-neon-cyan/50 hover:shadow-[0_0_15px_rgba(0,255,255,0.1)]",
+                "relative overflow-hidden rounded-sm border border-white/10 bg-surface-card p-4 sm:p-6 shadow-lg backdrop-blur-sm transition-all duration-300 hover:border-neon-cyan/50 hover:shadow-[0_0_15px_rgba(0,255,255,0.1)]",
                 className
             )}
         >

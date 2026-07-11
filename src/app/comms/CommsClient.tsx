@@ -49,9 +49,9 @@ export default function CommsClient() {
     };
 
     return (
-        <div className="flex flex-col justify-center min-h-[calc(100vh-4rem)] lg:min-h-[calc(100vh-10rem)] w-full py-4">
+        <div className="flex flex-col justify-start min-h-[calc(100vh-4rem)] lg:min-h-[calc(100vh-10rem)] w-full py-2 md:py-4 overflow-hidden">
             {/* Unified Page Header */}
-            <div className="border-b border-white/10 pb-3 md:pb-6 mb-6">
+            <div className="border-b border-white/10 pb-3 md:pb-6 mb-4 md:mb-6">
                 <span className="text-[10px] font-mono text-neon-cyan tracking-widest uppercase mb-1 block font-normal">
                     // SECURE_CHANNEL
                 </span>
@@ -60,7 +60,7 @@ export default function CommsClient() {
                 </h1>
             </div>
 
-            <div className="grid md:grid-cols-12 gap-6 items-start max-w-6xl w-full mx-auto">
+            <div className="grid md:grid-cols-12 gap-4 md:gap-6 items-start max-w-6xl w-full mx-auto">
                 
                 {/* ── LEFT COLUMN: SECURE CONNECTION INFO (Hidden on mobile) ── */}
                 <div className="hidden md:block md:col-span-5 space-y-4 md:border-r md:border-white/10 md:pr-6">
