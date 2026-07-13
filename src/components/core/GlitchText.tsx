@@ -3,7 +3,7 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { cn } from "@/lib/utils";
 
-const GLITCH_CHARS = "!@#$%^&*()_+-=[]{}|;':\",./<>?";
+const GLITCH_CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_";
 
 interface GlitchTextProps {
     text: string;
@@ -51,7 +51,7 @@ export function GlitchText({ text, className, hover = true }: GlitchTextProps) {
 
     return (
         <span
-            className={cn("inline-block font-mono", className)}
+            className={cn("inline-block font-mono tracking-normal", className)}
             onMouseEnter={hover ? glitch : undefined}
         >
             {displayText}

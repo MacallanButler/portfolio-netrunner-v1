@@ -33,6 +33,11 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
       const AudioContextClass = window.AudioContext || (window as any).webkitAudioContext;
       const ctx = new AudioContextClass();
 
+      // Resume context if suspended (crucial for iOS Safari user gesture unlock)
+      if (ctx.state === "suspended") {
+        ctx.resume();
+      }
+
       // Main volume node (keep it quiet in background)
       const gain = ctx.createGain();
       gain.gain.setValueAtTime(0.015, ctx.currentTime);
@@ -92,22 +97,18 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
     synthNodesRef.current = null;
   }, []);
 
-  // Sync synth loop state to isAudioEnabled changes
-  useEffect(() => {
-    if (isAudioEnabled) {
-      startSynthLoop();
-    } else {
-      stopSynthLoop();
-    }
-  }, [isAudioEnabled, startSynthLoop, stopSynthLoop]);
-
   const toggleAudio = useCallback(() => {
     setIsAudioEnabled((prev) => {
       const next = !prev;
       sessionStorage.setItem("audioEnabled", next ? "true" : "false");
+      if (next) {
+        startSynthLoop();
+      } else {
+        stopSynthLoop();
+      }
       return next;
     });
-  }, []);
+  }, [startSynthLoop, stopSynthLoop]);
 
   // Globally mute transient sound effects (clicks, glitches, typing) to avoid client annoyance
   const playClick = useCallback(() => {}, []);
