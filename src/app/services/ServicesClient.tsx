@@ -228,7 +228,6 @@ const FAQS = [
 ];
 
 export default function ServicesClient() {
-  const { openProject } = useProjectModal();
   const { playClick } = useAudio();
   const [openDetails, setOpenDetails] = useState<Record<string, boolean>>({});
   const [openFaq, setOpenFaq] = useState<Record<number, boolean>>({});
@@ -242,12 +241,6 @@ export default function ServicesClient() {
     playClick();
     setOpenFaq((prev) => ({ ...prev, [idx]: !prev[idx] }));
   };
-
-  // Split projects based on dynamic brief groupings
-  const portfolioBuilds = projectsData.filter((p) =>
-    ["ghost_mountain", "apex_drop", "blue_horizon"].includes(p.id)
-  );
-  const conceptWork = projectsData.filter((p) => p.id === "cafe_du_monde");
 
   return (
     <div className="space-y-16 w-full py-4 max-w-6xl mx-auto">
@@ -291,81 +284,6 @@ export default function ServicesClient() {
               </HoloCard>
             );
           })}
-        </div>
-      </section>
-
-      {/* ── CASE STUDIES ── */}
-      <section className="space-y-8">
-        <h2 className="font-mono text-[10px] text-text-muted uppercase tracking-widest">// SHIPPED_PROOFS</h2>
-
-        {/* Portfolio Builds */}
-        <div className="space-y-4">
-          <div>
-            <h3 className="text-xl font-bold text-white mb-1">Portfolio Builds</h3>
-            <p className="text-xs text-text-muted/65 italic font-sans">
-              Self-directed projects, built end-to-end to demonstrate range across industries — no clients yet, but built to the same standard I&apos;d bring to yours.
-            </p>
-          </div>
-          <div className="grid sm:grid-cols-3 gap-6">
-            {portfolioBuilds.map((project) => (
-              <div
-                key={project.id}
-                onClick={() => {
-                  playClick();
-                  openProject(project as any);
-                }}
-                className="group cursor-pointer border border-white/10 bg-surface-card rounded-sm overflow-hidden flex flex-col h-full hover:border-neon-cyan/50 hover:shadow-[0_0_15px_rgba(0,255,255,0.05)] transition-all duration-300"
-              >
-                <ProjectImage id={project.id} title={project.title} className="h-32" />
-                <div className="p-4 flex-1 flex flex-col justify-between gap-3">
-                  <div>
-                    <h4 className="text-sm font-bold text-white group-hover:text-neon-cyan transition-colors">
-                      {project.title}
-                    </h4>
-                    <p className="text-[11px] text-text-muted font-mono tracking-wider mt-1">{project.category}</p>
-                  </div>
-                  <span className="font-mono text-[9px] text-text-muted group-hover:text-neon-cyan/60 transition-colors">
-                    &gt; DISCOVER
-                  </span>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Concept Work */}
-        <div className="space-y-4 pt-4 border-t border-white/5">
-          <div>
-            <h3 className="text-xl font-bold text-white mb-1">Concept Work</h3>
-            <p className="text-xs text-text-muted/65 italic font-sans">
-              Unsolicited builds, created for specific companies I admire — no affiliation, just proof of what I&apos;d do for them.
-            </p>
-          </div>
-          <div className="grid sm:grid-cols-3 gap-6">
-            {conceptWork.map((project) => (
-              <div
-                key={project.id}
-                onClick={() => {
-                  playClick();
-                  openProject(project as any);
-                }}
-                className="group cursor-pointer border border-white/10 bg-surface-card rounded-sm overflow-hidden flex flex-col h-full hover:border-neon-cyan/50 hover:shadow-[0_0_15px_rgba(0,255,255,0.05)] transition-all duration-300"
-              >
-                <ProjectImage id={project.id} title={project.title} className="h-32" />
-                <div className="p-4 flex-1 flex flex-col justify-between gap-3">
-                  <div>
-                    <h4 className="text-sm font-bold text-white group-hover:text-neon-cyan transition-colors">
-                      {project.title}
-                    </h4>
-                    <p className="text-[11px] text-text-muted font-mono tracking-wider mt-1">{project.category}</p>
-                  </div>
-                  <span className="font-mono text-[9px] text-text-muted group-hover:text-neon-cyan/60 transition-colors">
-                    &gt; DISCOVER
-                  </span>
-                </div>
-              </div>
-            ))}
-          </div>
         </div>
       </section>
 

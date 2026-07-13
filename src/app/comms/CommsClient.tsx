@@ -113,7 +113,7 @@ export default function CommsClient() {
                                     required
                                     value={formData.name}
                                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                                    className="w-full bg-surface-dark border border-white/10 p-2.5 font-mono text-xs focus:border-neon-cyan focus:outline-none focus:bg-neon-cyan/5 transition-colors text-white placeholder-white/10"
+                                    className="w-full bg-surface-dark border border-white/10 p-2.5 font-mono text-xs focus:border-neon-cyan focus:outline-none focus:bg-neon-cyan/5 transition-colors text-white placeholder-white/35"
                                     placeholder="Provide identification tag..."
                                 />
                             </div>
@@ -127,7 +127,7 @@ export default function CommsClient() {
                                     required
                                     value={formData.email}
                                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                                    className="w-full bg-surface-dark border border-white/10 p-2.5 font-mono text-xs focus:border-neon-cyan focus:outline-none focus:bg-neon-cyan/5 transition-colors text-white placeholder-white/10"
+                                    className="w-full bg-surface-dark border border-white/10 p-2.5 font-mono text-xs focus:border-neon-cyan focus:outline-none focus:bg-neon-cyan/5 transition-colors text-white placeholder-white/35"
                                     placeholder="Enter communication address..."
                                 />
                             </div>
@@ -141,7 +141,7 @@ export default function CommsClient() {
                                     required
                                     value={formData.message}
                                     onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                                    className="w-full bg-surface-dark border border-white/10 p-2.5 font-mono text-xs focus:border-neon-cyan focus:outline-none focus:bg-neon-cyan/5 transition-colors text-white placeholder-white/10 resize-none scrollbar-none"
+                                    className="w-full bg-surface-dark border border-white/10 p-2.5 font-mono text-xs focus:border-neon-cyan focus:outline-none focus:bg-neon-cyan/5 transition-colors text-white placeholder-white/35 resize-none scrollbar-none"
                                     placeholder="Enter transmission details..."
                                 />
                             </div>

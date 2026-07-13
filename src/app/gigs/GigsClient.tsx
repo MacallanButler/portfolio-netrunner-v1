@@ -108,7 +108,7 @@ export default function GigsClient() {
         <div>
           <h2 className="text-xl font-bold text-white mb-1">Portfolio Builds</h2>
           <p className="text-xs text-text-muted/65 italic font-sans max-w-3xl">
-            Self-directed projects, built end-to-end to demonstrate range across industries — no clients yet, but built to the same standard I&apos;d bring to yours.
+            Self-directed projects, built end-to-end to demonstrate range across industries — built to the same standard I&apos;d bring to yours.
           </p>
         </div>
         <div className="grid md:grid-cols-2 gap-8">
