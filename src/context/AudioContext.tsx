@@ -15,100 +15,42 @@ const AudioContext = createContext<AudioContextValue | null>(null);
 
 export function AudioProvider({ children }: { children: React.ReactNode }) {
   const [isAudioEnabled, setIsAudioEnabled] = useState(false);
-  
-  // Track active synthesized nodes so we can stop them on mute
-  const synthNodesRef = useRef<{
-    ctx: AudioContext;
-    osc1: OscillatorNode;
-    osc2: OscillatorNode;
-    lfo: OscillatorNode;
-    gain: GainNode;
-  } | null>(null);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
 
-  // Synthesize background ambient cyberpunk drone/music loop
-  const startSynthLoop = useCallback(() => {
-    if (synthNodesRef.current) return;
-
-    try {
-      const AudioContextClass = window.AudioContext || (window as any).webkitAudioContext;
-      const ctx = new AudioContextClass();
-
-      // Resume context if suspended (crucial for iOS Safari user gesture unlock)
-      if (ctx.state === "suspended") {
-        ctx.resume();
-      }
-
-      // Main volume node (keep it quiet in background)
-      const gain = ctx.createGain();
-      gain.gain.setValueAtTime(0.015, ctx.currentTime);
-
-      // Lowpass filter for warm, dark analog synth atmosphere
-      const filter = ctx.createBiquadFilter();
-      filter.type = "lowpass";
-      filter.frequency.setValueAtTime(200, ctx.currentTime);
-      filter.Q.setValueAtTime(5, ctx.currentTime);
-
-      // LFO for slow ambient sweep
-      const lfo = ctx.createOscillator();
-      lfo.type = "sine";
-      lfo.frequency.setValueAtTime(0.08, ctx.currentTime); // sweep once every 12 seconds
-      
-      const lfoGain = ctx.createGain();
-      lfoGain.gain.setValueAtTime(100, ctx.currentTime);
-
-      // Two detuned sawtooth oscillators to create a rich chorus drone
-      const osc1 = ctx.createOscillator();
-      osc1.type = "sawtooth";
-      osc1.frequency.setValueAtTime(55, ctx.currentTime); // A1
-
-      const osc2 = ctx.createOscillator();
-      osc2.type = "sawtooth";
-      osc2.frequency.setValueAtTime(55.25, ctx.currentTime); // detuned A1
-
-      // Wire LFO sweep to filter frequency
-      lfo.connect(lfoGain);
-      lfoGain.connect(filter.frequency);
-
-      // Wire signal path: oscillators -> filter -> gain -> speakers
-      osc1.connect(filter);
-      osc2.connect(filter);
-      filter.connect(gain);
-      gain.connect(ctx.destination);
-
-      // Start oscillators
-      osc1.start();
-      osc2.start();
-      lfo.start();
-
-      synthNodesRef.current = { ctx, osc1, osc2, lfo, gain };
-    } catch (e) {
-      console.warn("Failed to initialize synth loop:", e);
+  // Initialize standard HTML5 Audio element for maximum cross-device compatibility
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const audio = new Audio("/audio/cyberpunk_theme.mp3");
+      audio.loop = true;
+      audio.volume = 0.20; // Soft volume for background ambience
+      audioRef.current = audio;
     }
-  }, []);
-
-  const stopSynthLoop = useCallback(() => {
-    if (!synthNodesRef.current) return;
-    try {
-      synthNodesRef.current.osc1.stop();
-      synthNodesRef.current.osc2.stop();
-      synthNodesRef.current.lfo.stop();
-      synthNodesRef.current.ctx.close();
-    } catch (e) {}
-    synthNodesRef.current = null;
+    return () => {
+      if (audioRef.current) {
+        audioRef.current.pause();
+        audioRef.current = null;
+      }
+    };
   }, []);
 
   const toggleAudio = useCallback(() => {
     setIsAudioEnabled((prev) => {
       const next = !prev;
       sessionStorage.setItem("audioEnabled", next ? "true" : "false");
-      if (next) {
-        startSynthLoop();
-      } else {
-        stopSynthLoop();
+      
+      if (audioRef.current) {
+        if (next) {
+          // Play synchronously inside the user click thread to satisfy iOS/Safari user gesture policies
+          audioRef.current.play().catch((err) => {
+            console.warn("Audio playback failed (check if silent switch is on or file exists):", err);
+          });
+        } else {
+          audioRef.current.pause();
+        }
       }
       return next;
     });
-  }, [startSynthLoop, stopSynthLoop]);
+  }, []);
 
   // Globally mute transient sound effects (clicks, glitches, typing) to avoid client annoyance
   const playClick = useCallback(() => {}, []);
