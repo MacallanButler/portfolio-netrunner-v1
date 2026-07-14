@@ -38,43 +38,42 @@ const OVERVIEW_PILLARS = [
 const ONE_TIME_TIERS = [
   {
     name: "STARTER",
-    price: "$300–$500",
+    price: "$1,200–$1,800",
     tag: "Simple presence",
     description: "You need to exist online. Clean, fast, and professional — a place to send people.",
     features: [
-      "Up to 4 pages",
+      "Up to 4 standard pages (Home, About, Services, Contact — additional or highly custom pages quoted separately)",
       "Contact form",
       "Mobile friendly",
       "Basic SEO setup",
       "Domain connected",
       "1 round of revisions",
-      "Gallery or portfolio",
-      "Booking integration",
     ],
+    note: "Not included: gallery/portfolio, booking integration — available as add-ons",
   },
   {
     name: "STANDARD",
-    price: "$500–$800",
+    price: "$2,000–$3,200",
     tag: "Polished marketing",
     description: "Best fit for most small businesses. Built to convert visitors, not just look credible.",
     features: [
-      "Everything in starter",
-      "Up to 6 pages",
+      "Everything in Starter",
+      "Up to 6 standard pages",
       "Gallery or portfolio section",
       "Testimonials section",
       "Booking link embedded",
-      "Google Analytics",
+      "Google Analytics setup",
       "2 rounds of revisions",
     ],
     highlight: true,
   },
   {
     name: "CUSTOM",
-    price: "$800+",
+    price: "$3,500+",
     tag: "Custom build",
     description: "You have specific functionality needs. Quoted after discovery — no surprises.",
     features: [
-      "Everything in standard",
+      "Everything in Standard",
       "Online booking or payments",
       "CMS — edit content yourself",
       "Email automations",
@@ -348,6 +347,11 @@ export default function ServicesClient() {
                     </li>
                   ))}
                 </ul>
+                {tier.note && (
+                  <p className="text-[10px] font-mono text-text-muted/60 italic mt-3 pt-2 border-t border-white/5">
+                    * {tier.note}
+                  </p>
+                )}
               </div>
               <Link href="/comms" className="w-full">
                 <NeonButton variant={tier.highlight ? "primary" : "secondary"} className="w-full text-xs">
