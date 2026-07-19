@@ -7,6 +7,8 @@ import { useProjectModal } from "@/context/ProjectModalContext";
 import { SystemBadge } from "@/components/core/SystemBadge";
 import { GlitchText } from "@/components/core/GlitchText";
 import { getTechColor } from "@/lib/techColors";
+import { cn } from "@/lib/utils";
+import { trackExternalLinkClick } from "@/lib/analytics";
 import { useAudio } from "@/context/AudioContext";
 
 const PREVIEW_MAP: Record<string, string> = {
@@ -81,6 +83,7 @@ export function ProjectModal() {
               <div className="flex items-center gap-4 font-mono text-[10px] text-text-muted">
                 {activeProject?.repoUrl && (
                   <a href={activeProject.repoUrl} target="_blank" rel="noopener noreferrer"
+                    onClick={() => trackExternalLinkClick(activeProject.repoUrl!)}
                     className="hover:text-neon-cyan transition-colors tracking-widest uppercase">
                     [ SOURCE ]
                   </a>
@@ -215,6 +218,7 @@ export function ProjectModal() {
                     href={activeProject.liveUrl}
                     target="_blank"
                     rel="noopener noreferrer"
+                    onClick={() => trackExternalLinkClick(activeProject.liveUrl!)}
                     className="mt-4 lg:mt-auto flex items-center justify-center gap-3 w-full px-4 py-3 border border-neon-cyan text-neon-cyan font-mono text-xs tracking-widest uppercase transition-all duration-200 hover:bg-neon-cyan/10 hover:shadow-[0_0_20px_rgba(0,255,0,0.2)] group flex-shrink-0"
                   >
                     <span>LAUNCH SITE</span>

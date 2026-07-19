@@ -26,9 +26,12 @@ export async function POST(request: Request) {
         }
 
         // Real send
+        const fromEmail = process.env.RESEND_FROM_EMAIL || 'Macallan Butler <macallan@macallanbutler.com>';
+        const toEmail = process.env.RESEND_TO_EMAIL || 'macallan@macallanbutler.com';
+
         const { data, error } = await resend.emails.send({
-            from: 'Macallan Butler <macallan@macallanbutler.com>', // Update with verify domain in prod
-            to: ['macallan@macallanbutler.com'], // Update to real email in prod
+            from: fromEmail,
+            to: [toEmail],
             subject: `New Transmission from ${name}`,
             text: `Name: ${name}\nEmail: ${email}\nMessage: ${message}`,
             replyTo: email,

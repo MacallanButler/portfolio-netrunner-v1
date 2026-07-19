@@ -191,7 +191,7 @@ export default function ProcessClient() {
       </div>
 
       {/* CTA */}
-      <SecureCTA />
+      <SecureCTA location="process" />
     </div>
   );
 }

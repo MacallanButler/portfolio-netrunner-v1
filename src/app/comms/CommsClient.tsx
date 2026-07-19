@@ -5,9 +5,12 @@ import { HoloCard } from "@/components/core/HoloCard";
 import { GlitchText } from "@/components/core/GlitchText";
 import { NeonButton } from "@/components/core/NeonButton";
 import { cn } from "@/lib/utils";
+import { useSearchParams } from "next/navigation";
 import { trackContactSubmit } from "@/lib/analytics";
 
 export default function CommsClient() {
+    const searchParams = useSearchParams();
+    const packageInterest = searchParams.get("package") ?? "none";
     const [formData, setFormData] = useState({
         name: "",
         email: "",
@@ -38,12 +41,13 @@ export default function CommsClient() {
                 addToLog("STATUS: 200 OK");
                 setStatus("SUCCESS");
                 setFormData({ name: "", email: "", message: "" });
-                trackContactSubmit("email");
+                trackContactSubmit("email", packageInterest);
             } else {
-                throw new Error("Server rejected connection");
+                const data = await res.json().catch(() => ({}));
+                throw new Error(data.error || "Server rejected connection");
             }
-        } catch (error) {
-            addToLog("ERROR: DELIVERY_FAILED");
+        } catch (error: any) {
+            addToLog(`ERROR: ${error.message || "DELIVERY_FAILED"}`);
             setStatus("ERROR");
         }
     };

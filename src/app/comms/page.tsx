@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import CommsClient from "./CommsClient";
 
 export const metadata: Metadata = {
@@ -10,5 +11,13 @@ export const metadata: Metadata = {
 };
 
 export default function CommsPage() {
-  return <CommsClient />;
+  return (
+    <Suspense fallback={
+      <div className="flex items-center justify-center min-h-[50vh] font-mono text-xs text-text-muted">
+        LOADING_SECURE_CHANNEL...
+      </div>
+    }>
+      <CommsClient />
+    </Suspense>
+  );
 }

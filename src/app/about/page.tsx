@@ -49,7 +49,7 @@ export default function AboutPage() {
       </div>
 
       {/* CTA */}
-      <SecureCTA />
+      <SecureCTA location="about" />
     </div>
   );
 }

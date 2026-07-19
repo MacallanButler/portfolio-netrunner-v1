@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { GlitchText } from "@/components/core/GlitchText";
 import { NeonButton } from "@/components/core/NeonButton";
+import { trackPricingCtaClick } from "@/lib/analytics";
 
 const BOOT_LOGS = [
   "INITIALIZING_SYSTEM...",
@@ -67,20 +68,29 @@ export default function BootSequence() {
             transition={{ duration: 0.5 }}
             className="text-center space-y-8"
           >
-            <div className="space-y-3">
+            <div className="space-y-4">
               <div className="text-5xl md:text-7xl font-bold tracking-tighter text-white">
                 <GlitchText text="MACALLAN_BUTLER" />
               </div>
               <h2 className="text-text-muted font-mono text-sm md:text-base font-normal">
                 Full-Stack Developer
               </h2>
+              <h3 className="text-xs md:text-sm font-mono text-text-muted max-w-md mx-auto leading-relaxed">
+                System status: <span className="text-neon-cyan animate-pulse">open to freelance clients and full-time teams</span>. Explore the archive below.
+              </h3>
             </div>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <NeonButton variant="primary" onClick={() => router.push("/gigs")}>
-                View Projects
+                View Archive
               </NeonButton>
-              <NeonButton variant="secondary" onClick={() => router.push("/comms")}>
+              <NeonButton
+                variant="secondary"
+                onClick={() => {
+                  trackPricingCtaClick("hero");
+                  router.push("/comms");
+                }}
+              >
                 Contact
               </NeonButton>
             </div>

@@ -17,10 +17,10 @@ import {
 } from "lucide-react";
 import { GlitchText } from "@/components/core/GlitchText";
 import { useAudio } from "@/context/AudioContext";
-import { trackAudioToggle } from "@/lib/analytics";
+import { trackAudioToggle, trackNavClick, trackEmailClick } from "@/lib/analytics";
 
 const NAVIGATION = [
-    { name: "PROJECTS", path: "/gigs", icon: FolderKanban },
+    { name: "ARCHIVE", path: "/gigs", icon: FolderKanban },
     { name: "SERVICES", path: "/services", icon: LayoutTemplate },
     { name: "ABOUT", path: "/about", icon: User },
     { name: "PROCESS", path: "/design-system", icon: Workflow },
@@ -112,6 +112,7 @@ export function Sidebar() {
                                     onClick={() => {
                                         setIsOpen(false);
                                         playClick();
+                                        trackNavClick(item.name.toLowerCase());
                                     }}
                                 >
                                     <Icon size={18} className={cn("transition-colors", isActive ? "text-neon-cyan" : "text-text-muted group-hover:text-text-primary")} />
@@ -166,6 +167,17 @@ export function Sidebar() {
                                 >
                                     {isAudioEnabled ? "[ ON ]" : "[ MUTE ]"}
                                 </button>
+                            </div>
+
+                            <div className="flex items-center justify-between text-[10px] text-text-muted uppercase tracking-widest pt-2">
+                                <span>Email:</span>
+                                <a 
+                                    href="mailto:macallan@macallanbutler.com"
+                                    onClick={() => trackEmailClick("sidebar")}
+                                    className="text-white hover:text-neon-cyan transition-colors"
+                                >
+                                    [ SEND ]
+                                </a>
                             </div>
                         </div>
                     </div>

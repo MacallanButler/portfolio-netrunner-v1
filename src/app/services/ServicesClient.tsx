@@ -1,6 +1,8 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { usePathname } from "next/navigation";
+import { trackTierInquireClick, trackScrollDepth, trackEmailClick } from "@/lib/analytics";
 import { motion, AnimatePresence } from "framer-motion";
 import { HoloCard } from "@/components/core/HoloCard";
 import { GlitchText } from "@/components/core/GlitchText";
@@ -230,6 +232,25 @@ export default function ServicesClient() {
   const { playClick } = useAudio();
   const [openDetails, setOpenDetails] = useState<Record<string, boolean>>({});
   const [openFaq, setOpenFaq] = useState<Record<number, boolean>>({});
+  const pathname = usePathname();
+
+  useEffect(() => {
+    let fired = false;
+    const handleScroll = () => {
+      if (fired) return;
+      const scrollTop = window.scrollY || document.documentElement.scrollTop;
+      const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      if (scrollHeight <= 0) return;
+      const scrollPercent = (scrollTop / scrollHeight) * 100;
+      if (scrollPercent >= 75) {
+        fired = true;
+        trackScrollDepth(pathname, 75);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [pathname]);
 
   const toggleDetail = (key: string) => {
     playClick();
@@ -353,7 +374,11 @@ export default function ServicesClient() {
                   </p>
                 )}
               </div>
-              <Link href="/comms" className="w-full">
+              <Link
+                href={`/comms?package=${tier.name.toLowerCase()}`}
+                className="w-full"
+                onClick={() => trackTierInquireClick(tier.name.toLowerCase())}
+              >
                 <NeonButton variant={tier.highlight ? "primary" : "secondary"} className="w-full text-xs">
                   Inquire Package
                 </NeonButton>
@@ -430,7 +455,11 @@ export default function ServicesClient() {
                   ))}
                 </ul>
               </div>
-              <Link href="/comms" className="w-full">
+              <Link
+                href={`/comms?package=${tier.name.toLowerCase()}`}
+                className="w-full"
+                onClick={() => trackTierInquireClick(tier.name.toLowerCase())}
+              >
                 <NeonButton variant={tier.highlight ? "primary" : "secondary"} className="w-full text-xs">
                   Subscribe Plan
                 </NeonButton>
@@ -605,9 +634,21 @@ export default function ServicesClient() {
       {/* ── FINAL CTA ── */}
       <SecureCTA
         title="Ready to get started?"
-        description="Ready to get started? macallan@macallanbutler.com"
+        description={
+          <span>
+            Ready to get started?{" "}
+            <a
+              href="mailto:macallan@macallanbutler.com"
+              onClick={() => trackEmailClick("footer")}
+              className="text-white hover:text-neon-cyan underline transition-colors font-semibold"
+            >
+              macallan@macallanbutler.com
+            </a>
+          </span>
+        }
         buttonText="Get in touch"
         hideOnMobile={false}
+        location="services"
       />
     </div>
   );

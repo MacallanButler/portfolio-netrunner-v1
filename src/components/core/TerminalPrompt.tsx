@@ -3,7 +3,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { cn } from "@/lib/utils";
 import { useAudio } from "@/context/AudioContext";
-import { trackTerminalCommand } from "@/lib/analytics";
+import { trackTerminalCommand, trackExternalLinkClick, trackEmailClick } from "@/lib/analytics";
 import projectsData from "@/data/projects.json";
 
 interface TerminalPromptProps {
@@ -135,7 +135,7 @@ export function TerminalPrompt({
                 response = (
                     <div className="space-y-1 text-xs text-text-muted">
                         <p>COMMUNICATION LINK SETTINGS:</p>
-                        <p>• Email: <a href="mailto:macallan@butler.dev" className="text-neon-cyan hover:underline">macallan@butler.dev</a></p>
+                        <p>• Email: <a href="mailto:macallan@macallanbutler.com" onClick={() => trackEmailClick("terminal")} className="text-neon-cyan hover:underline">macallan@macallanbutler.com</a></p>
                         <p>• Form: Visit the <span className="text-neon-cyan">Contact</span> tab in the sidebar</p>
                         <p>• Net: Type <span className="text-neon-cyan">linkedin</span> or <span className="text-neon-cyan">github</span> to launch links</p>
                     </div>
@@ -144,12 +144,14 @@ export function TerminalPrompt({
             case "github":
                 response = <p className="text-xs text-text-muted">Opening GitHub repository profile...</p>;
                 if (typeof window !== "undefined") {
+                    trackExternalLinkClick("https://github.com/MacallanButler");
                     window.open("https://github.com/MacallanButler", "_blank");
                 }
                 break;
             case "linkedin":
                 response = <p className="text-xs text-text-muted">Opening LinkedIn network card...</p>;
                 if (typeof window !== "undefined") {
+                    trackExternalLinkClick("https://linkedin.com");
                     window.open("https://linkedin.com", "_blank");
                 }
                 break;
