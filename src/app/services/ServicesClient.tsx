@@ -15,6 +15,7 @@ import { useAudio } from "@/context/AudioContext";
 import { cn } from "@/lib/utils";
 import { Check, ChevronDown, ChevronUp, Cpu, ShieldCheck, X, Zap } from "lucide-react";
 import Link from "next/link";
+import { SiteGradeModule } from "@/components/core/SiteGradeModule";
 
 const OVERVIEW_PILLARS = [
   {
@@ -317,6 +318,11 @@ export default function ServicesClient() {
             See the full process &rarr;
           </Link>
         </div>
+      </section>
+
+      {/* ── SITEGRADE PANEL ── */}
+      <section className="pt-6 border-t border-white/10">
+        <SiteGradeModule variant="services" />
       </section>
 
       {/* ── ONE-TIME BUILDS (FIRST AGAIN!) ── */}

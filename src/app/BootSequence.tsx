@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { GlitchText } from "@/components/core/GlitchText";
 import { NeonButton } from "@/components/core/NeonButton";
 import { trackPricingCtaClick } from "@/lib/analytics";
+import { SiteGradeModule } from "@/components/core/SiteGradeModule";
 
 const BOOT_LOGS = [
   "INITIALIZING_SYSTEM...",
@@ -93,6 +94,10 @@ export default function BootSequence() {
               >
                 Contact
               </NeonButton>
+            </div>
+
+            <div className="w-full pt-4 text-left">
+              <SiteGradeModule variant="homepage" />
             </div>
           </motion.div>
         )}
