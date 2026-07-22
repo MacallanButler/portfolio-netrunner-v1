@@ -206,13 +206,13 @@ export default function SiteGradePage() {
               <h1 style={{ fontSize: "2.5rem", lineHeight: "1.1", marginBottom: "15px" }}>
                 What's your site actually scoring?
               </h1>
-              <p style={{ fontSize: "1.1rem", marginBottom: "30px", fontWeight: "600", color: "#333" }}>
+              <p style={{ fontSize: "1.1rem", marginBottom: "30px", fontWeight: "600", color: "var(--text-muted)" }}>
                 Enter your URL below to run an instant technical, SEO, accessibility, and copywriting grade card audit.
               </p>
 
               <form onSubmit={handleUrlSubmit} style={{ display: "flex", flexDirection: "column", gap: "15px" }}>
                 <div style={{ display: "flex", flexDirection: "column", width: "100%" }}>
-                  <div style={{ display: "flex", width: "100%", gap: "0", flexWrap: "wrap" }}>
+                  <div style={{ display: "flex", width: "100%", gap: "0", flexWrap: "wrap", alignItems: "stretch" }}>
                     <input
                       type="text"
                       className={styles.nbInput}
@@ -221,32 +221,35 @@ export default function SiteGradePage() {
                       onChange={(e) => setUrlInput(e.target.value)}
                       style={{ flex: "1 1 60%", minWidth: "250px" }}
                     />
-                    <button
-                      type="submit"
-                      className={styles.nbBtn}
-                      style={{ flex: "1 1 40%" }}
-                    >
-                      Grade My Site
-                    </button>
+                    <div className={styles.btnGlowWrapper} style={{ flex: "1 1 40%" }}>
+                      <div className={styles.btnGlowOffset} />
+                      <button
+                        type="submit"
+                        className={styles.nbBtnGlow}
+                        style={{ width: "100%", height: "100%" }}
+                      >
+                        Grade My Site
+                      </button>
+                    </div>
                   </div>
-                  <span style={{ fontSize: "0.85rem", marginTop: "10px", fontWeight: "600", color: "#666" }}>
+                  <span style={{ fontSize: "0.85rem", marginTop: "10px", fontWeight: "600", color: "var(--text-muted)" }}>
                     Takes about 30 seconds. No signup required to see your grade.
                   </span>
                 </div>
               </form>
 
               {errorMessage && (
-                <div style={{ marginTop: "20px", color: "var(--grade-d-f)", fontWeight: "800", border: "2px solid var(--grade-d-f)", padding: "10px", backgroundColor: "#FDE8E8" }}>
+                <div className={styles.errorBlock}>
                   ⚠️ ERROR: {errorMessage}
                 </div>
               )}
 
               {/* Pill Trust chips */}
               <div style={{ display: "flex", flexWrap: "wrap", gap: "10px", marginTop: "40px" }}>
-                <span className={styles.monoText} style={{ padding: "5px 12px", border: "2px solid #111" }}>Performance</span>
-                <span className={styles.monoText} style={{ padding: "5px 12px", border: "2px solid #111" }}>Accessibility</span>
-                <span className={styles.monoText} style={{ padding: "5px 12px", border: "2px solid #111" }}>Technical SEO</span>
-                <span className={styles.monoText} style={{ padding: "5px 12px", border: "2px solid #111" }}>Structured Data</span>
+                <span className={styles.trustChip}>Performance</span>
+                <span className={styles.trustChip}>Accessibility</span>
+                <span className={styles.trustChip}>Technical SEO</span>
+                <span className={styles.trustChip}>Structured Data</span>
               </div>
             </div>
           )}
@@ -254,9 +257,12 @@ export default function SiteGradePage() {
           {/* LOADING STATE */}
           {appState === "loading" && (
             <div className={`${styles.nbBlock} ${styles.loadingBorder}`} style={{ padding: "50px 30px", textAlign: "center" }}>
-              {/* Neubrutalist Outlined grade box animation */}
-              <div className={`${styles.gradeStamp} ${styles.loadingBorder}`} style={{ fontSize: "4.5rem", width: "8rem", height: "8rem", marginBottom: "30px" }}>
-                ?
+              {/* Neubrutalist Outlined grade box animation with Hard Glow */}
+              <div className={styles.gradeStampWrapper}>
+                <div className={`${styles.gradeStampOffset} ${styles.loadingBorder}`} />
+                <div className={`${styles.gradeStamp} ${styles.loadingBorder}`} style={{ fontSize: "4.5rem", backgroundColor: "#111111", color: "var(--text-color)" }}>
+                  ?
+                </div>
               </div>
               
               <h2 style={{ fontSize: "1.5rem", marginBottom: "10px" }}>
@@ -267,7 +273,7 @@ export default function SiteGradePage() {
                 {statusPhase}
               </div>
               
-              <p style={{ marginTop: "20px", fontSize: "0.9rem", color: "#555" }}>
+              <p style={{ marginTop: "20px", fontSize: "0.9rem", color: "var(--text-muted)" }}>
                 Fetching network layers, assessing accessibility tags, and compiling metrics. Please stand by.
               </p>
             </div>
@@ -277,38 +283,42 @@ export default function SiteGradePage() {
           {(appState === "teaser" || appState === "capturing") && teaserData && (
             <div className={styles.nbBlock} style={{ padding: "40px 30px" }}>
               <div style={{ textAlign: "center", marginBottom: "30px" }}>
-                <div className={styles.monoText} style={{ color: "#666", marginBottom: "5px" }}>
+                <div className={styles.monoText} style={{ color: "var(--text-muted)", marginBottom: "5px" }}>
                   AUDITED DOMAIN: {auditDomain.toUpperCase()}
                 </div>
                 
-                <div className={`${styles.gradeStamp} ${getGradeClass(teaserData.grade)}`} style={{ marginBottom: "20px" }}>
-                  {teaserData.grade}
+                {/* Overall Grade Stamp with Hard Glow */}
+                <div className={styles.gradeStampWrapper}>
+                  <div className={styles.gradeStampOffset} />
+                  <div className={`${styles.gradeStamp} ${getGradeClass(teaserData.grade)}`}>
+                    {teaserData.grade}
+                  </div>
                 </div>
 
-                <div className={styles.monoText} style={{ fontSize: "1.2rem", fontWeight: "800" }}>
+                <div className={styles.monoText} style={{ fontSize: "1.2rem", fontWeight: "800", color: "var(--text-color)" }}>
                   OVERALL GRADE
                 </div>
               </div>
 
               {/* Headline category score block */}
-              <div style={{ border: "3px solid #111", padding: "15px", display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "30px", backgroundColor: "#FAF6ED" }}>
+              <div className={styles.categoryScoreBlock}>
                 <div>
-                  <h3 style={{ fontSize: "1.1rem", marginBottom: "2px" }}>{teaserData.headline_category} Score</h3>
-                  <p style={{ fontSize: "0.85rem", color: "#666" }}>Initial automated speed metrics readout.</p>
+                  <h3 className={styles.categoryScoreTitle}>{teaserData.headline_category} Score</h3>
+                  <p className={styles.categoryScoreSub}>Initial automated speed metrics readout.</p>
                 </div>
-                <div style={{ fontSize: "1.8rem", fontWeight: "900", fontFamily: "monospace" }}>
+                <div className={styles.categoryScoreValue}>
                   {teaserData.headline_score}/100
                 </div>
               </div>
 
-              <p style={{ fontSize: "0.95rem", marginBottom: "25px", fontWeight: "600", textAlign: "center", color: "#111" }}>
+              <p style={{ fontSize: "0.95rem", marginBottom: "25px", fontWeight: "600", textAlign: "center", color: "var(--text-color)" }}>
                 🔍 This is a partial teaser. Your full report covers 7 categories, including structured data, local readiness, and AI-assisted copywriting recommendations.
               </p>
 
               {/* Email gate form */}
               <form onSubmit={handleEmailSubmit} style={{ display: "flex", flexDirection: "column", gap: "15px" }}>
                 <div style={{ display: "flex", flexDirection: "column", gap: "5px" }}>
-                  <label htmlFor="email" className={styles.monoText} style={{ fontWeight: "800" }}>
+                  <label htmlFor="email" className={styles.monoText} style={{ fontWeight: "800", color: "var(--text-color)" }}>
                     Get your full report card:
                   </label>
                   <input
@@ -323,17 +333,20 @@ export default function SiteGradePage() {
                   />
                 </div>
 
-                <button
-                  type="submit"
-                  className={styles.nbBtn}
-                  disabled={isSubmittingEmail}
-                >
-                  {isSubmittingEmail ? "Generating Report..." : "Send My Full Report"}
-                </button>
+                <div className={styles.btnGlowWrapper}>
+                  <div className={styles.btnGlowOffset} />
+                  <button
+                    type="submit"
+                    className={styles.nbBtnGlow}
+                    disabled={isSubmittingEmail}
+                  >
+                    {isSubmittingEmail ? "Generating Report..." : "Send My Full Report"}
+                  </button>
+                </div>
               </form>
 
               {errorMessage && (
-                <div style={{ marginTop: "20px", color: "var(--grade-d-f)", fontWeight: "800", border: "2px solid var(--grade-d-f)", padding: "10px", backgroundColor: "#FDE8E8" }}>
+                <div className={styles.errorBlock}>
                   ⚠️ ERROR: {errorMessage}
                 </div>
               )}
@@ -349,19 +362,22 @@ export default function SiteGradePage() {
               <h2 style={{ fontSize: "2rem", marginBottom: "15px" }}>
                 REPORT DELIVERED!
               </h2>
-              <p style={{ fontSize: "1.1rem", marginBottom: "30px", fontWeight: "600" }}>
+              <p style={{ fontSize: "1.1rem", marginBottom: "30px", fontWeight: "600", color: "var(--text-color)" }}>
                 Your comprehensive PDF report has been generated.
               </p>
 
-              <a
-                href={downloadUrl}
-                className={styles.nbBtn}
-                style={{ width: "100%", marginBottom: "15px" }}
-              >
-                Download PDF
-              </a>
+              <div className={styles.btnGlowWrapper} style={{ marginBottom: "15px" }}>
+                <div className={styles.btnGlowOffset} />
+                <a
+                  href={downloadUrl}
+                  className={styles.nbBtnGlow}
+                  style={{ width: "100%", display: "block" }}
+                >
+                  Download PDF
+                </a>
+              </div>
 
-              <span className={styles.monoText} style={{ color: "#666" }}>
+              <span className={styles.monoText} style={{ color: "var(--text-muted)" }}>
                 Also sent a copy to {emailInput}.
               </span>
               
@@ -375,8 +391,7 @@ export default function SiteGradePage() {
                     setAuditId("");
                     setIsSubmittingEmail(false);
                   }}
-                  className={styles.nbBtn}
-                  style={{ background: "#FFFFFF", color: "#111", padding: "8px 20px", fontSize: "0.9rem" }}
+                  className={styles.nbBtnSecondary}
                 >
                   Audit Another Site
                 </button>
@@ -388,8 +403,8 @@ export default function SiteGradePage() {
       </main>
 
       {/* Persistent Footer */}
-      <footer style={{ padding: "20px", borderTop: "3px solid #111", textAlign: "center", backgroundColor: "#FFFFFF" }}>
-        <p className={styles.monoText} style={{ fontSize: "0.8rem", color: "#555" }}>
+      <footer style={{ padding: "20px", borderTop: "3px solid var(--border-color)", textAlign: "center", backgroundColor: "transparent" }}>
+        <p className={styles.monoText} style={{ fontSize: "0.85rem", color: "var(--text-muted)" }}>
           SiteGrade is a lead generation tool powered by <a href="https://macallanbutler.com" style={{ color: "var(--accent-color)", fontWeight: "800", textDecoration: "none" }}>macallanbutler.com</a>.
         </p>
       </footer>

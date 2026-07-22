@@ -1,27 +1,27 @@
-/* Scoped Neubrutalist Styles for SiteGrade */
+/* Scoped Neubrutalist Styles for SiteGrade — Cyberpunk/Dark/Neon Theme */
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800;900&family=Share+Tech+Mono&display=swap');
 
 .wrapper {
-  --bg-color: #F5F1E8;
-  --text-color: #111111;
-  --border-color: #111111;
+  --bg-color: #0D0D0D;
+  --text-color: #E0E0E0;
+  --border-color: #00FF00; /* Neon Cyan/Green */
   --border-width: 3px;
   
-  /* Brand Accent Blue */
-  --accent-color: #2F60FF;
-  --accent-hover: #1E4ED8;
+  /* Brand Accent Neon (CTA color matching main site) */
+  --accent-color: #00FF00;
+  --accent-hover: #33FF33;
   
-  /* Grade Colors */
-  --grade-a: #2ecc71;
-  --grade-b: #f1c40f;
-  --grade-c: #e67e22;
-  --grade-d-f: #e74c3c;
+  /* Grade Colors - Saturated Neon */
+  --grade-a: #00FF00;   /* Saturated Neon Green */
+  --grade-b: #FFFF00;   /* Saturated Neon Yellow/Gold */
+  --grade-c: #FF6600;   /* Saturated Neon Burnt Orange */
+  --grade-d-f: #FF003C; /* Saturated Neon Red */
   
-  /* Severity Colors */
-  --sev-high: #e74c3c;
-  --sev-medium: #e67e22;
-  --sev-low: #f1c40f;
-  --sev-info: #3498db;
+  /* Severity Colors (matching grade-band neon logic) */
+  --sev-high: #FF003C;
+  --sev-medium: #FF6600;
+  --sev-low: #FFFF00;
+  --sev-info: #00FF00;
 
   background-color: var(--bg-color);
   color: var(--text-color);
@@ -41,7 +41,7 @@
 
 /* Neubrutalist Card Blocks */
 .nbBlock {
-  background-color: #FFFFFF;
+  background-color: #111111; /* Dark Card base */
   border: var(--border-width) solid var(--border-color);
   box-shadow: 6px 6px 0px 0px var(--border-color);
   padding: 1.5rem;
@@ -52,7 +52,7 @@
   font-weight: 900;
   letter-spacing: -0.02em;
   text-transform: uppercase;
-  color: var(--text-color);
+  color: #FFFFFF;
   margin-top: 0;
 }
 
@@ -63,7 +63,7 @@
   text-transform: uppercase;
 }
 
-/* Inputs & Buttons */
+/* Inputs */
 .nbInput {
   width: 100%;
   padding: 1rem;
@@ -71,7 +71,7 @@
   font-family: inherit;
   font-weight: 600;
   border: var(--border-width) solid var(--border-color);
-  background-color: #FFFFFF;
+  background-color: #0D0D0D;
   color: var(--text-color);
   outline: none;
 }
@@ -81,6 +81,13 @@
   box-shadow: 4px 4px 0px 0px var(--border-color);
 }
 
+.nbInput:disabled {
+  background-color: #222222;
+  color: #666666;
+  border-color: var(--text-muted);
+}
+
+/* Standard Buttons (without Glow) */
 .nbBtn {
   display: inline-block;
   text-align: center;
@@ -90,7 +97,7 @@
   text-transform: uppercase;
   text-decoration: none;
   background-color: var(--accent-color);
-  color: #FFFFFF;
+  color: #0D0D0D; /* High contrast black text on neon green */
   border: var(--border-width) solid var(--border-color);
   box-shadow: 4px 4px 0px 0px var(--border-color);
   cursor: pointer;
@@ -109,15 +116,121 @@
 }
 
 .nbBtn:disabled {
-  background-color: #CCCCCC;
-  color: #666666;
+  background-color: #333333;
+  color: #777777;
+  border-color: #555555;
   cursor: not-allowed;
   transform: none;
-  box-shadow: 2px 2px 0px 0px var(--border-color);
+  box-shadow: 2px 2px 0px 0px #555555;
 }
 
-/* Grade stamp styles */
+/* Secondary Button style */
+.nbBtnSecondary {
+  display: inline-block;
+  text-align: center;
+  padding: 8px 20px;
+  font-size: 0.9rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  text-decoration: none;
+  background-color: transparent;
+  color: var(--text-color);
+  border: 2px solid var(--text-color);
+  cursor: pointer;
+  transition: all 0.1s ease;
+}
+
+.nbBtnSecondary:hover {
+  background-color: rgba(255, 255, 255, 0.08);
+  border-color: var(--accent-color);
+  color: var(--accent-color);
+}
+
+/* Hard Glow Button Components */
+.btnGlowWrapper {
+  position: relative;
+  display: flex;
+  width: 100%;
+}
+
+.btnGlowOffset {
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  width: 100%;
+  height: 100%;
+  border: var(--border-width) solid var(--grade-d-f); /* Secondary neon (Red) */
+  background-color: var(--grade-d-f);
+  z-index: 1;
+  pointer-events: none;
+}
+
+.nbBtnGlow {
+  position: relative;
+  z-index: 2;
+  flex: 1;
+  text-align: center;
+  padding: 1rem 2rem;
+  font-size: 1.1rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  background-color: var(--accent-color);
+  color: #0D0D0D;
+  border: var(--border-width) solid var(--border-color);
+  cursor: pointer;
+  transition: transform 0.1s ease;
+}
+
+.nbBtnGlow:hover {
+  transform: translate(-2px, -2px);
+}
+
+.nbBtnGlow:active {
+  transform: translate(4px, 4px);
+}
+
+.nbBtnGlow:disabled {
+  background-color: #333333;
+  color: #777777;
+  border-color: #555555;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Grade Stamp Hard Glow Structure */
+.gradeStampWrapper {
+  position: relative;
+  width: 9rem;
+  height: 9rem;
+  margin: 0 auto 20px auto;
+  --glow-color: var(--grade-d-f); /* Default secondary neon glow */
+}
+
+/* Custom dynamic glow mapping based on grade stamp type */
+.gradeStampWrapper:has(.gradeStampA),
+.gradeStampWrapper:has(.gradeStampB) {
+  --glow-color: var(--grade-d-f); /* Red offset behind green/yellow */
+}
+
+.gradeStampWrapper:has(.gradeStampC),
+.gradeStampWrapper:has(.gradeStampDF) {
+  --glow-color: var(--grade-a); /* Green offset behind orange/red */
+}
+
+.gradeStampOffset {
+  position: absolute;
+  top: 6px;
+  left: 6px;
+  width: 100%;
+  height: 100%;
+  border: 4px solid var(--glow-color);
+  background-color: var(--glow-color);
+  z-index: 1;
+}
+
 .gradeStamp {
+  position: relative;
+  z-index: 2;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -125,12 +238,10 @@
   font-weight: 900;
   font-size: 6rem;
   line-height: 1;
-  width: 9rem;
-  height: 9rem;
+  width: 100%;
+  height: 100%;
   border: 4px solid var(--border-color);
-  margin: 0 auto;
-  text-shadow: 2px 2px 0 var(--border-color);
-  box-shadow: 5px 5px 0 0 var(--border-color);
+  color: #0D0D0D; /* High contrast dark text in filled stamp */
 }
 
 .gradeStampA { background-color: var(--grade-a); }
@@ -138,10 +249,64 @@
 .gradeStampC { background-color: var(--grade-c); }
 .gradeStampDF { background-color: var(--grade-d-f); }
 
+/* Category Score Block */
+.categoryScoreBlock {
+  background-color: #111111;
+  border: var(--border-width) solid var(--border-color);
+  padding: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.categoryScoreTitle {
+  font-size: 1.1rem;
+  font-weight: 800;
+  margin-bottom: 2px;
+  color: #FFFFFF;
+}
+
+.categoryScoreSub {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.85rem;
+  color: #999999;
+  margin: 0;
+}
+
+.categoryScoreValue {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 1.8rem;
+  font-weight: 900;
+  color: var(--accent-color);
+}
+
+/* Trust Chip */
+.trustChip {
+  font-family: 'Share Tech Mono', monospace;
+  padding: 5px 12px;
+  border: 2px solid var(--border-color);
+  color: var(--text-color);
+  background-color: transparent;
+  font-size: 0.85rem;
+  font-weight: 800;
+}
+
+/* Error Block */
+.errorBlock {
+  margin-top: 20px;
+  color: var(--grade-d-f);
+  font-weight: 800;
+  font-family: 'Share Tech Mono', monospace;
+  border: 2px solid var(--grade-d-f);
+  padding: 10px;
+  background-color: #1a080a;
+}
+
 /* Animations */
 @keyframes pulseBorder {
   0% { border-color: var(--border-color); }
-  50% { border-color: var(--accent-color); }
+  50% { border-color: var(--grade-d-f); }
   100% { border-color: var(--border-color); }
 }
 
