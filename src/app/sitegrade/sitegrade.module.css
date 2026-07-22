@@ -1,0 +1,150 @@
+/* Scoped Neubrutalist Styles for SiteGrade */
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800;900&family=Share+Tech+Mono&display=swap');
+
+.wrapper {
+  --bg-color: #F5F1E8;
+  --text-color: #111111;
+  --border-color: #111111;
+  --border-width: 3px;
+  
+  /* Brand Accent Blue */
+  --accent-color: #2F60FF;
+  --accent-hover: #1E4ED8;
+  
+  /* Grade Colors */
+  --grade-a: #2ecc71;
+  --grade-b: #f1c40f;
+  --grade-c: #e67e22;
+  --grade-d-f: #e74c3c;
+  
+  /* Severity Colors */
+  --sev-high: #e74c3c;
+  --sev-medium: #e67e22;
+  --sev-low: #f1c40f;
+  --sev-info: #3498db;
+
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  font-family: 'Outfit', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  min-height: 100vh;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+}
+
+.wrapper * {
+  box-sizing: border-box;
+}
+
+/* Neubrutalist Card Blocks */
+.nbBlock {
+  background-color: #FFFFFF;
+  border: var(--border-width) solid var(--border-color);
+  box-shadow: 6px 6px 0px 0px var(--border-color);
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.nbBlock h1, .nbBlock h2, .nbBlock h3, .nbBlock h4 {
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  color: var(--text-color);
+  margin-top: 0;
+}
+
+/* Typography */
+.monoText {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+}
+
+/* Inputs & Buttons */
+.nbInput {
+  width: 100%;
+  padding: 1rem;
+  font-size: 1.1rem;
+  font-family: inherit;
+  font-weight: 600;
+  border: var(--border-width) solid var(--border-color);
+  background-color: #FFFFFF;
+  color: var(--text-color);
+  outline: none;
+}
+
+.nbInput:focus {
+  border-color: var(--accent-color);
+  box-shadow: 4px 4px 0px 0px var(--border-color);
+}
+
+.nbBtn {
+  display: inline-block;
+  text-align: center;
+  padding: 1rem 2rem;
+  font-size: 1.1rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  text-decoration: none;
+  background-color: var(--accent-color);
+  color: #FFFFFF;
+  border: var(--border-width) solid var(--border-color);
+  box-shadow: 4px 4px 0px 0px var(--border-color);
+  cursor: pointer;
+  transition: transform 0.05s ease, box-shadow 0.05s ease;
+}
+
+.nbBtn:hover {
+  background-color: var(--accent-hover);
+  transform: translate(-1px, -1px);
+  box-shadow: 5px 5px 0px 0px var(--border-color);
+}
+
+.nbBtn:active {
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0px 0px var(--border-color);
+}
+
+.nbBtn:disabled {
+  background-color: #CCCCCC;
+  color: #666666;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: 2px 2px 0px 0px var(--border-color);
+}
+
+/* Grade stamp styles */
+.gradeStamp {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Outfit', sans-serif;
+  font-weight: 900;
+  font-size: 6rem;
+  line-height: 1;
+  width: 9rem;
+  height: 9rem;
+  border: 4px solid var(--border-color);
+  margin: 0 auto;
+  text-shadow: 2px 2px 0 var(--border-color);
+  box-shadow: 5px 5px 0 0 var(--border-color);
+}
+
+.gradeStampA { background-color: var(--grade-a); }
+.gradeStampB { background-color: var(--grade-b); }
+.gradeStampC { background-color: var(--grade-c); }
+.gradeStampDF { background-color: var(--grade-d-f); }
+
+/* Animations */
+@keyframes pulseBorder {
+  0% { border-color: var(--border-color); }
+  50% { border-color: var(--accent-color); }
+  100% { border-color: var(--border-color); }
+}
+
+.loadingBorder {
+  animation: pulseBorder 1.5s infinite;
+}

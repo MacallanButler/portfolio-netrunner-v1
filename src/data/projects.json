@@ -65,5 +65,24 @@
     "completionDate": "2026-03-01",
     "repoUrl": "https://github.com/MacallanButler",
     "liveUrl": null
+  },
+  {
+    "id": "proj_mom",
+    "title": "KB Travel",
+    "client": "KB Travel",
+    "category": "Editorial Concept",
+    "description": "A calm, editorial travel planning platform concept featuring retro travel motifs, customized typography, a custom compass cursor, and an interactive itinerary request wizard.",
+    "techStack": [
+      "Next.js",
+      "React",
+      "TypeScript",
+      "Tailwind CSS",
+      "Supabase",
+      "Framer Motion"
+    ],
+    "status": "CONCEPT",
+    "completionDate": "2026-07-22",
+    "repoUrl": "https://github.com/MacallanButler",
+    "liveUrl": null
   }
 ]

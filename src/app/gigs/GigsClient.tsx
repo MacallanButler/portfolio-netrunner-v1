@@ -18,7 +18,9 @@ export default function GigsClient() {
   const portfolioBuilds = projectsData.filter((p) =>
     ["ghost_mountain", "apex_drop", "blue_horizon"].includes(p.id)
   );
-  const conceptWork = projectsData.filter((p) => p.id === "cafe_du_monde");
+  const conceptWork = projectsData.filter((p) =>
+    ["cafe_du_monde", "proj_mom"].includes(p.id)
+  );
 
   const renderProjectCard = (project: typeof projectsData[0]) => (
     <motion.div
