@@ -467,7 +467,7 @@ export async function generateAuditPdf(audit: any): Promise<Buffer> {
     </html>
   `;
 
-  await page.setContent(htmlContent, { waitUntil: "networkidle0" });
+  await page.setContent(htmlContent, { waitUntil: "networkidle0" as any });
   
   const pdfBuffer = await page.pdf({
     format: "A4",
