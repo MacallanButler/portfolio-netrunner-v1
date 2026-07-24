@@ -68,7 +68,12 @@ export async function POST(req: NextRequest) {
   } catch (error: any) {
     console.error("API /api/sitegrade/audit Error:", error);
     return NextResponse.json(
-      { error: "Internal server error occurred." },
+      { 
+        error: "Internal server error occurred.",
+        message: error.message,
+        stack: error.stack,
+        urlUsed: AUDIT_ENGINE_URL
+      },
       { status: 500 }
     );
   }

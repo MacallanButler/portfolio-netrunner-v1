@@ -64,7 +64,12 @@ export async function GET(
   } catch (error: any) {
     console.error("API status query Error:", error);
     return NextResponse.json(
-      { error: "Internal server error occurred." },
+      { 
+        error: "Internal server error occurred.",
+        message: error.message,
+        stack: error.stack,
+        urlUsed: AUDIT_ENGINE_URL
+      },
       { status: 500 }
     );
   }
