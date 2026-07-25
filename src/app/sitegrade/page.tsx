@@ -53,44 +53,46 @@ export default function SiteGradePage() {
     return messages[phase] || "Analyzing technical indicators...";
   };
 
-  // Sync progress bar timer
+  // Sync animation progress bar timer with backend phases
   useEffect(() => {
-    if (appState === "loading") {
-      setAuditProgress(5);
-      const timer = setInterval(() => {
-        setAuditProgress(prev => {
-          if (prev < 95) {
-            const diff = Math.random() * 8 + 2;
-            return Math.min(Math.round(prev + diff), 95);
-          }
-          return prev;
-        });
-      }, 800);
-      return () => clearInterval(timer);
-    } else if (["teaser", "capturing", "delivered"].includes(appState)) {
-      setAuditProgress(100);
-    } else if (appState === "idle") {
-      setAuditProgress(0);
-      setRawPhase("");
+    if (appState !== "loading") {
+      if (["teaser", "capturing", "delivered"].includes(appState)) {
+        setAuditProgress(100);
+      } else if (appState === "idle") {
+        setAuditProgress(0);
+      }
+      return;
     }
-  }, [appState]);
 
-  // Adjust progress bar min caps based on actual backend phase updates
-  useEffect(() => {
-    if (appState === "loading" && rawPhase) {
-      const phaseMinProgress: Record<string, number> = {
-        "initializing": 10,
-        "checking_url": 25,
-        "fetching_website": 40,
-        "analyzing_performance": 60,
-        "analyzing_structure": 75,
-        "analyzing_content": 90
-      };
-      
-      const targetMin = phaseMinProgress[rawPhase] || 10;
-      setAuditProgress(prev => Math.max(prev, targetMin));
-    }
-  }, [rawPhase, appState]);
+    // Define phase progress boundaries (min and max caps)
+    const phaseRanges: Record<string, { min: number; max: number }> = {
+      "": { min: 0, max: 12 },
+      "initializing": { min: 12, max: 20 },
+      "checking_url": { min: 20, max: 35 },
+      "fetching_website": { min: 35, max: 55 },
+      "analyzing_performance": { min: 55, max: 85 },
+      "analyzing_structure": { min: 85, max: 96 }
+    };
+
+    const currentRange = phaseRanges[rawPhase] || phaseRanges[""];
+
+    // Ensure progress is at least at the minimum for the current phase
+    setAuditProgress(prev => Math.max(prev, currentRange.min));
+
+    const interval = setInterval(() => {
+      setAuditProgress(prev => {
+        const range = phaseRanges[rawPhase] || phaseRanges[""];
+        if (prev < range.max) {
+          // Smoothly crawl forward inside the phase's allowed range
+          const step = Math.random() * 1.2 + 0.3; // Crawls between 0.3% and 1.5%
+          return Math.min(prev + step, range.max);
+        }
+        return prev;
+      });
+    }, 450); // Crawl smoothly every 450ms
+
+    return () => clearInterval(interval);
+  }, [appState, rawPhase]);
 
   // 1. Submit website URL for audit
   const handleUrlSubmit = async (e: React.FormEvent) => {
