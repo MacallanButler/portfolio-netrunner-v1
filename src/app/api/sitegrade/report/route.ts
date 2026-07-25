@@ -1,11 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { isRateLimited } from "../../../../lib/sitegrade/rate-limiter";
-import { generateAuditPdf } from "../../../../lib/sitegrade/pdf-generator";
 import { sendReportEmail } from "../../../../lib/sitegrade/email-sender";
 import { createClient } from "@supabase/supabase-js";
-import fs from "fs";
-import path from "path";
-import crypto from "crypto";
 
 const AUDIT_ENGINE_URL = process.env.AUDIT_ENGINE_INTERNAL_URL || "http://127.0.0.1:8000";
 const SHARED_SECRET = process.env.AUDIT_ENGINE_SHARED_SECRET || "sitegrade_secret_dev_key";
@@ -17,19 +13,7 @@ const DISCORD_BOT_TOKEN = process.env.DISCORD_BOT_TOKEN || "";
 const DISCORD_INTERNAL_CHANNEL_ID = process.env.DISCORD_INTERNAL_CHANNEL_ID || "";
 const DISCORD_LEADS_WEBHOOK = process.env.DISCORD_LEADS_WEBHOOK_URL || "";
 
-// Signed URL helper
-function generateSignedToken(auditId: string): string {
-  const timestamp = Date.now();
-  const data = `${auditId}:${timestamp}`;
-  const hmac = crypto.createHmac("sha256", SHARED_SECRET);
-  hmac.update(data);
-  const signature = hmac.digest("hex");
-  return `${timestamp}:${signature}`;
-}
-
-async function sendDiscordPing(email: string, domain: string, grade: string) {
-  const message = `👤 **New SiteGrade lead**: \`${email}\` — \`${domain}\` — Grade: **${grade}**`;
-  
+async function sendDiscordPing(message: string) {
   if (DISCORD_BOT_TOKEN && DISCORD_INTERNAL_CHANNEL_ID) {
     try {
       await fetch(`https://discord.com/api/v10/channels/${DISCORD_INTERNAL_CHANNEL_ID}/messages`, {
@@ -40,7 +24,7 @@ async function sendDiscordPing(email: string, domain: string, grade: string) {
         },
         body: JSON.stringify({ content: message })
       });
-      console.log("✅ Discord: Sent lead notice via Bot API.");
+      console.log("✅ Discord: Sent notice via Bot API.");
       return;
     } catch (e) {
       console.error("⚠️ Discord: Failed to send via Bot API, trying webhook fallback...", e);
@@ -54,7 +38,7 @@ async function sendDiscordPing(email: string, domain: string, grade: string) {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ content: message })
       });
-      console.log("✅ Discord: Sent lead notice via Webhook.");
+      console.log("✅ Discord: Sent notice via Webhook.");
     } catch (e) {
       console.error("❌ Discord: Webhook failed:", e);
     }
@@ -82,59 +66,45 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // 2. Rate limit email (3 per day)
+    // 2. Rate limit email (3 per day) - asynchronously
     const windowMs = 24 * 60 * 60 * 1000; // 24 hours
-    if (isRateLimited(`report_email_${email}`, 3, windowMs)) {
+    if (await isRateLimited(`report_email_${email}`, 3, windowMs)) {
       return NextResponse.json(
         { error: "Limit reached. You can request up to 3 reports per day." },
         { status: 429 }
       );
     }
 
-    // 3. Poll / wait for audit to complete
-    let auditData: any = null;
-    let attempts = 0;
-    const maxAttempts = 15; // Max 15 attempts * 1.5s = 22.5 seconds max wait
+    // 3. Single audit status check from engine (no polling)
+    const engineRes = await fetch(`${AUDIT_ENGINE_URL}/internal/audit/${audit_id}`, {
+      method: "GET",
+      headers: { "X-Sitegrade-Secret": SHARED_SECRET }
+    });
+
+    if (!engineRes.ok) {
+      return NextResponse.json(
+        { error: "Failed to retrieve audit details from engine." },
+        { status: 502 }
+      );
+    }
+
+    const auditData = await engineRes.json();
     
-    while (attempts < maxAttempts) {
-      const engineRes = await fetch(`${AUDIT_ENGINE_URL}/internal/audit/${audit_id}`, {
-        method: "GET",
-        headers: { "X-Sitegrade-Secret": SHARED_SECRET }
-      });
-
-      if (!engineRes.ok) {
-        return NextResponse.json(
-          { error: "Failed to retrieve audit details from engine." },
-          { status: 502 }
-        );
-      }
-
-      auditData = await engineRes.json();
-      
-      if (auditData.status === "complete") {
-        break;
-      }
-      
-      if (auditData.status === "failed") {
-        return NextResponse.json(
-          { error: "Website audit failed. Cannot generate report." },
-          { status: 422 }
-        );
-      }
-
-      // Wait 1.5 seconds before polling again
-      await new Promise(r => setTimeout(r, 1500));
-      attempts++;
+    if (auditData.status === "failed") {
+      return NextResponse.json(
+        { error: "Website audit failed. Cannot generate report." },
+        { status: 422 }
+      );
     }
 
     if (auditData.status !== "complete") {
       return NextResponse.json(
-        { error: "Audit evaluation is taking longer than expected. Please retry in a few moments." },
+        { error: "Audit evaluation is in progress. Please retry once complete." },
         { status: 202 }
       );
     }
 
-    // 4. Record lead in DB (Supabase or SQLite/JSON fallback)
+    // 4. Record lead in DB (Supabase only)
     const domain = auditData.domain;
     let leadSaved = false;
 
@@ -158,54 +128,66 @@ export async function POST(req: NextRequest) {
       }
     }
 
+    // If Supabase insert failed and no local fallback write (as per brief)
     if (!leadSaved) {
-      // JSON File Fallback
+      console.warn(`⚠️ Leads: Failed to save lead for ${email} in Supabase. Sending Discord warning alert...`);
+      await sendDiscordPing(`⚠️ **SiteGrade Lead Save Failed**: Failed to save lead for \`${email}\` on domain \`${domain}\` to Supabase.`);
+    }
+
+    // 5. POST to Python engine report endpoint to generate & store report, obtaining the R2 url
+    console.log(`Forwarding report generation request for audit ${audit_id} to Python engine...`);
+    const reportRes = await fetch(`${AUDIT_ENGINE_URL}/internal/audit/${audit_id}/report`, {
+      method: "POST",
+      headers: { 
+        "X-Sitegrade-Secret": SHARED_SECRET,
+        "Content-Type": "application/json"
+      }
+    });
+
+    if (!reportRes.ok) {
+      const errText = await reportRes.text();
+      console.error(`❌ Report: Python engine report route returned error status ${reportRes.status}: ${errText}`);
+      return NextResponse.json(
+        { error: "Failed to generate report on the audit engine." },
+        { status: 502 }
+      );
+    }
+
+    const { pdf_url } = await reportRes.json();
+    if (!pdf_url) {
+      return NextResponse.json(
+        { error: "Engine did not return a valid download link." },
+        { status: 502 }
+      );
+    }
+
+    // 6. Fetch the generated PDF from the R2 presigned URL to get PDF Buffer
+    console.log(`Fetching generated PDF from R2 to email it...`);
+    const pdfFetchRes = await fetch(pdf_url);
+    if (!pdfFetchRes.ok) {
+      console.error(`❌ PDF Fetch: Failed to retrieve PDF from R2 presigned URL: ${pdfFetchRes.status}`);
+      // Do not block returning the pdf_url, since the user can still download it, but warn
+    } else {
       try {
-        const leadsPath = path.join(process.cwd(), "leads.json");
-        const leadsData = fs.existsSync(leadsPath) ? JSON.parse(fs.readFileSync(leadsPath, "utf-8")) : [];
-        leadsData.push({
-          id: crypto.randomUUID(),
-          email,
-          domain,
-          audit_id,
-          source: "sitegrade_public",
-          created_at: new Date().toISOString()
-        });
-        fs.writeFileSync(leadsPath, JSON.stringify(leadsData, null, 2), "utf-8");
-        console.log(`✅ Leads: Saved lead to local JSON file for ${email}`);
-      } catch (e) {
-        console.error("❌ Leads: Failed to save fallback lead:", e);
+        const arrayBuffer = await pdfFetchRes.arrayBuffer();
+        const pdfBuffer = Buffer.from(arrayBuffer);
+        
+        // Send email with PDF attachment
+        const cleanDomain = domain.replace(/[^a-zA-Z0-9.-]/g, "_");
+        const dateStr = new Date().toISOString().split("T")[0];
+        const pdfFilename = `sitegrade-${cleanDomain}-${dateStr}.pdf`;
+        
+        await sendReportEmail(email, domain, pdfBuffer, pdfFilename);
+      } catch (emailErr) {
+        console.error("❌ Email: Failed to fetch PDF or send email:", emailErr);
       }
     }
 
-    // 5. Generate PDF
-    console.log(`PDF: Generating report PDF for ${domain}...`);
-    const pdfBuffer = await generateAuditPdf(auditData);
-    
-    // Save PDF in a local cache directory for downloading
-    const cacheDir = path.join(process.cwd(), "reports_cache");
-    if (!fs.existsSync(cacheDir)) {
-      fs.mkdirSync(cacheDir, { recursive: true });
-    }
-    const cleanDomain = domain.replace(/[^a-zA-Z0-9.-]/g, "_");
-    const dateStr = new Date().toISOString().split("T")[0];
-    const pdfFilename = `sitegrade-${cleanDomain}-${dateStr}.pdf`;
-    const cachedFilePath = path.join(cacheDir, `${audit_id}.pdf`);
-    
-    fs.writeFileSync(cachedFilePath, pdfBuffer);
-    console.log(`✅ PDF: Saved PDF report cache to ${cachedFilePath}`);
+    // 7. Send Discord success lead notification
+    await sendDiscordPing(`👤 **New SiteGrade lead**: \`${email}\` — \`${domain}\` — Grade: **${auditData.overall_grade}**`);
 
-    // 6. Send Email (attachment)
-    await sendReportEmail(email, domain, pdfBuffer, pdfFilename);
-
-    // 7. Send Discord lead notification
-    await sendDiscordPing(email, domain, auditData.overall_grade);
-
-    // 8. Return signed download URL
-    const signedToken = generateSignedToken(audit_id);
-    const pdfUrl = `/api/sitegrade/download?id=${audit_id}&token=${signedToken}`;
-    
-    return NextResponse.json({ pdf_url: pdfUrl }, { status: 200 });
+    // 8. Return direct R2 presigned URL in response
+    return NextResponse.json({ pdf_url: pdf_url }, { status: 200 });
 
   } catch (error: any) {
     console.error("API /api/sitegrade/report Error:", error);

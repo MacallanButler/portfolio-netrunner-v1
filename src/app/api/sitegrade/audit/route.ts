@@ -9,7 +9,7 @@ export async function POST(req: NextRequest) {
     // 1. IP rate limit check (5 per hour)
     const ip = req.headers.get("x-forwarded-for") || req.headers.get("x-real-ip") || "127.0.0.1";
     const windowMs = 60 * 60 * 1000; // 1 hour
-    if (isRateLimited(`audit_ip_${ip}`, 5, windowMs)) {
+    if (await isRateLimited(`audit_ip_${ip}`, 5, windowMs)) {
       return NextResponse.json(
         { error: "Too many audit requests from this IP. Please try again in an hour." },
         { status: 429 }
