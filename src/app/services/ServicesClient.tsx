@@ -322,7 +322,7 @@ export default function ServicesClient() {
 
       {/* ── SITEGRADE PANEL ── */}
       <section className="pt-6 border-t border-white/10">
-        <SiteGradeModule variant="services" />
+        <SiteGradeModule />
       </section>
 
       {/* ── ONE-TIME BUILDS (FIRST AGAIN!) ── */}
