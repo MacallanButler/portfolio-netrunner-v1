@@ -205,14 +205,16 @@ export function ProjectModal() {
                 </div>
 
                 {/* Shipped Date */}
-                <div className="border-t border-white/5 pt-2">
-                  <p className="font-mono text-[10px] text-text-muted uppercase tracking-widest mb-0.5">// SHIPPED</p>
-                  <p className="font-mono text-[10px] text-white/50">
-                    {activeProject ? new Date(activeProject.completionDate).toLocaleDateString("en-US", {
-                      year: "numeric", month: "long",
-                    }) : ""}
-                  </p>
-                </div>
+                {activeProject?.id !== "cafe_du_monde" && (
+                  <div className="border-t border-white/5 pt-2">
+                    <p className="font-mono text-[10px] text-text-muted uppercase tracking-widest mb-0.5">// SHIPPED</p>
+                    <p className="font-mono text-[10px] text-white/50">
+                      {activeProject ? new Date(activeProject.completionDate).toLocaleDateString("en-US", {
+                        year: "numeric", month: "long",
+                      }) : ""}
+                    </p>
+                  </div>
+                )}
 
                 {/* A/B VARIANT SELECTOR */}
                 {activeProject?.liveUrlB && (
@@ -253,10 +255,10 @@ export function ProjectModal() {
                 {/* LAUNCH SITE button */}
                 {activeProject?.liveUrl && (
                   <a
-                    href={activeVariant === "A" ? activeProject.liveUrl : (activeProject.liveUrlB ?? activeProject.liveUrl)}
+                    href={activeVariant === "A" ? (activeProject.liveUrlA ?? activeProject.liveUrl) : (activeProject.liveUrlB ?? activeProject.liveUrl)}
                     target="_blank"
                     rel="noopener noreferrer"
-                    onClick={() => trackExternalLinkClick(activeVariant === "A" ? activeProject.liveUrl! : (activeProject.liveUrlB ?? activeProject.liveUrl!))}
+                    onClick={() => trackExternalLinkClick(activeVariant === "A" ? (activeProject.liveUrlA ?? activeProject.liveUrl!) : (activeProject.liveUrlB ?? activeProject.liveUrl!))}
                     className="mt-4 lg:mt-auto flex items-center justify-center gap-3 w-full px-4 py-3 border border-neon-cyan text-neon-cyan font-mono text-xs tracking-widest uppercase transition-all duration-200 hover:bg-neon-cyan/10 hover:shadow-[0_0_20px_rgba(0,255,0,0.2)] group flex-shrink-0"
                   >
                     <span>LAUNCH {activeProject.liveUrlB ? `SITE ${activeVariant}` : "SITE"}</span>

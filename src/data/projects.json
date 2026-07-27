@@ -68,6 +68,7 @@
     "completionDate": "2026-03-01",
     "repoUrl": "https://github.com/MacallanButler",
     "liveUrl": "https://cdm.macallanbutler.com",
+    "liveUrlA": "https://cdmv1.macallanbutler.com",
     "liveUrlB": "https://cdmv2.macallanbutler.com",
     "previewUrl": "/previews/cafe_du_monde_v1.jpg",
     "previewUrlB": "/previews/cafe_du_monde_v2.jpg"
@@ -110,6 +111,6 @@
     "completionDate": "2026-07-20",
     "repoUrl": "https://github.com/MacallanButler",
     "liveUrl": "https://wrought.macallanbutler.com",
-    "previewUrl": "/previews/proj_wrought.jpg"
+    "previewUrl": "/previews/proj_wrought.png"
   }
 ]
