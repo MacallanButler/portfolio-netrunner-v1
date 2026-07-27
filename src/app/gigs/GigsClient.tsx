@@ -16,7 +16,7 @@ export default function GigsClient() {
 
   // Split projects based on dynamic brief groupings
   const portfolioBuilds = projectsData.filter((p) =>
-    ["ghost_mountain", "apex_drop", "blue_horizon"].includes(p.id)
+    ["ghost_mountain", "apex_drop", "blue_horizon", "proj_wrought"].includes(p.id)
   );
   const conceptWork = projectsData.filter((p) =>
     ["cafe_du_monde", "proj_mom"].includes(p.id)

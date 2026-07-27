@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import NextImage from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { useProjectModal } from "@/context/ProjectModalContext";
@@ -11,20 +11,19 @@ import { cn } from "@/lib/utils";
 import { trackExternalLinkClick } from "@/lib/analytics";
 import { useAudio } from "@/context/AudioContext";
 
-const PREVIEW_MAP: Record<string, string> = {
-  apex_drop:      "/previews/apex_drop.webp",
-  blue_horizon:   "/previews/blue_horizon.webp",
-  ghost_mountain: "/previews/ghost_mountain.webp",
-};
-
 export function ProjectModal() {
   const { activeProject, isClosing, closeProject } = useProjectModal();
   const { playClick } = useAudio();
+  const [activeVariant, setActiveVariant] = useState<"A" | "B">("A");
 
   const handleClose = () => {
     playClick();
     closeProject();
   };
+
+  useEffect(() => {
+    setActiveVariant("A");
+  }, [activeProject?.id]);
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -35,6 +34,9 @@ export function ProjectModal() {
   }, [closeProject, activeProject, isClosing]);
 
   const isVisible = !!activeProject || isClosing;
+  const previewSrc = activeProject
+    ? (activeVariant === "B" && activeProject.previewUrlB ? activeProject.previewUrlB : activeProject.previewUrl)
+    : null;
 
   return (
     <AnimatePresence>
@@ -101,10 +103,10 @@ export function ProjectModal() {
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.15, duration: 0.3 }}
               >
-                {PREVIEW_MAP[activeProject?.id ?? ""] ? (
+                {previewSrc ? (
                   <>
                     <NextImage
-                      src={PREVIEW_MAP[activeProject?.id ?? ""]}
+                      src={previewSrc}
                       alt={`${activeProject?.title ?? ""} showcase`}
                       width={1200}
                       height={676}
@@ -212,16 +214,52 @@ export function ProjectModal() {
                   </p>
                 </div>
 
+                {/* A/B VARIANT SELECTOR */}
+                {activeProject?.liveUrlB && (
+                  <div className="space-y-2 border-t border-white/5 pt-3 mt-2">
+                    <p className="font-mono text-[9px] text-text-muted uppercase tracking-widest">// SELECT VARIANT</p>
+                    <div className="flex gap-1.5 p-1 bg-surface-dark border border-white/10 rounded-sm">
+                      <button
+                        onClick={() => { playClick(); setActiveVariant("A"); }}
+                        className={cn(
+                          "flex-1 py-1 text-center font-mono text-[10px] tracking-wider uppercase transition-all duration-150 border",
+                          activeVariant === "A"
+                            ? "bg-neon-cyan/10 border-neon-cyan/40 text-neon-cyan shadow-[0_0_10px_rgba(0,255,255,0.15)]"
+                            : "border-transparent text-text-muted hover:text-white"
+                        )}
+                      >
+                        Site A (V1)
+                      </button>
+                      <button
+                        onClick={() => { playClick(); setActiveVariant("B"); }}
+                        className={cn(
+                          "flex-1 py-1 text-center font-mono text-[10px] tracking-wider uppercase transition-all duration-150 border",
+                          activeVariant === "B"
+                            ? "bg-neon-cyan/10 border-neon-cyan/40 text-neon-cyan shadow-[0_0_10px_rgba(0,255,255,0.15)]"
+                            : "border-transparent text-text-muted hover:text-white"
+                        )}
+                      >
+                        Site B (V2)
+                      </button>
+                    </div>
+                    <p className="text-[10px] text-text-muted/70 italic leading-tight">
+                      {activeVariant === "A"
+                        ? "Original redesign emphasizing brand heritage and vintage aesthetic."
+                        : "Optimized React build focusing on high-fidelity animations and dark UI."}
+                    </p>
+                  </div>
+                )}
+
                 {/* LAUNCH SITE button */}
                 {activeProject?.liveUrl && (
                   <a
-                    href={activeProject.liveUrl}
+                    href={activeVariant === "A" ? activeProject.liveUrl : (activeProject.liveUrlB ?? activeProject.liveUrl)}
                     target="_blank"
                     rel="noopener noreferrer"
-                    onClick={() => trackExternalLinkClick(activeProject.liveUrl!)}
+                    onClick={() => trackExternalLinkClick(activeVariant === "A" ? activeProject.liveUrl! : (activeProject.liveUrlB ?? activeProject.liveUrl!))}
                     className="mt-4 lg:mt-auto flex items-center justify-center gap-3 w-full px-4 py-3 border border-neon-cyan text-neon-cyan font-mono text-xs tracking-widest uppercase transition-all duration-200 hover:bg-neon-cyan/10 hover:shadow-[0_0_20px_rgba(0,255,0,0.2)] group flex-shrink-0"
                   >
-                    <span>LAUNCH SITE</span>
+                    <span>LAUNCH {activeProject.liveUrlB ? `SITE ${activeVariant}` : "SITE"}</span>
                     <span className="transition-transform duration-200 group-hover:translate-x-1">&rarr;</span>
                   </a>
                 )}

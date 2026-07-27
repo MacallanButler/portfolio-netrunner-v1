@@ -15,6 +15,9 @@ export interface Project {
   completionDate: string;
   repoUrl: string | null;
   liveUrl: string | null;
+  liveUrlB?: string | null;
+  previewUrl?: string | null;
+  previewUrlB?: string | null;
 }
 
 interface ProjectModalContextValue {

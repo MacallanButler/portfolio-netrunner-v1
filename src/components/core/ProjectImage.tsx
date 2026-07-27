@@ -3,6 +3,7 @@
 import { useState } from "react";
 import NextImage from "next/image";
 import { cn } from "@/lib/utils";
+import projectsData from "@/data/projects.json";
 
 interface ProjectImageProps {
   id: string;
@@ -10,18 +11,13 @@ interface ProjectImageProps {
   className?: string;
 }
 
-const PREVIEW_MAP: Record<string, string> = {
-  apex_drop:      "/previews/apex_drop.webp",
-  blue_horizon:   "/previews/blue_horizon.webp",
-  ghost_mountain: "/previews/ghost_mountain.webp",
-};
-
 /**
- * Renders a project's hero image from /public/previews/{id}.webp.
+ * Renders a project's hero image from the preview URL in projects.json.
  * Falls back to a styled placeholder if no preview exists for the project.
  */
 export function ProjectImage({ id, title, className }: ProjectImageProps) {
-  const previewSrc = PREVIEW_MAP[id] ?? null;
+  const project = projectsData.find((p) => p.id === id);
+  const previewSrc = project?.previewUrl ?? null;
   const [imgError, setImgError] = useState(false);
   const showPreview = previewSrc && !imgError;
 
