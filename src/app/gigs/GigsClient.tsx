@@ -23,13 +23,17 @@ export default function GigsClient() {
   );
 
   const renderProjectCard = (project: typeof projectsData[0]) => (
-    <motion.div
+    <motion.a
       key={project.id}
-      onClick={() => {
+      href={project.liveUrl || "#"}
+      target="_blank"
+      rel="noopener noreferrer"
+      onClick={(e) => {
+        e.preventDefault();
         playClick();
         openProject(project as any);
       }}
-      className="group cursor-pointer relative overflow-hidden rounded-sm border border-white/10 bg-surface-card shadow-lg flex flex-col h-full"
+      className="group cursor-pointer no-underline relative overflow-hidden rounded-sm border border-white/10 bg-surface-card shadow-lg flex flex-col h-full"
       whileHover={{
         y: -4,
         borderColor: "rgba(0,255,0,0.5)",
@@ -47,7 +51,7 @@ export default function GigsClient() {
       <ProjectImage id={project.id} title={project.title} className="h-52" />
 
       {/* Card Body */}
-      <div className="flex flex-col flex-1 p-6 space-y-4 bg-surface-card">
+      <div className="flex flex-col flex-1 p-6 space-y-4 bg-surface-card text-white">
         <div className="flex justify-between items-start gap-2">
           <h2 className="text-xl font-bold text-white group-hover:text-neon-cyan transition-colors">
             {project.title}
@@ -88,7 +92,7 @@ export default function GigsClient() {
           CLICK TO EXPAND
         </div>
       </div>
-    </motion.div>
+    </motion.a>
   );
 
   return (

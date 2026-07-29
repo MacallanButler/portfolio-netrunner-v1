@@ -90,7 +90,8 @@
     "status": "IN PROGRESS",
     "completionDate": "2026-07-22",
     "repoUrl": "https://github.com/MacallanButler",
-    "liveUrl": "https://kbtravel.macallanbutler.com"
+    "liveUrl": "https://kbtravel.macallanbutler.com",
+    "previewUrl": "/previews/kb_card.png"
   },
   {
     "id": "proj_wrought",

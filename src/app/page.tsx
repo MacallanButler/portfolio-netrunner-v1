@@ -10,5 +10,30 @@ export const metadata: Metadata = {
 };
 
 export default function Page() {
-  return <BootSequence />;
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Macallan Butler",
+    "jobTitle": "Full-Stack Developer & UI Architect",
+    "url": "https://macallanbutler.com",
+    "image": "https://macallanbutler.com/icon.svg",
+    "sameAs": [
+      "https://github.com/MacallanButler"
+    ],
+    "worksFor": {
+      "@type": "Organization",
+      "name": "MCB Industries LLC"
+    },
+    "description": "Macallan Butler is a freelance Full-Stack Developer & UI Architect specializing in high-fidelity React, Next.js, and motion-driven user interfaces."
+  };
+
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <BootSequence />
+    </>
+  );
 }
