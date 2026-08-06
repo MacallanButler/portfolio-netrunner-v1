@@ -89,7 +89,7 @@ const ONE_TIME_TIERS = [
 const MONTHLY_TIERS = [
   {
     name: "BASIC",
-    price: "$75 / month",
+    price: "$75/month",
     tag: "Keep the lights on",
     description: "The essentials. Your site stays live, secure, and up to date — with a little room for small changes.",
     features: [
@@ -105,7 +105,7 @@ const MONTHLY_TIERS = [
   },
   {
     name: "GROWTH",
-    price: "$150 / month",
+    price: "$150/month",
     tag: "Stay healthy & visible",
     description: "Everything in Basic, plus a monthly check-in on how your site is actually performing — in plain English.",
     features: [
@@ -122,7 +122,7 @@ const MONTHLY_TIERS = [
   },
   {
     name: "PARTNER",
-    price: "$350 / month",
+    price: "$350/month",
     tag: "Grow together",
     description: "A real ongoing relationship. Monthly strategy, deeper analytics, and enough hours to keep the site evolving.",
     features: [
@@ -141,17 +141,17 @@ const COMPARISON_ROWS = [
   { name: "SSL certificate checks", basic: true, growth: true, partner: true },
   { name: "Dependency & security updates", basic: true, growth: true, partner: true },
   { name: "Monthly backup verification", basic: true, growth: true, partner: true },
-  { name: "Domain & hosting renewal reminders", basic: true, growth: true, partner: true },
-  { name: "Up to 1hr of changes per month", basic: true, growth: true, partner: true },
-  { name: "Monthly Lighthouse performance audit", basic: false, growth: true, partner: true },
+  { name: "Domain & hosting reminders", basic: true, growth: true, partner: true },
+  { name: "Up to 1hr changes/month", basic: true, growth: true, partner: true },
+  { name: "Monthly Lighthouse audit", basic: false, growth: true, partner: true },
   { name: "Google Search Console review", basic: false, growth: true, partner: true },
   { name: "Plain-English monthly report", basic: false, growth: true, partner: true },
-  { name: "Security headers & vulnerability audit", basic: false, growth: true, partner: true },
-  { name: "Up to 3hrs of work per month", basic: false, growth: true, partner: true },
+  { name: "Security headers audit", basic: false, growth: true, partner: true },
+  { name: "Up to 3hrs work/month", basic: false, growth: true, partner: true },
   { name: "Quarterly content refresh", basic: false, growth: false, partner: true },
-  { name: "Monthly strategy call (30 min)", basic: false, growth: false, partner: true },
-  { name: "Google Analytics review & insights", basic: false, growth: false, partner: true },
-  { name: "Up to 6hrs of work per month", basic: false, growth: false, partner: true },
+  { name: "Monthly strategy call", basic: false, growth: false, partner: true },
+  { name: "Google Analytics review", basic: false, growth: false, partner: true },
+  { name: "Up to 6hrs work/month", basic: false, growth: false, partner: true },
   { name: "Priority turnaround (48hr)", basic: false, growth: false, partner: true },
 ];
 
@@ -331,8 +331,6 @@ export default function ServicesClient() {
           <h2 className="font-mono text-[10px] text-text-muted uppercase tracking-widest">// COMMERCIALS_ONE_TIME</h2>
           <h3 className="text-2xl font-bold text-white">One-Time Build Packages</h3>
           <p className="text-xs text-text-muted font-mono leading-relaxed max-w-3xl">
-            <strong>MACALLAN BUTLER — WEB DEVELOPMENT</strong><br />
-            Simple websites that work as hard as you do.<br />
             Every project starts with a conversation. These tiers are a starting point — your actual quote depends on what you need. Not sure which fits? Pick the one that sounds closest and we&apos;ll figure it out together.
           </p>
         </div>
@@ -407,8 +405,6 @@ export default function ServicesClient() {
           <h2 className="font-mono text-[10px] text-text-muted uppercase tracking-widest">// COMMERCIALS_MONTHLY</h2>
           <h3 className="text-2xl font-bold text-white">Monthly Care Plans</h3>
           <p className="text-xs text-text-muted font-mono leading-relaxed max-w-3xl">
-            <strong>MACALLAN BUTLER — WEB DEVELOPMENT</strong><br />
-            Ongoing care for your website.<br />
             Your site isn&apos;t a one-time thing — it needs to stay fast, secure, and up to date. These plans keep it that way so you never have to think about it. All plans are month-to-month with no long-term commitment.
           </p>
         </div>
@@ -527,13 +523,20 @@ export default function ServicesClient() {
         <div className="block md:hidden space-y-4">
           {["Basic", "Growth", "Partner"].map((planName) => {
             const key = planName.toLowerCase() as "basic" | "growth" | "partner";
+            // Filter to only show incremental (new) features introduced at this tier
+            const incrementalRows = COMPARISON_ROWS.filter((row) => {
+              if (key === "basic") return row.basic;
+              if (key === "growth") return row.growth && !row.basic;
+              if (key === "partner") return row.partner && !row.growth;
+              return false;
+            });
             return (
               <div key={planName} className="border border-white/10 bg-surface-card p-4 rounded-sm space-y-3">
                 <h4 className="font-mono text-xs text-neon-cyan font-bold uppercase tracking-wider">
                   {planName} Plan Features
                 </h4>
                 <ul className="space-y-2 border-t border-white/5 pt-2">
-                  {COMPARISON_ROWS.filter((r) => r[key]).map((row, idx) => (
+                  {incrementalRows.map((row, idx) => (
                     <li key={idx} className="text-[11px] font-mono text-white/70 flex items-start gap-2">
                       <Check size={12} className="text-neon-cyan mt-0.5 flex-shrink-0" />
                       <span>{row.name}</span>
@@ -560,7 +563,7 @@ export default function ServicesClient() {
           {DETAIL_ITEMS.map((item, idx) => {
             const isOpen = !!openDetails[item.title];
             return (
-              <div key={idx} className="font-mono text-xs">
+              <div key={idx} className="font-mono text-xs text-left w-full">
                 <button
                   onClick={() => toggleDetail(item.title)}
                   className="w-full p-4 flex items-center justify-between text-left hover:bg-white/5 transition-colors focus:outline-none"
@@ -581,7 +584,7 @@ export default function ServicesClient() {
                       transition={{ duration: 0.2 }}
                       className="overflow-hidden"
                     >
-                      <div className="p-4 pt-0 text-text-muted font-sans text-xs leading-relaxed border-t border-white/5 mt-1 bg-surface-dark/25">
+                      <div className="p-4 pt-0 text-text-muted font-sans text-xs text-left leading-relaxed border-t border-white/5 mt-1 bg-surface-dark/25 w-full">
                         {item.desc}
                       </div>
                     </motion.div>
@@ -604,7 +607,7 @@ export default function ServicesClient() {
           {FAQS.map((item, idx) => {
             const isOpen = !!openFaq[idx];
             return (
-              <div key={idx} className="font-mono text-xs">
+              <div key={idx} className="font-mono text-xs text-left w-full">
                 <button
                   onClick={() => toggleFaq(idx)}
                   className="w-full p-4 flex items-center justify-between text-left hover:bg-white/5 transition-colors focus:outline-none"
@@ -625,7 +628,7 @@ export default function ServicesClient() {
                       transition={{ duration: 0.2 }}
                       className="overflow-hidden"
                     >
-                      <div className="p-4 pt-0 text-text-muted font-sans text-xs leading-relaxed border-t border-white/5 mt-1 bg-surface-dark/25">
+                      <div className="p-4 pt-0 text-text-muted font-sans text-xs text-left leading-relaxed border-t border-white/5 mt-1 bg-surface-dark/25 w-full">
                         {item.a}
                       </div>
                     </motion.div>
