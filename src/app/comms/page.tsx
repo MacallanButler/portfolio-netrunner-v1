@@ -3,7 +3,7 @@ import { Suspense } from "react";
 import CommsClient from "./CommsClient";
 
 export const metadata: Metadata = {
-  title: "Establish Connection & Get in Touch | Macallan Butler",
+  title: "Establish Connection & Get in Touch",
   description: "Get in touch with Macallan Butler to discuss freelance full-stack development, UI design architecture, or new collaborations.",
   alternates: {
     canonical: "https://macallanbutler.com/comms",

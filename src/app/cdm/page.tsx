@@ -32,7 +32,7 @@ export default function CDMComparePage() {
           className="flex items-center gap-1.5 text-text-muted hover:text-neon-cyan transition-colors"
         >
           <ArrowLeft size={14} />
-          <span>PORTFOLIO_OS</span>
+          <span>ARCHIVE</span>
         </Link>
       </header>
 

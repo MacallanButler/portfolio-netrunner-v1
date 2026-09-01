@@ -23,7 +23,7 @@ export const metadata: Metadata = {
     template: "%s | Macallan Butler"
   },
   description: "Macallan Butler is a freelance Full-Stack Developer & UI Architect specializing in high-fidelity React, Next.js, and motion-driven user interfaces.",
-  keywords: ["Macallan Butler", "Full-Stack Developer", "UI Architect", "React Developer", "Next.js", "TypeScript", "Web Developer Portfolio", "Freelance Developer"],
+  keywords: ["Macallan Butler", "Full-Stack Developer", "UI Architect", "React Developer", "Next.js", "TypeScript", "Freelance Developer"],
   authors: [{ name: "Macallan Butler" }],
   creator: "Macallan Butler",
   icons: {
@@ -35,7 +35,7 @@ export const metadata: Metadata = {
     url: "https://macallanbutler.com",
     title: "Macallan Butler | Full-Stack Developer & UI Architect",
     description: "Freelance Full-Stack Developer & UI Architect specializing in high-fidelity React, Next.js, and motion-driven user interfaces. Explore my projects and process.",
-    siteName: "Macallan Butler Portfolio",
+    siteName: "Macallan Butler",
   },
   twitter: {
     card: "summary_large_image",

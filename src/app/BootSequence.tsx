@@ -44,7 +44,7 @@ export default function BootSequence() {
 
   return (
     <div className="flex flex-col items-center justify-center min-h-[80vh] w-full max-w-2xl mx-auto p-4">
-      <h1 className="sr-only">Macallan Butler | PORTFOLIO_OS Terminal Client</h1>
+      <h1 className="sr-only">Macallan Butler | Full-Stack Developer & UI Architect</h1>
 
       {/* Boot Logs */}
       <div className="font-mono text-xs md:text-sm text-text-muted self-start mb-8 space-y-1 h-32 overflow-hidden">

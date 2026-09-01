@@ -82,10 +82,6 @@ export function Sidebar() {
 
                     {/* Header */}
                     <div className="p-6 border-b border-white/10 relative z-10">
-                        <div className="flex items-center gap-2 mb-2">
-                            <div className="w-2 h-2 bg-neon-cyan rounded-full animate-pulse" />
-                            <span className="text-xs font-mono text-neon-cyan tracking-widest">PORTFOLIO_OS</span>
-                        </div>
                         <Link href="/" onClick={() => setIsOpen(false)}>
                             <div className="text-xl font-bold tracking-tighter hover:text-neon-cyan transition-colors cursor-pointer">
                                 <GlitchText text="MB_SYSTEMS" />
@@ -139,7 +135,7 @@ export function Sidebar() {
                                 <div className="h-full bg-neon-cyan/50 transition-all duration-1000" style={{ width: `${progress}%` }} />
                             </div>
                             <span className="text-[9px] font-mono text-text-muted/50 block leading-tight">
-                                Visit core site sectors to sync portfolio data link
+                                Visit core site sectors to sync site data link
                             </span>
 
                             <div className="flex justify-between text-xs font-mono text-text-muted mt-2">

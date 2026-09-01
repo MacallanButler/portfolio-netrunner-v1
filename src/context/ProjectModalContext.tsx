@@ -1,6 +1,6 @@
 "use client";
 
-import React, { createContext, useContext, useState, useCallback, useEffect } from "react";
+import React, { createContext, useContext, useState, useCallback, useEffect, useRef } from "react";
 import { trackProjectView } from "@/lib/analytics";
 import projectsData from "@/data/projects.json";
 
@@ -37,6 +37,7 @@ export function ProjectModalProvider({ children }: { children: React.ReactNode }
   const [activeProject, setActiveProject] = useState<Project | null>(null);
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [isClosing, setIsClosing] = useState(false);
+  const transitionPlayedForCurrentModalRef = useRef(false);
 
   // Sync modal state with browser history / URL query parameter
   useEffect(() => {
@@ -47,9 +48,32 @@ export function ProjectModalProvider({ children }: { children: React.ReactNode }
       if (projectId) {
         const project = projectsData.find(p => p.id === projectId);
         if (project) {
+          const prefersReducedMotion = typeof window !== "undefined" && 
+            window.matchMedia && 
+            window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+          let hasPlayed = false;
+          try {
+            hasPlayed = sessionStorage.getItem("mb_decrypt_played") === "true";
+          } catch {
+            // ignore if sessionStorage is unavailable
+          }
+
+          const shouldPlayDecrypt = !prefersReducedMotion && !hasPlayed;
+
           setActiveProject((prev) => {
             if (!prev || prev.id !== project.id) {
-              setIsTransitioning(true);
+              if (shouldPlayDecrypt) {
+                try {
+                  sessionStorage.setItem("mb_decrypt_played", "true");
+                } catch {
+                  // ignore
+                }
+                transitionPlayedForCurrentModalRef.current = true;
+                setIsTransitioning(true);
+              } else {
+                transitionPlayedForCurrentModalRef.current = false;
+                setIsTransitioning(false);
+              }
               document.body.style.overflow = "hidden";
               trackProjectView(project.id, project.title);
               return project as Project;
@@ -57,15 +81,29 @@ export function ProjectModalProvider({ children }: { children: React.ReactNode }
             return prev;
           });
         } else {
+          transitionPlayedForCurrentModalRef.current = false;
+          setIsTransitioning(false);
           setActiveProject(null);
           document.body.style.overflow = "";
         }
       } else {
         setActiveProject((prev) => {
           if (prev) {
-            setIsClosing(true);
+            const prefersReducedMotion = typeof window !== "undefined" && 
+              window.matchMedia && 
+              window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+            if (!prefersReducedMotion && transitionPlayedForCurrentModalRef.current) {
+              transitionPlayedForCurrentModalRef.current = false;
+              setIsClosing(true);
+              return prev;
+            } else {
+              transitionPlayedForCurrentModalRef.current = false;
+              setIsClosing(false);
+              document.body.style.overflow = "";
+              return null;
+            }
           }
-          return prev;
+          return null;
         });
       }
     };

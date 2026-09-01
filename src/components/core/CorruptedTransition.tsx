@@ -174,12 +174,12 @@ export function CorruptedTransition({ isPlaying, mode, onComplete }: CorruptedTr
               <div className="flex flex-col gap-1 mb-6">
                 {isClose ? (
                   <>
-                    <GlitchLine text="TERMINATING_SESSION::PORTFOLIO_V2.1" delay={0} />
+                    <GlitchLine text="TERMINATING_SESSION::SYSTEM_V2.1" delay={0} />
                     <GlitchLine text="CLOSING_SECURE_CHANNEL..." delay={60} />
                   </>
                 ) : (
                   <>
-                    <GlitchLine text="SYSTEM_ACCESS::PORTFOLIO_V2.1" delay={0} />
+                    <GlitchLine text="SYSTEM_ACCESS::SYSTEM_V2.1" delay={0} />
                     <GlitchLine text="INITIALIZING_SECURE_CHANNEL..." delay={80} />
                   </>
                 )}
