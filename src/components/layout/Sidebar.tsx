@@ -3,12 +3,11 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import {
     FolderKanban,
     Workflow,
-    BarChart3,
     Mail,
     LayoutTemplate,
     Menu,
@@ -33,22 +32,62 @@ export function Sidebar() {
 
     const { isAudioEnabled, toggleAudio, playClick } = useAudio();
 
-    // Interactive Task Manager State
+    // Interactive Task Manager State with Session Persistence
     const [visitedPaths, setVisitedPaths] = useState<Set<string>>(new Set());
     const [sessionTime, setSessionTime] = useState(0);
 
     useEffect(() => {
-        if (pathname) {
-            setVisitedPaths(prev => new Set(prev).add(pathname));
+        // Initialize or retrieve persistent session start timestamp
+        let startTimestamp = Date.now();
+        const storedStart = sessionStorage.getItem("mb_session_start");
+        if (storedStart) {
+            const parsed = parseInt(storedStart, 10);
+            if (!isNaN(parsed)) {
+                startTimestamp = parsed;
+            }
+        } else {
+            sessionStorage.setItem("mb_session_start", startTimestamp.toString());
         }
-    }, [pathname]);
 
-    useEffect(() => {
-        const interval = setInterval(() => {
-            setSessionTime(prev => prev + 1);
-        }, 1000);
+        // Initialize or retrieve persistent visited paths
+        const storedPaths = sessionStorage.getItem("mb_visited_paths");
+        if (storedPaths) {
+            try {
+                const pathsArr = JSON.parse(storedPaths);
+                if (Array.isArray(pathsArr)) {
+                    setTimeout(() => {
+                        setVisitedPaths(new Set(pathsArr));
+                    }, 0);
+                }
+            } catch {
+                // Ignore storage parse error
+            }
+        }
+
+        const updateTime = () => {
+            setSessionTime(Math.max(0, Math.floor((Date.now() - startTimestamp) / 1000)));
+        };
+
+        updateTime();
+        const interval = setInterval(updateTime, 1000);
         return () => clearInterval(interval);
     }, []);
+
+    useEffect(() => {
+        if (pathname) {
+            setTimeout(() => {
+                setVisitedPaths(prev => {
+                    const next = new Set(prev).add(pathname);
+                    try {
+                        sessionStorage.setItem("mb_visited_paths", JSON.stringify(Array.from(next)));
+                    } catch {
+                        // Ignore storage quota errors
+                    }
+                    return next;
+                });
+            }, 0);
+        }
+    }, [pathname]);
 
     const formatTime = (seconds: number) => {
         const min = Math.floor(seconds / 60);

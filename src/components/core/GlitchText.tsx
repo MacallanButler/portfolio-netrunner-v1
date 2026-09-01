@@ -43,16 +43,16 @@ export function GlitchText({ text, className, hover = true }: GlitchTextProps) {
         }, 30);
     }, [text, isGlitching]);
 
-    // Initial glitch on mount
+    // Keep displayText in sync if text prop updates
     useEffect(() => {
-        glitch();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+        setDisplayText(text);
+    }, [text]);
 
     return (
         <span
             className={cn("inline-block font-mono tracking-normal", className)}
             onMouseEnter={hover ? glitch : undefined}
+            aria-label={text}
         >
             {displayText}
         </span>

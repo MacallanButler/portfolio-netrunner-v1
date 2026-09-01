@@ -285,7 +285,6 @@ export default function ServicesClient() {
 
       {/* ── THREE PILLARS OVERVIEW ── */}
       <section className="space-y-6">
-        <h2 className="font-mono text-[10px] text-text-muted uppercase tracking-widest">// THREE_PILLARS</h2>
         <div className="grid md:grid-cols-3 gap-6">
           {OVERVIEW_PILLARS.map((p, idx) => {
             const Icon = p.icon;
@@ -325,17 +324,14 @@ export default function ServicesClient() {
         <SiteGradeModule />
       </section>
 
-      {/* ── ONE-TIME BUILDS (FIRST AGAIN!) ── */}
+      {/* ── ONE-TIME BUILDS ── */}
       <section className="space-y-8 pt-6 border-t border-white/10">
         <div className="space-y-2">
-          <h2 className="font-mono text-[10px] text-text-muted uppercase tracking-widest">// COMMERCIALS_ONE_TIME</h2>
-          <h3 className="text-2xl font-bold text-white">One-Time Build Packages</h3>
+          <h2 className="text-2xl font-bold text-white">One-Time Build Packages</h2>
           <p className="text-xs text-text-muted font-mono leading-relaxed max-w-3xl">
             Every project starts with a conversation. These tiers are a starting point — your actual quote depends on what you need. Not sure which fits? Pick the one that sounds closest and we&apos;ll figure it out together.
           </p>
         </div>
-
-        <div className="font-mono text-xs font-bold text-neon-cyan tracking-widest mb-4">// ONE-TIME BUILD</div>
 
         <div className="grid md:grid-cols-3 gap-6 items-stretch">
           {ONE_TIME_TIERS.map((tier, idx) => (
@@ -399,17 +395,14 @@ export default function ServicesClient() {
         </div>
       </section>
 
-      {/* ── MONTHLY PLANS (SECOND!) ── */}
+      {/* ── MONTHLY PLANS ── */}
       <section className="space-y-8 pt-8 border-t border-white/10">
         <div className="space-y-2">
-          <h2 className="font-mono text-[10px] text-text-muted uppercase tracking-widest">// COMMERCIALS_MONTHLY</h2>
-          <h3 className="text-2xl font-bold text-white">Monthly Care Plans</h3>
+          <h2 className="text-2xl font-bold text-white">Monthly Care Plans</h2>
           <p className="text-xs text-text-muted font-mono leading-relaxed max-w-3xl">
             Your site isn&apos;t a one-time thing — it needs to stay fast, secure, and up to date. These plans keep it that way so you never have to think about it. All plans are month-to-month with no long-term commitment.
           </p>
         </div>
-
-        <div className="font-mono text-xs font-bold text-neon-cyan tracking-widest mb-4">// MONTHLY PLANS</div>
 
         <div className="grid md:grid-cols-3 gap-6 items-stretch">
           {MONTHLY_TIERS.map((tier, idx) => (
@@ -474,7 +467,7 @@ export default function ServicesClient() {
       {/* ── FULL COMPARISON TABLE ── */}
       <section className="space-y-6 pt-8 border-t border-white/10">
         <h3 className="text-xl font-bold text-white font-mono tracking-tight text-center md:text-left">
-          // FULL_COMPARISON
+          Full Comparison
         </h3>
 
         {/* Desktop Table View (visible on md+) */}
@@ -496,21 +489,30 @@ export default function ServicesClient() {
                     {row.basic ? (
                       <Check size={16} className="text-neon-cyan mx-auto" />
                     ) : (
-                      <span className="text-white/10">—</span>
+                      <span className="flex items-center justify-center">
+                        <X size={16} className="text-neon-red/50 mx-auto" aria-hidden="true" />
+                        <span className="sr-only">Not included</span>
+                      </span>
                     )}
                   </td>
                   <td className="p-4 text-center">
                     {row.growth ? (
                       <Check size={16} className="text-neon-cyan mx-auto" />
                     ) : (
-                      <span className="text-white/10">—</span>
+                      <span className="flex items-center justify-center">
+                        <X size={16} className="text-neon-red/50 mx-auto" aria-hidden="true" />
+                        <span className="sr-only">Not included</span>
+                      </span>
                     )}
                   </td>
                   <td className="p-4 text-center">
                     {row.partner ? (
                       <Check size={16} className="text-neon-cyan mx-auto" />
                     ) : (
-                      <span className="text-white/10">—</span>
+                      <span className="flex items-center justify-center">
+                        <X size={16} className="text-neon-red/50 mx-auto" aria-hidden="true" />
+                        <span className="sr-only">Not included</span>
+                      </span>
                     )}
                   </td>
                 </tr>
@@ -552,8 +554,7 @@ export default function ServicesClient() {
       {/* ── WHAT'S ACTUALLY INCLUDED (ACCORDION DETAILS) ── */}
       <section className="space-y-6 pt-8 border-t border-white/10">
         <div className="space-y-1">
-          <h2 className="font-mono text-[10px] text-text-muted uppercase tracking-widest">// OPERATIONS_DEEP_DIVE</h2>
-          <h3 className="text-xl font-bold text-white">What&apos;s actually included</h3>
+          <h2 className="text-xl font-bold text-white">What&apos;s actually included</h2>
           <p className="text-xs text-text-muted/75 font-sans italic">
             These aren&apos;t buzzwords — here&apos;s what each service means in practice.
           </p>
@@ -599,8 +600,7 @@ export default function ServicesClient() {
       {/* ── FAQS ── */}
       <section className="space-y-6 pt-8 border-t border-white/10">
         <div className="space-y-1">
-          <h2 className="font-mono text-[10px] text-text-muted uppercase tracking-widest">// FREQUENT_QUERIES</h2>
-          <h3 className="text-xl font-bold text-white">Common Questions</h3>
+          <h2 className="text-xl font-bold text-white">Common Questions</h2>
         </div>
 
         <div className="border border-white/10 bg-surface-card rounded-sm divide-y divide-white/10">

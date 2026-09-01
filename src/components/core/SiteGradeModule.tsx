@@ -7,14 +7,11 @@ import { NeonButton } from "@/components/core/NeonButton";
 export function SiteGradeModule() {
   return (
     <div className="w-full space-y-4">
-      {/* Label */}
-      <h2 className="font-mono text-[10px] text-text-muted uppercase tracking-widest">
-        // SITEGRADE_DIAGNOSTIC
-      </h2>
+      {/* SITEGRADE_DIAGNOSTIC */}
       
       {/* Title */}
       <h3 className="text-2xl md:text-3xl font-bold text-white tracking-tight leading-tight">
-        Not sure where you're starting?
+        Not sure where you&apos;re starting?
       </h3>
       
       {/* Body */}

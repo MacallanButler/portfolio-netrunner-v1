@@ -166,7 +166,7 @@ export function TerminalPrompt({
                     <div className="text-xs text-neon-cyan font-mono animate-pulse">
                         <p>ACCESSING BACKDOOR MAINFRAME...</p>
                         <p>DECRYPTING SYSTEM PORTAL... SUCCESS</p>
-                        <p className="text-white mt-1">WELCOME OPERATOR. PORTFOLIO_OS CORE DECRYPTED.</p>
+                        <p className="text-white mt-1">WELCOME OPERATOR. SYSTEM CORE DECRYPTED.</p>
                     </div>
                 );
                 break;

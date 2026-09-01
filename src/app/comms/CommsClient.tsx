@@ -69,7 +69,7 @@ export default function CommsClient() {
                 {/* ── LEFT COLUMN: SECURE CONNECTION INFO (Hidden on mobile) ── */}
                 <div className="hidden md:block md:col-span-5 space-y-4 md:border-r md:border-white/10 md:pr-6">
                     <p className="text-text-muted font-mono text-xs leading-relaxed">
-                        Have a project in mind, or want to collaborate? Send a message and I&apos;ll respond directly — no forms, no runaround.
+                        Have a project in mind, or want to collaborate? Send a message directly — no gatekeepers, no ticketing system. I read and respond to every submission personally.
                     </p>
 
                     {/* Node status details */}
