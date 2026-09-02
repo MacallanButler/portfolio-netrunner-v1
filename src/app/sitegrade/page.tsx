@@ -2,7 +2,9 @@ import type { Metadata } from "next";
 import SiteGradeClient from "./SiteGradeClient";
 
 export const metadata: Metadata = {
-  title: "Free Website Grade",
+  title: {
+    absolute: "Free Website Grade | Macallan Butler",
+  },
   description: "Run a free instant technical, SEO, accessibility, and copywriting audit on your site. No signup, no credentials — just a straight grade card.",
   alternates: {
     canonical: "https://macallanbutler.com/sitegrade",
