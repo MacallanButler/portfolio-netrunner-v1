@@ -15,7 +15,7 @@ export default function GigsClient() {
   const { playClick } = useAudio();
 
   // Split projects based on dynamic brief groupings
-  const portfolioBuilds = projectsData.filter((p) =>
+  const independentBuilds = projectsData.filter((p) =>
     ["ghost_mountain", "apex_drop", "blue_horizon", "proj_wrought"].includes(p.id)
   );
   const conceptWork = projectsData.filter((p) =>
@@ -109,16 +109,16 @@ export default function GigsClient() {
         </div>
       </div>
 
-      {/* ── SECTION 1: PORTFOLIO BUILDS ── */}
+      {/* ── SECTION 1: INDEPENDENT BUILDS ── */}
       <section className="space-y-4">
         <div>
-          <h2 className="text-xl font-bold text-white mb-1">Portfolio Builds</h2>
+          <h2 className="text-xl font-bold text-white mb-1">Independent Builds</h2>
           <p className="text-xs text-text-muted/65 italic font-sans max-w-3xl">
             Self-directed projects, built end-to-end to demonstrate range across industries — built to the same standard I&apos;d bring to yours.
           </p>
         </div>
         <div className="grid md:grid-cols-2 gap-8">
-          {portfolioBuilds.map(renderProjectCard)}
+          {independentBuilds.map(renderProjectCard)}
         </div>
       </section>
 
