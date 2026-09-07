@@ -1,23 +1,24 @@
 import type { Metadata } from "next";
 import SiteGradeClient from "./SiteGradeClient";
+import { BRAND } from "@/lib/brand";
 
 export const metadata: Metadata = {
   title: {
-    absolute: "Free Website Grade | Macallan Butler",
+    absolute: `Free Website Grade | ${BRAND.displayName}`,
   },
   description: "Run a free instant technical, SEO, accessibility, and copywriting audit on your site. No signup, no credentials — just a straight grade card.",
   alternates: {
-    canonical: "https://macallanbutler.com/sitegrade",
+    canonical: `${BRAND.siteUrl}/sitegrade`,
   },
   openGraph: {
-    title: "Free Website Grade | Macallan Butler",
+    title: `Free Website Grade | ${BRAND.displayName}`,
     description: "Run a free instant technical, SEO, accessibility, and copywriting audit on your site. No signup, no credentials — just a straight grade card.",
-    url: "https://macallanbutler.com/sitegrade",
-    siteName: "Macallan Butler",
+    url: `${BRAND.siteUrl}/sitegrade`,
+    siteName: BRAND.displayName,
   },
   twitter: {
     card: "summary_large_image",
-    title: "Free Website Grade | Macallan Butler",
+    title: `Free Website Grade | ${BRAND.displayName}`,
     description: "Run a free instant technical, SEO, accessibility, and copywriting audit on your site. No signup, no credentials — just a straight grade card.",
   },
 };
@@ -27,7 +28,7 @@ export default function SiteGradePage() {
     "@context": "https://schema.org",
     "@type": "WebApplication",
     "name": "SiteGrade Diagnostic",
-    "url": "https://macallanbutler.com/sitegrade",
+    "url": `${BRAND.siteUrl}/sitegrade`,
     "description": "Run a free instant technical, SEO, accessibility, and copywriting audit on your site. No signup, no credentials — just a straight grade card.",
     "applicationCategory": "DeveloperApplication",
     "operatingSystem": "All",
@@ -38,7 +39,11 @@ export default function SiteGradePage() {
     },
     "creator": {
       "@type": "Person",
-      "name": "Macallan Butler",
+      "name": BRAND.founder,
+    },
+    "provider": {
+      "@type": "Organization",
+      "name": BRAND.legalName,
     },
   };
 

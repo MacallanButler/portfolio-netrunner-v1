@@ -7,14 +7,10 @@ import { motion } from "framer-motion";
 import { GlitchText } from "@/components/core/GlitchText";
 import { SystemBadge } from "@/components/core/SystemBadge";
 import { ArrowLeft, ExternalLink } from "lucide-react";
-import { useAudio } from "@/context/AudioContext";
 import { trackExternalLinkClick } from "@/lib/analytics";
 
 export default function CDMComparePage() {
-  const { playClick } = useAudio();
-
   const handleLinkClick = (url: string) => {
-    playClick();
     trackExternalLinkClick(url);
   };
 
@@ -28,7 +24,6 @@ export default function CDMComparePage() {
         </div>
         <Link
           href="/gigs"
-          onClick={playClick}
           className="flex items-center gap-1.5 text-text-muted hover:text-neon-cyan transition-colors"
         >
           <ArrowLeft size={14} />

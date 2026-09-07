@@ -2,7 +2,6 @@
 
 import React, { useState, useEffect, useRef } from "react";
 import { cn } from "@/lib/utils";
-import { useAudio } from "@/context/AudioContext";
 import { trackTerminalCommand, trackExternalLinkClick, trackEmailClick } from "@/lib/analytics";
 import projectsData from "@/data/projects.json";
 
@@ -28,8 +27,6 @@ export function TerminalPrompt({
     output,
     className
 }: TerminalPromptProps) {
-    const { playClick, playKeypress, playGlitch } = useAudio();
-    
     const [typedCommand, setTypedCommand] = useState("");
     const [isAutoTypingComplete, setIsAutoTypingComplete] = useState(false);
     const [history, setHistory] = useState<HistoryItem[]>([]);
@@ -43,10 +40,6 @@ export function TerminalPrompt({
         let index = 0;
         const interval = setInterval(() => {
             setTypedCommand(command.slice(0, index + 1));
-            // Play a soft keypress sound for auto-typing if audio is enabled
-            if (index % 2 === 0) {
-                playKeypress();
-            }
             index++;
             if (index >= command.length) {
                 clearInterval(interval);
@@ -58,7 +51,7 @@ export function TerminalPrompt({
             }
         }, 55);
         return () => clearInterval(interval);
-    }, [command, output, playKeypress]);
+    }, [command, output]);
 
     // Scroll to bottom when history changes
     useEffect(() => {
@@ -70,14 +63,11 @@ export function TerminalPrompt({
     const focusInput = () => {
         if (inputRef.current) {
             inputRef.current.focus();
-            playClick();
         }
     };
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setInputVal(e.target.value);
-        // Play soft keypress sound when typing
-        playKeypress();
     };
 
     const handleFormSubmit = (e: React.FormEvent) => {
@@ -85,7 +75,6 @@ export function TerminalPrompt({
         const trimmedCmd = inputVal.trim();
         if (!trimmedCmd) return;
 
-        playClick();
         trackTerminalCommand(trimmedCmd);
         
         let response: React.ReactNode = "";
@@ -96,7 +85,7 @@ export function TerminalPrompt({
                 response = (
                     <div className="space-y-1 text-xs text-text-muted">
                         <p>Available commands:</p>
-                        <p>  <span className="text-neon-cyan">about</span>      - Personal details and status</p>
+                        <p>  <span className="text-neon-cyan">about</span>      - Studio details and status</p>
                         <p>  <span className="text-neon-cyan">projects</span>   - List of completed operations</p>
                         <p>  <span className="text-neon-cyan">contact</span>    - Communications and node links</p>
                         <p>  <span className="text-neon-cyan">clear</span>      - Clear system logs</p>
@@ -109,10 +98,12 @@ export function TerminalPrompt({
             case "whoami":
                 response = (
                     <div className="space-y-1 text-xs text-text-muted">
-                        <p><span className="text-neon-cyan">location:</span> Remote / Worldwide</p>
+                        <p><span className="text-neon-cyan">entity:</span> MCB Systems LLC</p>
+                        <p><span className="text-neon-cyan">founder:</span> Macallan Butler</p>
+                        <p><span className="text-neon-cyan">location:</span> Remote / Chicago Metro</p>
                         <p><span className="text-neon-cyan">specialty:</span> High-fidelity React interfaces & motion architecture</p>
                         <p><span className="text-neon-cyan">interfaces:</span> Next.js · TypeScript · CSS Grid/Flexbox</p>
-                        <p><span className="text-neon-cyan">status:</span> Available for contracts and freelance deployments</p>
+                        <p><span className="text-neon-cyan">status:</span> Open for client work and contract engagements</p>
                     </div>
                 );
                 break;
@@ -161,7 +152,6 @@ export function TerminalPrompt({
                 return;
             case "hack":
             case "sudo":
-                playGlitch();
                 response = (
                     <div className="text-xs text-neon-cyan font-mono animate-pulse">
                         <p>ACCESSING BACKDOOR MAINFRAME...</p>
@@ -171,7 +161,6 @@ export function TerminalPrompt({
                 );
                 break;
             default:
-                playGlitch();
                 response = (
                     <p className="text-xs text-neon-red/80">
                         system: command not found: &apos;{trimmedCmd}&apos;. Type &apos;help&apos; for list.

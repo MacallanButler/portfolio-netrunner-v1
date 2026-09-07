@@ -41,7 +41,7 @@ export default function BootSequence() {
 
   return (
     <div className="flex flex-col items-center justify-center min-h-[80vh] w-full max-w-2xl mx-auto p-4">
-      <h1 className="sr-only">Macallan Butler | Full-Stack Developer & UI Architect</h1>
+      <h1 className="sr-only">MCB Systems | Full-Stack Development & UI Architecture Studio</h1>
 
       {/* Boot Logs Console (Non-blocking status readout) */}
       <div className="font-mono text-xs md:text-sm text-text-muted self-start mb-8 space-y-1 h-28 overflow-hidden border-l-2 border-neon-cyan/30 pl-3 w-full">
@@ -63,15 +63,18 @@ export default function BootSequence() {
       <div className="text-center space-y-8 w-full">
         <div className="space-y-4">
           <div className="text-5xl md:text-7xl font-bold tracking-tighter text-white">
-            <GlitchText text="MACALLAN_BUTLER" />
+            <GlitchText text="MCB_SYSTEMS" />
+          </div>
+          <div className="text-xs md:text-sm font-mono text-neon-cyan tracking-wider uppercase">
+            Founded by Macallan Butler
           </div>
           <h2 className="text-text-muted font-mono text-sm md:text-base font-normal">
-            Full-Stack Developer & UI Architect
+            Full-Stack Development & UI Architecture Studio
           </h2>
           <h3 className="text-xs md:text-sm font-mono text-text-muted max-w-md mx-auto leading-relaxed">
             System status:{" "}
             <span className="text-neon-cyan animate-pulse">
-              open to freelance clients and full-time teams
+              Open for new client work
             </span>
             . Explore the archive below.
           </h3>

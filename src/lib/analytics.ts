@@ -21,10 +21,6 @@ export const trackProjectView = (projectId: string, projectTitle: string) => {
   trackEvent("view_project", "engagement", `${projectId} (${projectTitle})`);
 };
 
-export const trackAudioToggle = (enabled: boolean) => {
-  trackEvent("toggle_audio", "interface", enabled ? "unmute" : "mute");
-};
-
 export const trackContactSubmit = (method: string, packageInterest?: string) => {
   trackEvent("submit_contact", "conversion", method, undefined, {
     package_interest: packageInterest ?? "none",

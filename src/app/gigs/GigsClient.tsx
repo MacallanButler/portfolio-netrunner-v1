@@ -8,11 +8,9 @@ import { ProjectImage } from "@/components/core/ProjectImage";
 import { getTechColor } from "@/lib/techColors";
 import { useProjectModal } from "@/context/ProjectModalContext";
 import projectsData from "@/data/projects.json";
-import { useAudio } from "@/context/AudioContext";
 
 export default function GigsClient() {
   const { openProject } = useProjectModal();
-  const { playClick } = useAudio();
 
   // Split projects based on dynamic brief groupings
   const independentBuilds = projectsData.filter((p) =>
@@ -30,7 +28,6 @@ export default function GigsClient() {
       rel="noopener noreferrer"
       onClick={(e) => {
         e.preventDefault();
-        playClick();
         openProject(project as any);
       }}
       className="group cursor-pointer no-underline relative overflow-hidden rounded-sm border border-white/10 bg-surface-card shadow-lg flex flex-col h-full"

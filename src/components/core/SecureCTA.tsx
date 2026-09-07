@@ -18,8 +18,8 @@ interface SecureCTAProps {
 
 export function SecureCTA({
   title = "Ready to start?",
-  description = "Have a project in mind, or think I'd be a good fit for your team? Let's talk.",
-  buttonText = "Get in touch",
+  description = "Have a project in mind? Let's scope it.",
+  buttonText = "Start inquiry",
   className,
   hideOnMobile = true,
   location = "general",

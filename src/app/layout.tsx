@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import { Inter, JetBrains_Mono } from "next/font/google";
 import Script from "next/script";
+import { BRAND } from "@/lib/brand";
 import { Shell } from "@/components/layout/Shell";
 import { ProjectModalProvider } from "@/context/ProjectModalContext";
-import { AudioProvider } from "@/context/AudioContext";
 import { ModalOrchestrator } from "@/components/core/ModalOrchestrator";
 import "./globals.css";
 
@@ -19,28 +19,40 @@ const jetbrainsMono = JetBrains_Mono({
 
 export const metadata: Metadata = {
   title: {
-    default: "Macallan Butler | Full-Stack Developer & UI Architect",
-    template: "%s | Macallan Butler"
+    default: `${BRAND.displayName} | Full-Stack Development & UI Architecture Studio`,
+    template: `%s | ${BRAND.displayName}`
   },
-  description: "Macallan Butler is a freelance Full-Stack Developer & UI Architect specializing in high-fidelity React, Next.js, and motion-driven user interfaces.",
-  keywords: ["Macallan Butler", "Full-Stack Developer", "UI Architect", "React Developer", "Next.js", "TypeScript", "Freelance Developer"],
-  authors: [{ name: "Macallan Butler" }],
-  creator: "Macallan Butler",
+  description: `${BRAND.legalName} is a web development and UI architecture studio founded by ${BRAND.founder}, specializing in high-fidelity React, Next.js, and bespoke digital solutions.`,
+  keywords: [
+    BRAND.displayName,
+    BRAND.legalName,
+    "Web Development LLC",
+    "Software Development Company",
+    BRAND.founder,
+    "Full-Stack Developer",
+    "UI Architect",
+    "React Developer",
+    "Next.js",
+    "TypeScript",
+    "Freelance Developer"
+  ],
+  authors: [{ name: BRAND.displayName }],
+  creator: BRAND.displayName,
   icons: {
     icon: "/icon.svg",
   },
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://macallanbutler.com",
-    title: "Macallan Butler | Full-Stack Developer & UI Architect",
-    description: "Freelance Full-Stack Developer & UI Architect specializing in high-fidelity React, Next.js, and motion-driven user interfaces. Explore my projects and process.",
-    siteName: "Macallan Butler",
+    url: BRAND.siteUrl,
+    title: `${BRAND.displayName} | Full-Stack Development & UI Architecture Studio`,
+    description: `${BRAND.legalName} is a web development and UI architecture studio founded by ${BRAND.founder}, specializing in high-fidelity React, Next.js, and bespoke digital solutions.`,
+    siteName: BRAND.displayName,
   },
   twitter: {
     card: "summary_large_image",
-    title: "Macallan Butler | Full-Stack Developer & UI Architect",
-    description: "Freelance Full-Stack Developer & UI Architect specializing in high-fidelity React, Next.js, and motion-driven user interfaces.",
+    title: `${BRAND.displayName} | Full-Stack Development & UI Architecture Studio`,
+    description: `${BRAND.legalName} is a web development and UI architecture studio founded by ${BRAND.founder}, specializing in high-fidelity React, Next.js, and bespoke digital solutions.`,
   },
   robots: {
     index: true,
@@ -65,14 +77,12 @@ export default function RootLayout({
       <body
         className={`${inter.variable} ${jetbrainsMono.variable} antialiased bg-surface-dark text-text-primary selection:bg-neon-cyan/30 selection:text-neon-cyan`}
       >
-        <AudioProvider>
           <ProjectModalProvider>
             <Shell>
               {children}
             </Shell>
             <ModalOrchestrator />
           </ProjectModalProvider>
-        </AudioProvider>
 
         <Script
           async

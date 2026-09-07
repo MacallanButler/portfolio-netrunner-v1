@@ -9,15 +9,12 @@ import { GlitchText } from "@/components/core/GlitchText";
 import { getTechColor } from "@/lib/techColors";
 import { cn } from "@/lib/utils";
 import { trackExternalLinkClick } from "@/lib/analytics";
-import { useAudio } from "@/context/AudioContext";
 
 export function ProjectModal() {
   const { activeProject, isClosing, closeProject } = useProjectModal();
-  const { playClick } = useAudio();
   const [activeVariant, setActiveVariant] = useState<"A" | "B">("A");
 
   const handleClose = () => {
-    playClick();
     closeProject();
   };
 
@@ -222,7 +219,7 @@ export function ProjectModal() {
                     <p className="font-mono text-[9px] text-text-muted uppercase tracking-widest">// SELECT VARIANT</p>
                     <div className="flex gap-1.5 p-1 bg-surface-dark border border-white/10 rounded-sm">
                       <button
-                        onClick={() => { playClick(); setActiveVariant("A"); }}
+                        onClick={() => { setActiveVariant("A"); }}
                         className={cn(
                           "flex-1 py-1 text-center font-mono text-[10px] tracking-wider uppercase transition-all duration-150 border",
                           activeVariant === "A"
@@ -233,7 +230,7 @@ export function ProjectModal() {
                         Site A (V1)
                       </button>
                       <button
-                        onClick={() => { playClick(); setActiveVariant("B"); }}
+                        onClick={() => { setActiveVariant("B"); }}
                         className={cn(
                           "flex-1 py-1 text-center font-mono text-[10px] tracking-wider uppercase transition-all duration-150 border",
                           activeVariant === "B"

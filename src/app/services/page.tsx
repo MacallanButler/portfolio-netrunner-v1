@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
 import ServicesClient from "./ServicesClient";
+import { BRAND } from "@/lib/brand";
 
 export const metadata: Metadata = {
   title: "Web Services & Maintenance Plans",
-  description: "Professional web development, search engine optimization, performance tuning, and month-to-month care plans by Macallan Butler. Transparent pricing, no contract required.",
+  description: `Professional web development, search engine optimization, performance tuning, and month-to-month care plans by ${BRAND.displayName}. Transparent pricing, no contract required.`,
   alternates: {
-    canonical: "https://macallanbutler.com/services",
+    canonical: `${BRAND.siteUrl}/services`,
   },
 };
 
@@ -14,8 +15,8 @@ export default function ServicesPage() {
     "@context": "https://schema.org",
     "@type": "ItemList",
     "name": "Web Development & Maintenance Services",
-    "description": "Professional web development, search engine optimization, performance tuning, and month-to-month care plans by Macallan Butler.",
-    "url": "https://macallanbutler.com/services",
+    "description": `Professional web development, search engine optimization, performance tuning, and month-to-month care plans by ${BRAND.displayName}.`,
+    "url": `${BRAND.siteUrl}/services`,
     "itemListElement": [
       {
         "@type": "ListItem",
@@ -26,10 +27,10 @@ export default function ServicesPage() {
           "description": "Clean, fast, and professional website presence. Includes up to 4 standard pages, contact form, mobile-friendly design, basic SEO setup, and domain connection.",
           "provider": {
             "@type": "Person",
-            "name": "Macallan Butler",
+            "name": BRAND.founder,
             "worksFor": {
               "@type": "Organization",
-              "name": "MCB Industries LLC"
+              "name": BRAND.legalName
             }
           },
           "offers": {
@@ -49,10 +50,10 @@ export default function ServicesPage() {
           "description": "Polished marketing website built to convert visitors. Includes up to 6 standard pages, gallery or portfolio, testimonials, embedded booking, and Google Analytics setup.",
           "provider": {
             "@type": "Person",
-            "name": "Macallan Butler",
+            "name": BRAND.founder,
             "worksFor": {
               "@type": "Organization",
-              "name": "MCB Industries LLC"
+              "name": BRAND.legalName
             }
           },
           "offers": {
@@ -72,10 +73,10 @@ export default function ServicesPage() {
           "description": "Fully custom web applications tailored to specific business needs. Features online booking, custom CMS content editing, Stripe payments integration, and email automations.",
           "provider": {
             "@type": "Person",
-            "name": "Macallan Butler",
+            "name": BRAND.founder,
             "worksFor": {
               "@type": "Organization",
-              "name": "MCB Industries LLC"
+              "name": BRAND.legalName
             }
           },
           "offers": {
@@ -95,10 +96,10 @@ export default function ServicesPage() {
           "description": "Essential website maintenance plan keeping the site secure, live, and up-to-date. Features uptime monitoring, SSL checks, dependency updates, and up to 1 hour of monthly changes.",
           "provider": {
             "@type": "Person",
-            "name": "Macallan Butler",
+            "name": BRAND.founder,
             "worksFor": {
               "@type": "Organization",
-              "name": "MCB Industries LLC"
+              "name": BRAND.legalName
             }
           },
           "offers": {
@@ -118,10 +119,10 @@ export default function ServicesPage() {
           "description": "Performance audits, search visibility tracking, and support. Features Lighthouse performance audits, Search Console reviews, and up to 3 hours of monthly work/changes.",
           "provider": {
             "@type": "Person",
-            "name": "Macallan Butler",
+            "name": BRAND.founder,
             "worksFor": {
               "@type": "Organization",
-              "name": "MCB Industries LLC"
+              "name": BRAND.legalName
             }
           },
           "offers": {
@@ -141,10 +142,10 @@ export default function ServicesPage() {
           "description": "Comprehensive development and strategy relationship. Features monthly analytics review, 30-minute strategy call, quarterly content refreshes, and up to 6 hours of monthly work.",
           "provider": {
             "@type": "Person",
-            "name": "Macallan Butler",
+            "name": BRAND.founder,
             "worksFor": {
               "@type": "Organization",
-              "name": "MCB Industries LLC"
+              "name": BRAND.legalName
             }
           },
           "offers": {

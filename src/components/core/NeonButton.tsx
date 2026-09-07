@@ -3,15 +3,12 @@
 import React from "react";
 import { motion, HTMLMotionProps } from "framer-motion";
 import { cn } from "@/lib/utils";
-import { useAudio } from "@/context/AudioContext";
-
 interface NeonButtonProps extends HTMLMotionProps<"button"> {
     variant?: "primary" | "secondary" | "danger";
     children: React.ReactNode;
 }
 
 export function NeonButton({ variant = "primary", className, children, onClick, ...props }: NeonButtonProps) {
-    const { playClick } = useAudio();
     const variants = {
         primary: "border-neon-cyan text-neon-cyan hover:bg-neon-cyan/10 hover:shadow-[0_0_20px_rgba(0,255,255,0.4)]",
         secondary: "border-text-muted text-text-muted hover:border-white hover:text-white hover:bg-white/5",
@@ -19,7 +16,6 @@ export function NeonButton({ variant = "primary", className, children, onClick, 
     };
 
     const handleClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-        playClick();
         if (onClick) {
             onClick(e as any);
         }

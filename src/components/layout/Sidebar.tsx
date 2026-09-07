@@ -15,8 +15,7 @@ import {
     User
 } from "lucide-react";
 import { GlitchText } from "@/components/core/GlitchText";
-import { useAudio } from "@/context/AudioContext";
-import { trackAudioToggle, trackNavClick, trackEmailClick } from "@/lib/analytics";
+import { trackNavClick, trackEmailClick } from "@/lib/analytics";
 
 const NAVIGATION = [
     { name: "ARCHIVE", path: "/gigs", icon: FolderKanban },
@@ -30,8 +29,6 @@ export function Sidebar() {
     const pathname = usePathname();
     const [isOpen, setIsOpen] = useState(false);
 
-    const { isAudioEnabled, toggleAudio, playClick } = useAudio();
-
     // Interactive Task Manager State with Session Persistence
     const [visitedPaths, setVisitedPaths] = useState<Set<string>>(new Set());
     const [sessionTime, setSessionTime] = useState(0);
@@ -39,18 +36,18 @@ export function Sidebar() {
     useEffect(() => {
         // Initialize or retrieve persistent session start timestamp
         let startTimestamp = Date.now();
-        const storedStart = sessionStorage.getItem("mb_session_start");
+        const storedStart = sessionStorage.getItem("mcb_session_start") || sessionStorage.getItem("mb_session_start");
         if (storedStart) {
             const parsed = parseInt(storedStart, 10);
             if (!isNaN(parsed)) {
                 startTimestamp = parsed;
             }
         } else {
-            sessionStorage.setItem("mb_session_start", startTimestamp.toString());
+            sessionStorage.setItem("mcb_session_start", startTimestamp.toString());
         }
 
         // Initialize or retrieve persistent visited paths
-        const storedPaths = sessionStorage.getItem("mb_visited_paths");
+        const storedPaths = sessionStorage.getItem("mcb_visited_paths") || sessionStorage.getItem("mb_visited_paths");
         if (storedPaths) {
             try {
                 const pathsArr = JSON.parse(storedPaths);
@@ -79,7 +76,7 @@ export function Sidebar() {
                 setVisitedPaths(prev => {
                     const next = new Set(prev).add(pathname);
                     try {
-                        sessionStorage.setItem("mb_visited_paths", JSON.stringify(Array.from(next)));
+                        sessionStorage.setItem("mcb_visited_paths", JSON.stringify(Array.from(next)));
                     } catch {
                         // Ignore storage quota errors
                     }
@@ -123,7 +120,7 @@ export function Sidebar() {
                     <div className="p-6 border-b border-white/10 relative z-10">
                         <Link href="/" onClick={() => setIsOpen(false)}>
                             <div className="text-xl font-bold tracking-tighter hover:text-neon-cyan transition-colors cursor-pointer">
-                                <GlitchText text="MB_SYSTEMS" />
+                                <GlitchText text="MCB_SYSTEMS" />
                             </div>
                         </Link>
                     </div>
@@ -146,7 +143,6 @@ export function Sidebar() {
                                     )}
                                     onClick={() => {
                                         setIsOpen(false);
-                                        playClick();
                                         trackNavClick(item.name.toLowerCase());
                                     }}
                                 >
@@ -188,20 +184,6 @@ export function Sidebar() {
                             <div className="pt-4 flex items-center justify-between text-[10px] text-text-muted uppercase tracking-widest border-t border-white/5 mt-4">
                                 <span>Status:</span>
                                 <span className="text-neon-cyan animate-pulse">Online</span>
-                            </div>
-
-                            <div className="flex items-center justify-between text-[10px] text-text-muted uppercase tracking-widest pt-2">
-                                <span>Audio:</span>
-                                <button 
-                                    onClick={() => {
-                                        const nextState = !isAudioEnabled;
-                                        toggleAudio();
-                                        trackAudioToggle(nextState);
-                                    }}
-                                    className={cn("transition-colors", isAudioEnabled ? "text-neon-cyan" : "text-white hover:text-neon-cyan")}
-                                >
-                                    {isAudioEnabled ? "[ ON ]" : "[ MUTE ]"}
-                                </button>
                             </div>
 
                             <div className="flex items-center justify-between text-[10px] text-text-muted uppercase tracking-widest pt-2">

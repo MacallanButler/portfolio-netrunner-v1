@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { Resend } from 'resend';
+import { BRAND } from '@/lib/brand';
 
 // Initialize Resend only if key exists
 const resend = process.env.RESEND_API_KEY
@@ -26,8 +27,8 @@ export async function POST(request: Request) {
         }
 
         // Real send
-        const fromEmail = process.env.RESEND_FROM_EMAIL || 'Macallan Butler <macallan@macallanbutler.com>';
-        const toEmail = process.env.RESEND_TO_EMAIL || 'macallan@macallanbutler.com';
+        const fromEmail = process.env.RESEND_FROM_EMAIL || `${BRAND.displayName} <${BRAND.contactEmail}>`;
+        const toEmail = process.env.RESEND_TO_EMAIL || BRAND.contactEmail;
 
         const { data, error } = await resend.emails.send({
             from: fromEmail,

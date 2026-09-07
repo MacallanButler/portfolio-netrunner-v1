@@ -1,7 +1,8 @@
 import type { MetadataRoute } from 'next';
+import { BRAND } from '@/lib/brand';
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://macallanbutler.com';
+  const baseUrl = BRAND.siteUrl;
 
   return [
     {
@@ -36,6 +37,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
     {
       url: `${baseUrl}/design-system`,
+      lastModified: new Date(),
+      changeFrequency: 'yearly',
+      priority: 0.3,
+    },
+    {
+      url: `${baseUrl}/privacy`,
+      lastModified: new Date(),
+      changeFrequency: 'yearly',
+      priority: 0.3,
+    },
+    {
+      url: `${baseUrl}/terms`,
       lastModified: new Date(),
       changeFrequency: 'yearly',
       priority: 0.3,

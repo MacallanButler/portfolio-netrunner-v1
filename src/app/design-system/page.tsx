@@ -1,24 +1,25 @@
 import type { Metadata } from "next";
 import ProcessClient from "./ProcessClient";
+import { BRAND } from "@/lib/brand";
 
 export const metadata: Metadata = {
   title: {
-    absolute: "System Build Process | Macallan Butler UI Architect",
+    absolute: `System Build Process | ${BRAND.displayName}`,
   },
-  description: "Understand the development process at Macallan Butler: discovery, architecture, development, QA review, and deployment protocol details.",
+  description: `Understand the development process at ${BRAND.legalName}: discovery, architecture, development, QA review, and deployment protocol details.`,
   alternates: {
-    canonical: "https://macallanbutler.com/design-system",
+    canonical: `${BRAND.siteUrl}/design-system`,
   },
   openGraph: {
-    title: "System Build Process | Macallan Butler UI Architect",
-    description: "Understand the development process at Macallan Butler: discovery, architecture, development, QA review, and deployment protocol details.",
-    url: "https://macallanbutler.com/design-system",
-    siteName: "Macallan Butler",
+    title: `System Build Process | ${BRAND.displayName}`,
+    description: `Understand the development process at ${BRAND.legalName}: discovery, architecture, development, QA review, and deployment protocol details.`,
+    url: `${BRAND.siteUrl}/design-system`,
+    siteName: BRAND.displayName,
   },
   twitter: {
     card: "summary_large_image",
-    title: "System Build Process | Macallan Butler UI Architect",
-    description: "Understand the development process at Macallan Butler: discovery, architecture, development, QA review, and deployment protocol details.",
+    title: `System Build Process | ${BRAND.displayName}`,
+    description: `Understand the development process at ${BRAND.legalName}: discovery, architecture, development, QA review, and deployment protocol details.`,
   },
 };
 

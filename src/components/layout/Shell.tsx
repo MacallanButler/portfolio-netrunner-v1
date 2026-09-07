@@ -3,6 +3,7 @@
 import React, { useRef } from "react";
 import { useRouter, usePathname } from "next/navigation";
 import { Sidebar } from "./Sidebar";
+import { Footer } from "./Footer";
 import { ScanlineOverlay } from "@/components/core/ScanlineOverlay";
 
 const PAGES = ["/gigs", "/services", "/about", "/design-system", "/comms"];
@@ -97,10 +98,11 @@ export function Shell({ children }: { children: React.ReactNode }) {
 
             <Sidebar />
 
-            <main className="flex-1 md:pl-64 relative z-10 overflow-x-hidden min-h-screen">
-                <div className="p-6 md:p-12 lg:p-16 max-w-7xl mx-auto w-full">
+            <main className="flex-1 md:pl-64 relative z-10 overflow-x-hidden min-h-screen flex flex-col justify-between">
+                <div className="p-6 md:p-12 lg:p-16 max-w-7xl mx-auto w-full flex-1">
                     {children}
                 </div>
+                <Footer />
             </main>
         </div>
     );

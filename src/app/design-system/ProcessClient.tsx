@@ -7,7 +7,6 @@ import { GlitchText } from "@/components/core/GlitchText";
 import { NeonButton } from "@/components/core/NeonButton";
 import Link from "next/link";
 import { SecureCTA } from "@/components/core/SecureCTA";
-import { useAudio } from "@/context/AudioContext";
 import {
   Compass,
   Code2,
@@ -60,11 +59,9 @@ const PROCESS_STEPS = [
 ];
 
 export default function ProcessClient() {
-  const { playClick } = useAudio();
   const [openSteps, setOpenSteps] = useState<Record<string, boolean>>({ "1": true });
 
   const toggleStep = (stepId: string) => {
-    playClick();
     setOpenSteps((prev) => ({ ...prev, [stepId]: !prev[stepId] }));
   };
 

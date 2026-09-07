@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
 import CommsClient from "./CommsClient";
+import { BRAND } from "@/lib/brand";
 
 export const metadata: Metadata = {
   title: "Establish Connection & Get in Touch",
-  description: "Get in touch with Macallan Butler to discuss freelance full-stack development, UI design architecture, or new collaborations.",
+  description: `Get in touch with ${BRAND.legalName} to discuss full-stack development, UI architecture, or new client projects.`,
   alternates: {
-    canonical: "https://macallanbutler.com/comms",
+    canonical: `${BRAND.siteUrl}/comms`,
   },
 };
 

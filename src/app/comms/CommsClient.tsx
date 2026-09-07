@@ -6,6 +6,7 @@ import { GlitchText } from "@/components/core/GlitchText";
 import { NeonButton } from "@/components/core/NeonButton";
 import { cn } from "@/lib/utils";
 import { useSearchParams } from "next/navigation";
+import Link from "next/link";
 import { trackContactSubmit } from "@/lib/analytics";
 
 export default function CommsClient() {
@@ -107,6 +108,11 @@ export default function CommsClient() {
                 <div className="md:col-span-7">
                     <HoloCard title="TRANSMIT_MESSAGE_PAYLOAD">
                         <form onSubmit={handleSubmit} className="space-y-3.5">
+                            <div className="p-3 bg-surface-dark/70 border border-white/10 rounded-sm mb-1">
+                                <p className="text-[11px] font-mono text-white/90 leading-relaxed">
+                                    You&apos;re reaching out to <span className="text-neon-cyan font-semibold">MCB Systems LLC</span>. Every inquiry gets a response within 1 business day.
+                                </p>
+                            </div>
                             
                             <div className="space-y-1">
                                 <label className="text-[10px] font-mono text-neon-cyan uppercase tracking-wider">
@@ -150,12 +156,19 @@ export default function CommsClient() {
                                 />
                             </div>
 
-                            <div className="flex justify-end pt-1">
+                            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pt-2">
+                                <p className="text-[10px] font-mono text-text-muted/75">
+                                    By transmitting, you acknowledge our{" "}
+                                    <Link href="/privacy" className="text-neon-cyan hover:underline">
+                                        Privacy Policy
+                                    </Link>
+                                    .
+                                </p>
                                 <NeonButton
                                     variant="primary"
                                     type="submit"
                                     disabled={status === "SENDING" || status === "SUCCESS"}
-                                    className="w-full md:w-auto text-xs py-2"
+                                    className="w-full sm:w-auto text-xs py-2 flex-shrink-0"
                                 >
                                     {status === "SENDING" ? "TRANSMITTING..." : status === "SUCCESS" ? "MESSAGE DELIVERED" : "TRANSMIT MESSAGE"}
                                 </NeonButton>

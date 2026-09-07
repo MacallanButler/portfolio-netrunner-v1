@@ -11,7 +11,6 @@ import { ProjectImage } from "@/components/core/ProjectImage";
 import { SecureCTA } from "@/components/core/SecureCTA";
 import { useProjectModal } from "@/context/ProjectModalContext";
 import projectsData from "@/data/projects.json";
-import { useAudio } from "@/context/AudioContext";
 import { cn } from "@/lib/utils";
 import { Check, ChevronDown, ChevronUp, Cpu, ShieldCheck, X, Zap } from "lucide-react";
 import Link from "next/link";
@@ -230,7 +229,6 @@ const FAQS = [
 ];
 
 export default function ServicesClient() {
-  const { playClick } = useAudio();
   const [openDetails, setOpenDetails] = useState<Record<string, boolean>>({});
   const [openFaq, setOpenFaq] = useState<Record<number, boolean>>({});
   const pathname = usePathname();
@@ -254,12 +252,10 @@ export default function ServicesClient() {
   }, [pathname]);
 
   const toggleDetail = (key: string) => {
-    playClick();
     setOpenDetails((prev) => ({ ...prev, [key]: !prev[key] }));
   };
 
   const toggleFaq = (idx: number) => {
-    playClick();
     setOpenFaq((prev) => ({ ...prev, [idx]: !prev[idx] }));
   };
 

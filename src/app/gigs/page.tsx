@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
 import GigsClient from "./GigsClient";
 import projectsData from "@/data/projects.json";
+import { BRAND } from "@/lib/brand";
 
 export const metadata: Metadata = {
   title: "Project Archive & Case Studies",
-  description: "Browse the archive of shipped web applications, platforms, and interactive experiences developed by Macallan Butler.",
+  description: `Browse the archive of shipped web applications, platforms, and interactive experiences developed by ${BRAND.displayName}.`,
   alternates: {
-    canonical: "https://macallanbutler.com/gigs",
+    canonical: `${BRAND.siteUrl}/gigs`,
   },
 };
 
@@ -15,8 +16,8 @@ export default function GigsPage() {
     "@context": "https://schema.org",
     "@type": "CollectionPage",
     "name": "Project Archive & Case Studies",
-    "description": "Browse the archive of shipped web applications, platforms, and interactive experiences developed by Macallan Butler.",
-    "url": "https://macallanbutler.com/gigs",
+    "description": `Browse the archive of shipped web applications, platforms, and interactive experiences developed by ${BRAND.displayName}.`,
+    "url": `${BRAND.siteUrl}/gigs`,
     "mainEntity": {
       "@type": "ItemList",
       "numberOfItems": projectsData.length,
@@ -32,11 +33,11 @@ export default function GigsPage() {
           "keywords": project.techStack.join(", "),
           "creator": {
             "@type": "Person",
-            "name": "Macallan Butler"
+            "name": BRAND.founder
           },
           "publisher": {
             "@type": "Organization",
-            "name": "MCB Industries LLC"
+            "name": BRAND.legalName
           }
         }
       }))
