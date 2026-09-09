@@ -1,9 +1,11 @@
 'use client';
 
 import React, { useState, useEffect, useRef } from "react";
+import Link from "next/link";
 import { GlitchText } from "@/components/core/GlitchText";
 import { HoloCard } from "@/components/core/HoloCard";
 import { NeonButton } from "@/components/core/NeonButton";
+import { AlertTriangle, TrendingUp, Sparkles } from "lucide-react";
 
 type AppState = "idle" | "loading" | "teaser" | "capturing" | "delivered" | "error";
 
@@ -397,6 +399,35 @@ export default function SiteGradeClient() {
                 </div>
               </div>
 
+              {/* Commercial Urgency Callout based on Grade */}
+              <div className="p-3.5 border border-white/10 bg-surface-dark rounded-sm text-left flex items-start gap-3">
+                {teaserData.grade.startsWith("A") || teaserData.grade.startsWith("B") ? (
+                  <>
+                    <TrendingUp className="w-5 h-5 text-neon-cyan flex-shrink-0 mt-0.5" />
+                    <div className="space-y-1">
+                      <p className="font-mono text-[11px] text-neon-cyan uppercase font-bold">
+                        FOUNDATIONAL HEALTH DETECTED
+                      </p>
+                      <p className="text-xs text-text-muted leading-relaxed font-sans">
+                        Your domain exhibits solid baseline infrastructure. The biggest growth lever now is improving UI conversion velocity, modernizing branding, and continuous month-to-month care.
+                      </p>
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    <AlertTriangle className="w-5 h-5 text-neon-red flex-shrink-0 mt-0.5" />
+                    <div className="space-y-1">
+                      <p className="font-mono text-[11px] text-neon-red uppercase font-bold">
+                        HIGH MOBILE BOUNCE RISK DETECTED
+                      </p>
+                      <p className="text-xs text-text-muted leading-relaxed font-sans">
+                        Google data indicates mobile sites taking over 3 seconds to load lose up to 53% of visits. Technical bottlenecks and missing modern metadata are actively degrading your search rankings and lead flow.
+                      </p>
+                    </div>
+                  </>
+                )}
+              </div>
+
               <div className="text-center">
                 <p className="text-xs text-text-muted font-sans max-w-md mx-auto leading-relaxed border-t border-b border-white/5 py-4">
                   🔍 This is a partial teaser. Your full report covers 7 categories, including structured data, local readiness, and AI-assisted copywriting recommendations.
@@ -461,6 +492,38 @@ export default function SiteGradeClient() {
                     Download PDF Report
                   </NeonButton>
                 </a>
+              </div>
+
+              {/* Diagnostic Action Plan & Consultation Bridge */}
+              <div className="p-5 border border-neon-cyan/40 bg-surface-dark rounded-sm space-y-3 text-left">
+                <div className="flex items-center gap-2 text-neon-cyan font-mono text-xs uppercase tracking-wider">
+                  <Sparkles className="w-3.5 h-3.5 text-neon-cyan animate-pulse" />
+                  <span>MCB SYSTEMS // DIAGNOSTIC ACTION PLAN</span>
+                </div>
+                <h3 className="text-base font-bold text-white">
+                  Want us to review these findings with you?
+                </h3>
+                <p className="text-xs text-text-muted leading-relaxed font-sans">
+                  We offer a free 15-minute diagnostic walkthrough to review your score, prioritize high-impact quick fixes, and map out a permanent resolution.
+                </p>
+                <div className="flex flex-col sm:flex-row gap-3 pt-2">
+                  <Link
+                    href={`/contact?package=custom&service=sitegrade_fix&domain=${encodeURIComponent(auditDomain)}&grade=${encodeURIComponent(teaserData?.grade || "N/A")}`}
+                    className="flex-1"
+                  >
+                    <NeonButton variant="primary" className="w-full text-xs py-2.5">
+                      Inquire Performance Overhaul &rarr;
+                    </NeonButton>
+                  </Link>
+                  <a
+                    href={`mailto:macallan@macallanbutler.com?subject=SiteGrade%20Audit%20Review%20for%20${encodeURIComponent(auditDomain)}&body=Hi%20Macallan%2C%20I%20just%20ran%20a%20SiteGrade%20diagnostic%20on%20${encodeURIComponent(auditDomain)}%20(Grade%20${encodeURIComponent(teaserData?.grade || "N/A")})%20and%20would%20like%20to%20schedule%20a%20walkthrough.`}
+                    className="flex-1"
+                  >
+                    <NeonButton variant="secondary" className="w-full text-xs py-2.5">
+                      Email Macallan Directly
+                    </NeonButton>
+                  </a>
+                </div>
               </div>
 
               <div className="pt-6 border-t border-white/5">

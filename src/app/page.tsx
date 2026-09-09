@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   title: {
     absolute: `${BRAND.displayName} | Full-Stack Development & UI Architecture Studio`,
   },
-  description: `Establish a secure node connection to ${BRAND.displayName}. Booting studio systems, project database, and interactive shell.`,
+  description: `${BRAND.legalName} is a bespoke web development and UI architecture studio founded by ${BRAND.founder}. We engineer fast, high-converting digital flagships and full-stack software for modern businesses and ambitious brands.`,
   alternates: {
     canonical: BRAND.siteUrl,
   },

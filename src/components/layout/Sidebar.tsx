@@ -23,8 +23,8 @@ const NAVIGATION = [
     { name: "SERVICES", path: "/services", icon: LayoutTemplate },
     { name: "SITEGRADE", path: "/sitegrade", icon: Activity },
     { name: "ABOUT", path: "/about", icon: User },
-    { name: "PROCESS", path: "/design-system", icon: Workflow },
-    { name: "CONTACT", path: "/comms", icon: Mail },
+    { name: "PROCESS", path: "/process", icon: Workflow },
+    { name: "CONTACT", path: "/contact", icon: Mail },
 ];
 
 export function Sidebar() {
@@ -94,7 +94,7 @@ export function Sidebar() {
         return `${min}:${sec.toString().padStart(2, "0")}`;
     };
 
-    // Assuming 7 main routes: /, /gigs, /services, /sitegrade, /about, /design-system, /comms
+    // Assuming 7 main routes: /, /gigs, /services, /sitegrade, /about, /process, /contact
     const progress = Math.min((visitedPaths.size / 7) * 100, 100).toFixed(0);
 
     return (

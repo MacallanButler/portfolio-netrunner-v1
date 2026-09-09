@@ -6,7 +6,7 @@ import { Sidebar } from "./Sidebar";
 import { Footer } from "./Footer";
 import { ScanlineOverlay } from "@/components/core/ScanlineOverlay";
 
-const PAGES = ["/gigs", "/services", "/sitegrade", "/about", "/design-system", "/comms"];
+const PAGES = ["/gigs", "/services", "/sitegrade", "/about", "/process", "/contact"];
 
 export function Shell({ children }: { children: React.ReactNode }) {
     const router = useRouter();

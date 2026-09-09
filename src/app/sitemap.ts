@@ -36,7 +36,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.7,
     },
     {
-      url: `${baseUrl}/comms`,
+      url: `${baseUrl}/contact`,
       lastModified: new Date('2026-09-09'),
       changeFrequency: 'monthly',
       priority: 0.6,
@@ -48,7 +48,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.5,
     },
     {
-      url: `${baseUrl}/design-system`,
+      url: `${baseUrl}/process`,
       lastModified: new Date('2026-09-09'),
       changeFrequency: 'yearly',
       priority: 0.3,
@@ -65,5 +65,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'yearly',
       priority: 0.3,
     },
+    ...['wrought', 'apex_drop', 'ghost_mountain', 'drive', 'blue_horizon', 'proj_mom', 'cafe_du_monde'].map((slug) => ({
+      url: `${baseUrl}/work/${slug}`,
+      lastModified: new Date('2026-09-09'),
+      changeFrequency: 'monthly' as const,
+      priority: 0.7,
+    })),
   ];
 }

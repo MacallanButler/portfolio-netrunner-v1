@@ -16,6 +16,11 @@ export const TECH_COLORS: Record<string, { bg: string; text: string; border: str
   "Node.js":        { bg: "rgba(51,153,51,0.12)",   text: "#6FCF7C", border: "rgba(51,153,51,0.3)"   },
   "HTML / CSS":     { bg: "rgba(227,79,38,0.12)",   text: "#FF8A65", border: "rgba(227,79,38,0.3)"   },
   "Sanity CMS":     { bg: "rgba(248,84,55,0.12)",   text: "#F84537", border: "rgba(248,84,55,0.3)"   },
+  "React Native":   { bg: "rgba(97,218,251,0.12)",  text: "#61DAFB", border: "rgba(97,218,251,0.3)"  },
+  "Expo":           { bg: "rgba(255,255,255,0.12)", text: "#CCCCCC", border: "rgba(255,255,255,0.3)"  },
+  "Mapbox":         { bg: "rgba(66,100,251,0.12)",  text: "#4264FB", border: "rgba(66,100,251,0.3)"  },
+  "Supabase":       { bg: "rgba(62,207,142,0.12)",  text: "#3ECF8E", border: "rgba(62,207,142,0.3)"  },
+  "Stripe":         { bg: "rgba(99,91,255,0.12)",   text: "#635BFF", border: "rgba(99,91,255,0.3)"   },
   "Python":         { bg: "rgba(55,118,171,0.12)",  text: "#4B8BBE", border: "rgba(55,118,171,0.3)"  },
 };
 

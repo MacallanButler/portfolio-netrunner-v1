@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect, useState, useCallback } from "react";
+import Link from "next/link";
 import NextImage from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { useProjectModal } from "@/context/ProjectModalContext";
@@ -251,19 +252,30 @@ export function ProjectModal() {
                   </div>
                 )}
 
-                {/* LAUNCH SITE button */}
-                {activeProject?.liveUrl && (
-                  <a
-                    href={activeVariant === "A" ? (activeProject.liveUrlA ?? activeProject.liveUrl) : (activeProject.liveUrlB ?? activeProject.liveUrl)}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    onClick={() => trackExternalLinkClick(activeVariant === "A" ? (activeProject.liveUrlA ?? activeProject.liveUrl!) : (activeProject.liveUrlB ?? activeProject.liveUrl!))}
-                    className="mt-4 lg:mt-auto flex items-center justify-center gap-3 w-full px-4 py-3 border border-neon-cyan text-neon-cyan font-mono text-xs tracking-widest uppercase transition-all duration-200 hover:bg-neon-cyan/10 hover:shadow-[0_0_20px_rgba(0,255,0,0.2)] group flex-shrink-0"
+                {/* CASE STUDY & LAUNCH ACTION BUTTONS */}
+                <div className="mt-4 lg:mt-auto space-y-2 flex-shrink-0">
+                  <Link
+                    href={`/work/${activeProject?.id}`}
+                    onClick={handleClose}
+                    className="flex items-center justify-center gap-2 w-full px-4 py-2.5 bg-neon-cyan/10 border border-neon-cyan/60 text-neon-cyan hover:bg-neon-cyan/20 hover:border-neon-cyan font-mono text-xs tracking-widest uppercase transition-all duration-150 group"
                   >
-                    <span>LAUNCH {activeProject.liveUrlB ? `SITE ${activeVariant}` : "SITE"}</span>
-                    <span className="transition-transform duration-200 group-hover:translate-x-1">&rarr;</span>
-                  </a>
-                )}
+                    <span>[ READ FULL CASE STUDY ]</span>
+                    <span className="transition-transform duration-150 group-hover:translate-x-1">&rarr;</span>
+                  </Link>
+
+                  {activeProject?.liveUrl && (
+                    <a
+                      href={activeVariant === "A" ? (activeProject.liveUrlA ?? activeProject.liveUrl) : (activeProject.liveUrlB ?? activeProject.liveUrl)}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={() => trackExternalLinkClick(activeVariant === "A" ? (activeProject.liveUrlA ?? activeProject.liveUrl!) : (activeProject.liveUrlB ?? activeProject.liveUrl!))}
+                      className="flex items-center justify-center gap-3 w-full px-4 py-2.5 border border-white/20 text-white hover:border-neon-cyan/60 hover:text-neon-cyan font-mono text-xs tracking-widest uppercase transition-all duration-200"
+                    >
+                      <span>LAUNCH {activeProject.liveUrlB ? `SITE ${activeVariant}` : "LIVE APPLICATION"}</span>
+                      <span className="transition-transform duration-200 group-hover:translate-x-1">&rarr;</span>
+                    </a>
+                  )}
+                </div>
               </motion.div>
 
             </div>

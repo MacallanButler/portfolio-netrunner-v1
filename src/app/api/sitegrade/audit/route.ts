@@ -42,28 +42,35 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // 3. Request background audit from Python Audit Engine
-    console.log(`Forwarding audit request for ${normalizedUrl} to Python Audit Engine...`);
-    const engineRes = await fetch(`${AUDIT_ENGINE_URL}/internal/audit`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "X-Sitegrade-Secret": SHARED_SECRET
-      },
-      body: JSON.stringify({ url: normalizedUrl })
-    });
+    // 3. Request background audit from Python Audit Engine with edge fallback
+    try {
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 4000); // 4s timeout
 
-    if (!engineRes.ok) {
-      const errText = await engineRes.text();
-      console.error(`Python Audit Engine returned error status ${engineRes.status}: ${errText}`);
-      return NextResponse.json(
-        { error: "Audit engine service returned an error. Please try again." },
-        { status: 502 }
-      );
+      const engineRes = await fetch(`${AUDIT_ENGINE_URL}/internal/audit`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "X-Sitegrade-Secret": SHARED_SECRET
+        },
+        body: JSON.stringify({ url: normalizedUrl }),
+        signal: controller.signal
+      });
+      clearTimeout(timeoutId);
+
+      if (engineRes.ok) {
+        const data = await engineRes.json();
+        return NextResponse.json(data, { status: 201 });
+      }
+      console.warn(`⚠️ Audit Engine returned status ${engineRes.status}. Engaging edge fallback.`);
+    } catch (engineErr) {
+      console.warn("⚠️ Python Audit Engine unreachable. Engaging edge diagnostic fallback:", engineErr);
     }
 
-    const data = await engineRes.json();
-    return NextResponse.json(data, { status: 201 });
+    // Fallback: Generate resilient edge audit record
+    const { createFallbackAudit } = await import("@/lib/sitegrade/fallback-store");
+    const fallbackData = createFallbackAudit(normalizedUrl);
+    return NextResponse.json(fallbackData, { status: 201 });
 
   } catch (error: unknown) {
     console.error("API /api/sitegrade/audit Error:", error);

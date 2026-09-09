@@ -62,7 +62,7 @@ export default function PrivacyPage() {
           </p>
           <ul className="list-disc pl-5 space-y-2 font-mono text-xs text-white/80">
             <li>
-              <strong className="text-white">Contact Form Inquiries:</strong> When you submit a transmission via our communications channel (<code className="text-neon-cyan">/comms</code>), we collect your name (operator identification tag), email address, message body, and optional package/service selection.
+              <strong className="text-white">Contact Form Inquiries:</strong> When you submit a transmission via our communications channel (<code className="text-neon-cyan">/contact</code>), we collect your name (operator identification tag), email address, message body, and optional package/service selection.
             </li>
             <li>
               <strong className="text-white">SiteGrade Diagnostic Inputs:</strong> When utilizing our automated website audit utility (<code className="text-neon-cyan">/sitegrade</code>), we process the target URL you provide, the resulting technical performance and SEO metrics, and any recipient email address entered for report delivery.

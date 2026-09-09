@@ -36,7 +36,7 @@ export function SecureCTA({
           {description}
         </p>
         <div className="flex justify-center">
-          <Link href="/comms" onClick={() => trackPricingCtaClick(location)}>
+          <Link href="/contact" onClick={() => trackPricingCtaClick(location)}>
             <NeonButton variant="primary" className="text-xs py-2">
               {buttonText}
             </NeonButton>

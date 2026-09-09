@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { HoloCard } from "@/components/core/HoloCard";
 import { GlitchText } from "@/components/core/GlitchText";
 import { NeonButton } from "@/components/core/NeonButton";
@@ -12,11 +12,55 @@ import { trackContactSubmit } from "@/lib/analytics";
 export default function CommsClient() {
     const searchParams = useSearchParams();
     const packageInterest = searchParams.get("package") ?? "none";
+    const serviceParam = searchParams.get("service");
+    const domainParam = searchParams.get("domain");
+    const gradeParam = searchParams.get("grade");
+    const projectParam = searchParams.get("project");
+    const typeParam = searchParams.get("type");
+    const scopeParam = searchParams.get("scope");
+    const addonsParam = searchParams.get("addons");
+    const planParam = searchParams.get("plan");
+    const estMinParam = searchParams.get("est_min");
+    const estMaxParam = searchParams.get("est_max");
+    const timelineParam = searchParams.get("timeline");
+
     const [formData, setFormData] = useState({
         name: "",
         email: "",
         message: ""
     });
+
+    useEffect(() => {
+        if (serviceParam === "estimator" && estMinParam && estMaxParam) {
+            const formattedAddons = addonsParam ? addonsParam.split(",").join(", ") : "Standard baseline";
+            const brief = [
+                `// --- MCB SYSTEMS PROJECT ESTIMATOR SPECIFICATION ---`,
+                `Platform: ${typeParam || "Bespoke Platform"}`,
+                `Scope Tier: ${scopeParam || "Standard"}`,
+                `Modules Included: ${formattedAddons}`,
+                `Retainer Selection: ${planParam || "None"}`,
+                `Projected Investment: ${estMinParam} – ${estMaxParam}`,
+                `Target Sprint Timeline: ${timelineParam || "TBD"}`,
+                `-------------------------------------------------------`,
+                `Hi Macallan, I configured the above specification in your Project Estimator and would like to schedule a discovery session to kick off this build.`
+            ].join("\n");
+
+            setFormData(prev => ({
+                ...prev,
+                message: prev.message || brief
+            }));
+        } else if (domainParam && gradeParam) {
+            setFormData(prev => ({
+                ...prev,
+                message: prev.message || `Hi Macallan, I just ran a SiteGrade audit on ${domainParam} (scored Grade ${gradeParam}). I'd like to discuss an optimization / takeover plan to fix these issues.`
+            }));
+        } else if (projectParam) {
+            setFormData(prev => ({
+                ...prev,
+                message: prev.message || `Hi Macallan, I was reviewing your case study for ${projectParam} and would like to explore building a similar digital system for our business.`
+            }));
+        }
+    }, [serviceParam, domainParam, gradeParam, projectParam, typeParam, scopeParam, addonsParam, planParam, estMinParam, estMaxParam, timelineParam]);
     const [status, setStatus] = useState<"IDLE" | "SENDING" | "SUCCESS" | "ERROR">("IDLE");
     const [logs, setLogs] = useState<string[]>([]);
 
@@ -114,6 +158,18 @@ export default function CommsClient() {
                                     You&apos;re reaching out to <span className="text-neon-cyan font-semibold">MCB Systems LLC</span>. Every inquiry gets a response within 1 business day.
                                 </p>
                             </div>
+
+                            {serviceParam === "estimator" && estMinParam && (
+                                <div className="p-3 bg-neon-cyan/10 border border-neon-cyan/40 rounded-sm font-mono text-[11px] text-neon-cyan flex flex-col sm:flex-row sm:items-center justify-between gap-1 mb-1">
+                                    <span className="font-bold flex items-center gap-1.5">
+                                        <span className="w-1.5 h-1.5 rounded-full bg-neon-cyan animate-pulse" />
+                                        ESTIMATOR_SPECIFICATION_LOADED
+                                    </span>
+                                    <span className="text-white font-semibold">
+                                        {estMinParam} – {estMaxParam} ({timelineParam})
+                                    </span>
+                                </div>
+                            )}
                             
                             <div className="space-y-1">
                                 <label className="text-[10px] font-mono text-neon-cyan uppercase tracking-wider">

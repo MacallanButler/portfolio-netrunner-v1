@@ -113,5 +113,24 @@
     "repoUrl": "https://github.com/MacallanButler",
     "liveUrl": "https://wrought.macallanbutler.com",
     "previewUrl": "/previews/proj_wrought.webp"
+  },
+  {
+    "id": "drive",
+    "title": "Drive",
+    "client": "Automotive Culture & Social",
+    "category": "Mobile Application",
+    "description": "A cross-platform mobile application for car enthusiasts built around positive driving culture: group cruises, scenic route discovery, map telemetry, and custom vehicle-unlocked themes.",
+    "techStack": [
+      "React Native",
+      "Expo",
+      "TypeScript",
+      "Mapbox",
+      "Supabase"
+    ],
+    "status": "COMPLETED",
+    "completionDate": "2026-08-15",
+    "repoUrl": "https://github.com/MacallanButler",
+    "liveUrl": null,
+    "previewUrl": "/previews/drive.png"
   }
 ]

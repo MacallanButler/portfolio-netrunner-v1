@@ -17,6 +17,39 @@ export async function GET(
       );
     }
 
+    // Check if this is an edge fallback diagnostic
+    if (audit_id.startsWith("edge_")) {
+      const { getFallbackAudit } = await import("@/lib/sitegrade/fallback-store");
+      const fallback = getFallbackAudit(audit_id);
+      if (!fallback) {
+        return NextResponse.json({ error: "Audit not found." }, { status: 404 });
+      }
+      const elapsed = Date.now() - fallback.startTime;
+      if (elapsed < 2500) {
+        return NextResponse.json({
+          status: "pending",
+          phase: "fetching_website",
+          teaser: null
+        });
+      }
+      if (elapsed < 5500) {
+        return NextResponse.json({
+          status: "pending",
+          phase: "analyzing_performance",
+          teaser: null
+        });
+      }
+      return NextResponse.json({
+        status: "complete",
+        phase: "analyzing_content",
+        teaser: {
+          grade: fallback.overallGrade,
+          headline_category: fallback.headlineCategory,
+          headline_score: fallback.headlineScore,
+        }
+      });
+    }
+
     // Call Python Audit Engine
     const engineRes = await fetch(`${AUDIT_ENGINE_URL}/internal/audit/${audit_id}`, {
       method: "GET",

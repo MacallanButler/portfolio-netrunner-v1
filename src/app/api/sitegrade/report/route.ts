@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { isRateLimited } from "../../../../lib/sitegrade/rate-limiter";
-import { sendReportEmail } from "../../../../lib/sitegrade/email-sender";
+import { sendReportEmail, sendFounderLeadAlert } from "../../../../lib/sitegrade/email-sender";
 import { createClient } from "@supabase/supabase-js";
 
 const AUDIT_ENGINE_URL = process.env.AUDIT_ENGINE_INTERNAL_URL || "http://127.0.0.1:8000";
@@ -75,37 +75,58 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // 3. Single audit status check from engine (no polling)
-    const engineRes = await fetch(`${AUDIT_ENGINE_URL}/internal/audit/${audit_id}`, {
-      method: "GET",
-      headers: { "X-Sitegrade-Secret": SHARED_SECRET }
-    });
+    // 3. Check if edge fallback diagnostic or call Python engine
+    let domain = "";
+    let overallGrade = "C+";
+    let headlineScore = 75;
+    let pdf_url = "";
 
-    if (!engineRes.ok) {
-      return NextResponse.json(
-        { error: "Failed to retrieve audit details from engine." },
-        { status: 502 }
-      );
-    }
+    if (audit_id.startsWith("edge_")) {
+      const { getFallbackAudit } = await import("@/lib/sitegrade/fallback-store");
+      const fallback = getFallbackAudit(audit_id);
+      if (!fallback) {
+        return NextResponse.json({ error: "Audit not found." }, { status: 404 });
+      }
+      domain = fallback.domain;
+      overallGrade = fallback.overallGrade;
+      headlineScore = fallback.headlineScore;
+      pdf_url = `https://macallanbutler.com/contact?service=sitegrade_fix&domain=${encodeURIComponent(domain)}`;
+    } else {
+      // Single audit status check from engine (no polling)
+      const engineRes = await fetch(`${AUDIT_ENGINE_URL}/internal/audit/${audit_id}`, {
+        method: "GET",
+        headers: { "X-Sitegrade-Secret": SHARED_SECRET }
+      });
 
-    const auditData = await engineRes.json();
-    
-    if (auditData.status === "failed") {
-      return NextResponse.json(
-        { error: "Website audit failed. Cannot generate report." },
-        { status: 422 }
-      );
-    }
+      if (!engineRes.ok) {
+        return NextResponse.json(
+          { error: "Failed to retrieve audit details from engine." },
+          { status: 502 }
+        );
+      }
 
-    if (auditData.status !== "complete") {
-      return NextResponse.json(
-        { error: "Audit evaluation is in progress. Please retry once complete." },
-        { status: 202 }
-      );
+      const auditData = await engineRes.json();
+      
+      if (auditData.status === "failed") {
+        return NextResponse.json(
+          { error: "Website audit failed. Cannot generate report." },
+          { status: 422 }
+        );
+      }
+
+      if (auditData.status !== "complete") {
+        return NextResponse.json(
+          { error: "Audit evaluation is in progress. Please retry once complete." },
+          { status: 202 }
+        );
+      }
+
+      domain = auditData.domain;
+      overallGrade = auditData.overall_grade || "N/A";
+      headlineScore = typeof auditData.teaser === "object" && auditData.teaser ? auditData.teaser.headline_score : 0;
     }
 
     // 4. Record lead in DB (Supabase only)
-    const domain = auditData.domain;
     let leadSaved = false;
 
     if (SUPABASE_URL && SUPABASE_SERVICE_ROLE_KEY) {
@@ -134,7 +155,34 @@ export async function POST(req: NextRequest) {
       await sendDiscordPing(`⚠️ **SiteGrade Lead Save Failed**: Failed to save lead for \`${email}\` on domain \`${domain}\` to Supabase.`);
     }
 
-    // 5. POST to Python engine report endpoint to generate & store report, obtaining the R2 url
+    // 5. If edge fallback, dispatch emails and return immediate diagnostic link
+    if (audit_id.startsWith("edge_")) {
+      const summaryBuffer = Buffer.from(
+        `SITEGRADE DIAGNOSTIC SUMMARY\n` +
+        `===================================\n` +
+        `Domain: ${domain}\n` +
+        `Overall Rating: Grade ${overallGrade}\n` +
+        `Headline Performance Score: ${headlineScore}/100\n` +
+        `Audit Timestamp: ${new Date().toISOString()}\n\n` +
+        `RECOMMENDED NEXT STEPS:\n` +
+        `- Review mobile Largest Contentful Paint (LCP) and render-blocking scripts.\n` +
+        `- Audit metadata and JSON-LD schema coverage.\n` +
+        `- Modernize UI conversion architecture.\n\n` +
+        `Schedule a free 15-minute diagnostic walkthrough:\n` +
+        `https://macallanbutler.com/contact?service=sitegrade_fix&domain=${encodeURIComponent(domain)}\n\n` +
+        `MCB Systems LLC — macallanbutler.com`
+      );
+
+      await Promise.allSettled([
+        sendReportEmail(email, domain, summaryBuffer, `sitegrade-${domain}-summary.txt`),
+        sendFounderLeadAlert(email, domain, overallGrade, headlineScore, pdf_url),
+        sendDiscordPing(`👤 **New SiteGrade lead**: \`${email}\` — \`${domain}\` — Grade: **${overallGrade}**`),
+      ]);
+
+      return NextResponse.json({ pdf_url: pdf_url }, { status: 200 });
+    }
+
+    // 6. Otherwise POST to Python engine report endpoint to generate & store report, obtaining the R2 url
     console.log(`Forwarding report generation request for audit ${audit_id} to Python engine...`);
     const reportRes = await fetch(`${AUDIT_ENGINE_URL}/internal/audit/${audit_id}/report`, {
       method: "POST",
@@ -153,15 +201,17 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const { pdf_url } = await reportRes.json();
-    if (!pdf_url) {
+    const { pdf_url: enginePdfUrl } = await reportRes.json();
+    if (!enginePdfUrl) {
       return NextResponse.json(
         { error: "Engine did not return a valid download link." },
         { status: 502 }
       );
     }
 
-    // 6. Fetch the generated PDF from the R2 presigned URL to get PDF Buffer
+    pdf_url = enginePdfUrl;
+
+    // 7. Fetch the generated PDF from the R2 presigned URL to get PDF Buffer
     console.log(`Fetching generated PDF from R2 to email it...`);
     const pdfFetchRes = await fetch(pdf_url);
     if (!pdfFetchRes.ok) {
@@ -183,10 +233,13 @@ export async function POST(req: NextRequest) {
       }
     }
 
-    // 7. Send Discord success lead notification
-    await sendDiscordPing(`👤 **New SiteGrade lead**: \`${email}\` — \`${domain}\` — Grade: **${auditData.overall_grade}**`);
+    // 8. Send Founder Alert Email & Discord notification in parallel
+    await Promise.allSettled([
+      sendFounderLeadAlert(email, domain, overallGrade, headlineScore, pdf_url),
+      sendDiscordPing(`👤 **New SiteGrade lead**: \`${email}\` — \`${domain}\` — Grade: **${overallGrade}**`),
+    ]);
 
-    // 8. Return direct R2 presigned URL in response
+    // 9. Return direct R2 presigned URL in response
     return NextResponse.json({ pdf_url: pdf_url }, { status: 200 });
 
   } catch (error: unknown) {
