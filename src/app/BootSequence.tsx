@@ -65,9 +65,6 @@ export default function BootSequence() {
           <div className="text-5xl md:text-7xl font-bold tracking-tighter text-white">
             <GlitchText text="MCB_SYSTEMS" />
           </div>
-          <div className="text-xs md:text-sm font-mono text-neon-cyan tracking-wider uppercase">
-            Founded by Macallan Butler
-          </div>
           <h2 className="text-text-muted font-mono text-sm md:text-base font-normal">
             Full-Stack Development & UI Architecture Studio
           </h2>
