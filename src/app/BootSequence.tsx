@@ -67,13 +67,10 @@ export default function BootSequence() {
           <h2 className="text-text-muted font-mono text-sm md:text-base font-normal">
             Full-Stack Development & UI Architecture Studio
           </h2>
-          <h3 className="text-xs md:text-sm font-mono text-text-muted max-w-md mx-auto leading-relaxed">
-            System status:{" "}
-            <span className="text-neon-cyan animate-pulse">
-              Open for new client work
-            </span>
-            . Explore the archive below.
-          </h3>
+          <div className="flex items-center justify-center gap-2 text-xs md:text-sm font-mono text-neon-cyan">
+            <span className="w-2 h-2 rounded-full bg-neon-cyan animate-pulse" />
+            <span>Open for new client work</span>
+          </div>
         </div>
 
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
