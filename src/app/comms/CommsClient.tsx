@@ -47,8 +47,9 @@ export default function CommsClient() {
                 const data = await res.json().catch(() => ({}));
                 throw new Error(data.error || "Server rejected connection");
             }
-        } catch (error: any) {
-            addToLog(`ERROR: ${error.message || "DELIVERY_FAILED"}`);
+        } catch (error: unknown) {
+            const msg = error instanceof Error ? error.message : "DELIVERY_FAILED";
+            addToLog(`ERROR: ${msg}`);
             setStatus("ERROR");
         }
     };
@@ -58,7 +59,7 @@ export default function CommsClient() {
             {/* Unified Page Header */}
             <div className="border-b border-white/10 pb-3 md:pb-6 mb-4 md:mb-6">
                 <span className="text-[10px] font-mono text-neon-cyan tracking-widest uppercase mb-1 block font-normal">
-                    // SECURE_CHANNEL
+                    {"// SECURE_CHANNEL"}
                 </span>
                 <h1 className="text-3xl md:text-4xl font-bold tracking-tighter text-white">
                     <GlitchText text="GET_IN_TOUCH" />

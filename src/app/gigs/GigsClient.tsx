@@ -6,7 +6,7 @@ import { GlitchText } from "@/components/core/GlitchText";
 import { SystemBadge } from "@/components/core/SystemBadge";
 import { ProjectImage } from "@/components/core/ProjectImage";
 import { getTechColor } from "@/lib/techColors";
-import { useProjectModal } from "@/context/ProjectModalContext";
+import { useProjectModal, type Project } from "@/context/ProjectModalContext";
 import projectsData from "@/data/projects.json";
 
 export default function GigsClient() {
@@ -28,7 +28,7 @@ export default function GigsClient() {
       rel="noopener noreferrer"
       onClick={(e) => {
         e.preventDefault();
-        openProject(project as any);
+        openProject(project as unknown as Project);
       }}
       className="group cursor-pointer no-underline relative overflow-hidden rounded-sm border border-white/10 bg-surface-card shadow-lg flex flex-col h-full"
       whileHover={{

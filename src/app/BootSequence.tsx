@@ -17,13 +17,13 @@ const BOOT_LOGS = [
 export default function BootSequence() {
   const router = useRouter();
   const [logs, setLogs] = useState<string[]>([]);
-  const [isReady, setIsReady] = useState(false);
 
   useEffect(() => {
     if (sessionStorage.getItem("bootComplete") === "true") {
-      setLogs(BOOT_LOGS);
-      setIsReady(true);
-      return;
+      const timer = setTimeout(() => {
+        setLogs(BOOT_LOGS);
+      }, 0);
+      return () => clearTimeout(timer);
     }
 
     let delay = 0;
@@ -32,7 +32,6 @@ export default function BootSequence() {
       setTimeout(() => {
         setLogs((prev) => [...prev, log]);
         if (index === BOOT_LOGS.length - 1) {
-          setIsReady(true);
           sessionStorage.setItem("bootComplete", "true");
         }
       }, delay);

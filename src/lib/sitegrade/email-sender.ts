@@ -44,9 +44,10 @@ export async function sendReportEmail(
 
     console.log(`✅ Email: Successfully sent email via Resend API to ${toEmail} (ID: ${data?.id})`);
     return { success: true, message: "Email sent successfully" };
-  } catch (e: any) {
+  } catch (e: unknown) {
+    const errorMsg = e instanceof Error ? e.message : String(e);
     console.error("❌ Email: Resend sending failed with exception:", e);
-    return { success: false, message: `Resend exception: ${e.message}` };
+    return { success: false, message: `Resend exception: ${errorMsg}` };
   }
 }
 export type { Resend };

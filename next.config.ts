@@ -8,7 +8,7 @@ const nextConfig: NextConfig = {
         headers: [
           {
             key: 'Content-Security-Policy',
-            value: "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://www.google-analytics.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https://www.googletagmanager.com https://www.google-analytics.com; font-src 'self' data:; connect-src 'self' https://www.google-analytics.com https://region1.google-analytics.com; frame-ancestors 'none';",
+            value: "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://www.google-analytics.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https://www.googletagmanager.com https://www.google-analytics.com; font-src 'self' data:; connect-src 'self' https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com; frame-ancestors 'none';",
           },
           {
             key: 'Referrer-Policy',
@@ -35,34 +35,6 @@ const nextConfig: NextConfig = {
             value: 'max-age=63072000; includeSubDomains; preload',
           },
         ],
-      },
-    ];
-  },
-  async rewrites() {
-    return [
-      {
-        source: '/apex',
-        destination: 'https://apex-seven-delta.vercel.app/apex',
-      },
-      {
-        source: '/apex/:path*',
-        destination: 'https://apex-seven-delta.vercel.app/apex/:path*',
-      },
-      {
-        source: '/ghost-mountain',
-        destination: 'https://proj-ghost-mountain.vercel.app/ghost-mountain',
-      },
-      {
-        source: '/ghost-mountain/:path*',
-        destination: 'https://proj-ghost-mountain.vercel.app/ghost-mountain/:path*',
-      },
-      {
-        source: '/blue-horizon',
-        destination: 'https://proj-blue-horizon.vercel.app/blue-horizon',
-      },
-      {
-        source: '/blue-horizon/:path*',
-        destination: 'https://proj-blue-horizon.vercel.app/blue-horizon/:path*',
       },
     ];
   },

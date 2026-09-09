@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import NextImage from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { useProjectModal } from "@/context/ProjectModalContext";
@@ -13,14 +13,16 @@ import { trackExternalLinkClick } from "@/lib/analytics";
 export function ProjectModal() {
   const { activeProject, isClosing, closeProject } = useProjectModal();
   const [activeVariant, setActiveVariant] = useState<"A" | "B">("A");
+  const [prevProjectId, setPrevProjectId] = useState<string | undefined>(activeProject?.id);
 
-  const handleClose = () => {
-    closeProject();
-  };
-
-  useEffect(() => {
+  if (activeProject?.id !== prevProjectId) {
+    setPrevProjectId(activeProject?.id);
     setActiveVariant("A");
-  }, [activeProject?.id]);
+  }
+
+  const handleClose = useCallback(() => {
+    closeProject();
+  }, [closeProject]);
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -28,7 +30,7 @@ export function ProjectModal() {
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [closeProject, activeProject, isClosing]);
+  }, [handleClose, activeProject, isClosing]);
 
   const isVisible = !!activeProject || isClosing;
   const previewSrc = activeProject
@@ -158,7 +160,7 @@ export function ProjectModal() {
 
                 {/* Mobile-only status header */}
                 <div className="lg:hidden flex items-center justify-between border-b border-white/5 pb-2">
-                  <span className="font-mono text-[9px] text-text-muted uppercase tracking-widest">// SYSTEM_SPECS</span>
+                  <span className="font-mono text-[9px] text-text-muted uppercase tracking-widest">{"// SYSTEM_SPECS"}</span>
                   <SystemBadge
                     label={activeProject?.status ?? ""}
                     status={activeProject?.status === "COMPLETED" ? "success" : "warning"}
@@ -176,7 +178,7 @@ export function ProjectModal() {
 
                 {/* Description */}
                 <div>
-                  <p className="font-mono text-[10px] text-text-muted uppercase tracking-widest mb-1">// OVERVIEW</p>
+                  <p className="font-mono text-[10px] text-text-muted uppercase tracking-widest mb-1">{"// OVERVIEW"}</p>
                   <p className="text-xs text-text-muted leading-relaxed lg:line-clamp-4">
                     {activeProject?.description}
                   </p>
@@ -184,7 +186,7 @@ export function ProjectModal() {
 
                 {/* Tech Stack */}
                 <div>
-                  <p className="font-mono text-[10px] text-text-muted uppercase tracking-widest mb-2">// STACK</p>
+                  <p className="font-mono text-[10px] text-text-muted uppercase tracking-widest mb-2">{"// STACK"}</p>
                   <div className="flex flex-wrap gap-1.5">
                     {activeProject?.techStack.map((tech) => {
                       const colors = getTechColor(tech);
@@ -204,7 +206,7 @@ export function ProjectModal() {
                 {/* Shipped Date */}
                 {activeProject?.id !== "cafe_du_monde" && (
                   <div className="border-t border-white/5 pt-2">
-                    <p className="font-mono text-[10px] text-text-muted uppercase tracking-widest mb-0.5">// SHIPPED</p>
+                    <p className="font-mono text-[10px] text-text-muted uppercase tracking-widest mb-0.5">{"// SHIPPED"}</p>
                     <p className="font-mono text-[10px] text-white/50">
                       {activeProject ? new Date(activeProject.completionDate).toLocaleDateString("en-US", {
                         year: "numeric", month: "long",
@@ -216,7 +218,7 @@ export function ProjectModal() {
                 {/* A/B VARIANT SELECTOR */}
                 {activeProject?.liveUrlB && (
                   <div className="space-y-2 border-t border-white/5 pt-3 mt-2">
-                    <p className="font-mono text-[9px] text-text-muted uppercase tracking-widest">// SELECT VARIANT</p>
+                    <p className="font-mono text-[9px] text-text-muted uppercase tracking-widest">{"// SELECT VARIANT"}</p>
                     <div className="flex gap-1.5 p-1 bg-surface-dark border border-white/10 rounded-sm">
                       <button
                         onClick={() => { setActiveVariant("A"); }}

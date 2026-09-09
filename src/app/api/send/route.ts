@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { Resend } from 'resend';
 import { BRAND } from '@/lib/brand';
+import { isRateLimited } from '@/lib/sitegrade/rate-limiter';
 
 // Initialize Resend only if key exists
 const resend = process.env.RESEND_API_KEY
@@ -9,6 +10,15 @@ const resend = process.env.RESEND_API_KEY
 
 export async function POST(request: Request) {
     try {
+        // IP rate limit check (5 contact transmissions per hour)
+        const ip = request.headers.get("x-forwarded-for") || request.headers.get("x-real-ip") || "127.0.0.1";
+        if (await isRateLimited(`send_contact_${ip}`, 5, 60 * 60 * 1000)) {
+            return NextResponse.json(
+                { error: 'Too many messages sent from this IP. Please try again later.' },
+                { status: 429 }
+            );
+        }
+
         const { name, email, message } = await request.json();
 
         // Validate input
@@ -47,7 +57,8 @@ export async function POST(request: Request) {
         }
 
         return NextResponse.json({ success: true, id: data?.id });
-    } catch (error) {
+    } catch (err) {
+        console.error('API /api/send Error:', err);
         return NextResponse.json(
             { error: 'Internal Server Error' },
             { status: 500 }

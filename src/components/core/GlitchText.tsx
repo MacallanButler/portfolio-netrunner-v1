@@ -21,7 +21,7 @@ export function GlitchText({ text, className, hover = true }: GlitchTextProps) {
 
         let iteration = 0;
         const interval = setInterval(() => {
-            setDisplayText((current) =>
+            setDisplayText(() =>
                 text
                     .split("")
                     .map((char, index) => {

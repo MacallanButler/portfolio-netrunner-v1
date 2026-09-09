@@ -4,8 +4,6 @@ import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { HoloCard } from "@/components/core/HoloCard";
 import { GlitchText } from "@/components/core/GlitchText";
-import { NeonButton } from "@/components/core/NeonButton";
-import Link from "next/link";
 import { SecureCTA } from "@/components/core/SecureCTA";
 import {
   Compass,

@@ -61,15 +61,10 @@ export async function GET(
       teaser: teaser
     }, { status: 200 });
 
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error("API status query Error:", error);
     return NextResponse.json(
-      { 
-        error: "Internal server error occurred.",
-        message: error.message,
-        stack: error.stack,
-        urlUsed: AUDIT_ENGINE_URL
-      },
+      { error: "Internal server error occurred." },
       { status: 500 }
     );
   }

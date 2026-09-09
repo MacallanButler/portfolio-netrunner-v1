@@ -10,6 +10,7 @@ import {
     Workflow,
     Mail,
     LayoutTemplate,
+    Activity,
     Menu,
     X,
     User
@@ -20,6 +21,7 @@ import { trackNavClick, trackEmailClick } from "@/lib/analytics";
 const NAVIGATION = [
     { name: "ARCHIVE", path: "/gigs", icon: FolderKanban },
     { name: "SERVICES", path: "/services", icon: LayoutTemplate },
+    { name: "SITEGRADE", path: "/sitegrade", icon: Activity },
     { name: "ABOUT", path: "/about", icon: User },
     { name: "PROCESS", path: "/design-system", icon: Workflow },
     { name: "CONTACT", path: "/comms", icon: Mail },
@@ -92,8 +94,8 @@ export function Sidebar() {
         return `${min}:${sec.toString().padStart(2, "0")}`;
     };
 
-    // Assuming 6 main routes: /, /gigs, /services, /about, /design-system, /comms
-    const progress = Math.min((visitedPaths.size / 6) * 100, 100).toFixed(0);
+    // Assuming 7 main routes: /, /gigs, /services, /sitegrade, /about, /design-system, /comms
+    const progress = Math.min((visitedPaths.size / 7) * 100, 100).toFixed(0);
 
     return (
         <>
@@ -169,7 +171,7 @@ export function Sidebar() {
                             <div className="w-full h-1 bg-surface-dark">
                                 <div className="h-full bg-neon-cyan/50 transition-all duration-1000" style={{ width: `${progress}%` }} />
                             </div>
-                            <span className="text-[9px] font-mono text-text-muted/50 block leading-tight">
+                            <span className="text-[9px] font-mono text-text-muted/80 block leading-tight">
                                 Visit core site sectors to sync site data link
                             </span>
 

@@ -56,12 +56,14 @@ export default function SiteGradeClient() {
   // Sync animation progress bar timer with backend phases
   useEffect(() => {
     if (appState !== "loading") {
-      if (["teaser", "capturing", "delivered"].includes(appState)) {
-        setAuditProgress(100);
-      } else if (appState === "idle") {
-        setAuditProgress(0);
-      }
-      return;
+      const timer = setTimeout(() => {
+        if (["teaser", "capturing", "delivered"].includes(appState)) {
+          setAuditProgress(100);
+        } else if (appState === "idle") {
+          setAuditProgress(0);
+        }
+      }, 0);
+      return () => clearTimeout(timer);
     }
 
     // Define phase progress boundaries (min and max caps)
@@ -77,7 +79,9 @@ export default function SiteGradeClient() {
     const currentRange = phaseRanges[rawPhase] || phaseRanges[""];
 
     // Ensure progress is at least at the minimum for the current phase
-    setAuditProgress(prev => Math.max(prev, currentRange.min));
+    const initialTimer = setTimeout(() => {
+      setAuditProgress(prev => Math.max(prev, currentRange.min));
+    }, 0);
 
     const interval = setInterval(() => {
       setAuditProgress(prev => {
@@ -91,7 +95,10 @@ export default function SiteGradeClient() {
       });
     }, 450); // Crawl smoothly every 450ms
 
-    return () => clearInterval(interval);
+    return () => {
+      clearTimeout(initialTimer);
+      clearInterval(interval);
+    };
   }, [appState, rawPhase]);
 
   // 1. Submit website URL for audit
@@ -379,7 +386,7 @@ export default function SiteGradeClient() {
               <div className="border border-white/10 bg-surface-dark p-4 flex justify-between items-center font-mono">
                 <div>
                   <h3 className="text-xs text-neon-cyan uppercase tracking-wider font-bold">
-                    // {teaserData.headline_category.toUpperCase()}_SCORE
+                    {`// ${teaserData.headline_category.toUpperCase()}_SCORE`}
                   </h3>
                   <p className="text-[10px] text-text-muted mt-1 leading-normal font-sans">
                     Initial automated speed metrics readout.

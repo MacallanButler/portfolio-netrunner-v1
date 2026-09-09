@@ -37,7 +37,10 @@ function GlitchLine({ text, delay }: { text: string; delay: number }) {
 export function CorruptedTransition({ isPlaying, mode, onComplete }: CorruptedTransitionProps) {
   const hasRun = useRef(false);
   const onCompleteRef = useRef(onComplete);
-  onCompleteRef.current = onComplete;
+
+  useEffect(() => {
+    onCompleteRef.current = onComplete;
+  }, [onComplete]);
 
   const overlayRef = useRef<HTMLDivElement>(null);
   const barFillRef = useRef<HTMLDivElement>(null);
@@ -235,12 +238,12 @@ export function CorruptedTransition({ isPlaying, mode, onComplete }: CorruptedTr
               <div className="flex flex-col gap-1 pt-2 border-t border-white/5">
                 {isClose ? (
                   <>
-                    <GlitchLine text={`NODE_${Math.floor(Math.random() * 9999).toString().padStart(4, "0")}::DISCONNECTED`} delay={80} />
+                    <GlitchLine text="NODE_4096::DISCONNECTED" delay={80} />
                     <GlitchLine text="FLUSHING_PAYLOAD ░░░░░░░░██ 22%" delay={160} />
                   </>
                 ) : (
                   <>
-                    <GlitchLine text={`NODE_${Math.floor(Math.random() * 9999).toString().padStart(4, "0")}::AUTHENTICATED`} delay={120} />
+                    <GlitchLine text="NODE_4096::AUTHENTICATED" delay={120} />
                     <GlitchLine text="DECRYPTING_PAYLOAD ████████░░ 78%" delay={200} />
                   </>
                 )}
