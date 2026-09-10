@@ -35,7 +35,7 @@ export default function CommsClient() {
             const formattedAddons = addonsParam ? addonsParam.split(",").join(", ") : "Standard baseline";
             const brief = [
                 `// --- MCB SYSTEMS PROJECT ESTIMATOR SPECIFICATION ---`,
-                `Platform: ${typeParam || "Bespoke Platform"}`,
+                `Platform: ${typeParam || "Custom Platform"}`,
                 `Scope Tier: ${scopeParam || "Standard"}`,
                 `Modules Included: ${formattedAddons}`,
                 `Retainer Selection: ${planParam || "None"}`,

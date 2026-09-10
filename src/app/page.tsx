@@ -43,7 +43,7 @@ export default function Page() {
           "@id": `${BRAND.siteUrl}/#organization`,
           "name": BRAND.legalName
         },
-        "description": `${BRAND.founder} is the founder of ${BRAND.legalName}, a development studio specializing in high-fidelity React, Next.js, and bespoke web software.`
+        "description": `${BRAND.founder} is the founder of ${BRAND.legalName}, a development studio specializing in high-fidelity React, Next.js, and custom web software.`
       }
     ]
   };

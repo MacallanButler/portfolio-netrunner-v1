@@ -22,7 +22,7 @@ export const metadata: Metadata = {
     default: `${BRAND.displayName} | Full-Stack Development & UI Architecture Studio`,
     template: `%s | ${BRAND.displayName}`
   },
-  description: `${BRAND.legalName} is a web development and UI architecture studio founded by ${BRAND.founder}, specializing in high-fidelity React, Next.js, and bespoke digital solutions.`,
+  description: `${BRAND.legalName} is a web development and UI architecture studio founded by ${BRAND.founder}, specializing in high-fidelity React, Next.js, and custom digital solutions.`,
   keywords: [
     BRAND.displayName,
     BRAND.legalName,
@@ -56,13 +56,13 @@ export const metadata: Metadata = {
     locale: "en_US",
     url: BRAND.siteUrl,
     title: `${BRAND.displayName} | Full-Stack Development & UI Architecture Studio`,
-    description: `${BRAND.legalName} is a web development and UI architecture studio founded by ${BRAND.founder}, specializing in high-fidelity React, Next.js, and bespoke digital solutions.`,
+    description: `${BRAND.legalName} is a web development and UI architecture studio founded by ${BRAND.founder}, specializing in high-fidelity React, Next.js, and custom digital solutions.`,
     siteName: BRAND.displayName,
   },
   twitter: {
     card: "summary_large_image",
     title: `${BRAND.displayName} | Full-Stack Development & UI Architecture Studio`,
-    description: `${BRAND.legalName} is a web development and UI architecture studio founded by ${BRAND.founder}, specializing in high-fidelity React, Next.js, and bespoke digital solutions.`,
+    description: `${BRAND.legalName} is a web development and UI architecture studio founded by ${BRAND.founder}, specializing in high-fidelity React, Next.js, and custom digital solutions.`,
   },
   robots: {
     index: true,

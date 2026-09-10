@@ -1,4 +1,4 @@
-﻿export interface CaseStudy {
+export interface CaseStudy {
   id: string;
   title: string;
   tagline: string;
@@ -42,7 +42,7 @@ export const CASE_STUDIES: Record<string, CaseStudy> = {
     role: "Lead Full-Stack Developer & UI Architect",
     techStack: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Supabase", "Stripe", "Framer Motion"],
     heroImage: "/previews/proj_wrought.webp",
-    overview: "Wrought is a bespoke digital flagship engineered for a modular, dual-zone panini press. Rejecting standard, slow off-the-shelf templates, Wrought proves how custom software engineering and motion design elevate consumer hardware into an immersive brand experience.",
+    overview: "Wrought is a custom digital flagship engineered for a modular, dual-zone panini press. Rejecting standard, slow off-the-shelf templates, Wrought proves how custom software engineering and motion design elevate consumer hardware into an immersive brand experience.",
     challenge: "Generic e-commerce platforms struggle to communicate multi-component industrial design and technical product benefits without degrading load speed and mobile responsiveness.",
     architecture: {
       framework: "Next.js 16 (App Router) + React 19",
@@ -155,47 +155,6 @@ export const CASE_STUDIES: Record<string, CaseStudy> = {
     liveUrl: "https://ghostmountain.macallanbutler.com",
     repoUrl: "https://github.com/MacallanButler"
   },
-  drive: {
-    id: "drive",
-    title: "Drive",
-    tagline: "Cross-Platform Native Mobile Application for Automotive Culture",
-    client: "Automotive Community & Social Concept",
-    sector: "Native Mobile & Automotive Navigation",
-    timeline: "August 2026",
-    role: "Mobile Architect & Full-Stack Developer",
-    techStack: ["React Native", "Expo", "TypeScript", "Mapbox GL", "Supabase", "Reanimated"],
-    heroImage: "/previews/drive.png",
-    overview: "Drive is a dark-mode, high-octane native mobile application designed for car enthusiasts. Built around positive cruise culture, scenic route discovery, and automotive community rather than street racing or toxicity.",
-    challenge: "Mainstream navigation tools like Google Maps optimize strictly for fastest highway transit, ignoring winding scenic roads, elevation changes, and convoy cruise coordination.",
-    architecture: {
-      framework: "React Native (Expo SDK) + TypeScript",
-      database: "Supabase (PostgreSQL, Auth, Realtime Channels)",
-      styling: "Dynamic theme token engine (Asphalt Dark + Accent Glows)",
-      deployment: "iOS & Android native application targets via EAS",
-      rationale: "Mapbox Native (@rnmapbox/maps) delivers smooth vector tile rendering with custom dark map styles and custom route overlays at native 60fps."
-    },
-    keyFeatures: [
-      {
-        title: "Scenic Route Discovery & Curated Cruise Paths",
-        description: "Community-rated driving routes featuring elevation profiles, twisty canyon ratings, pavement quality indicators, and scenic lookout waypoints."
-      },
-      {
-        title: "Automotive Theming System",
-        description: "A vehicle-unlocked theme architecture where users unlock customized design skins (JDM Akihabara neon, Euro precision silver, American Muscle amber) based on their garage."
-      },
-      {
-        title: "Real-Time Convoy & Cruise Telemetry",
-        description: "Supabase Realtime channels allow cruise leaders to coordinate group waypoints and member proximity without public broadcast."
-      }
-    ],
-    performanceMetrics: [
-      { label: "Native Map FPS", value: "60 FPS", subtext: "Hardware-accelerated Mapbox rendering" },
-      { label: "Cross-Platform Codebase", value: "95% Shared", subtext: "Single codebase for iOS & Android" },
-      { label: "Theme Switch Overhead", value: "0ms", subtext: "CSS variable token swap engine" }
-    ],
-    liveUrl: null,
-    repoUrl: "https://github.com/MacallanButler"
-  },
   blue_horizon: {
     id: "blue_horizon",
     title: "Blue Horizon",
@@ -240,14 +199,14 @@ export const CASE_STUDIES: Record<string, CaseStudy> = {
   proj_mom: {
     id: "proj_mom",
     title: "KB Travel",
-    tagline: "Boutique Editorial Travel Planning Platform & Bespoke Itineraries",
+    tagline: "Boutique Editorial Travel Planning Platform & Tailored Itineraries",
     client: "KB Travel",
     sector: "Luxury Travel & Editorial Hospitality",
     timeline: "July 2026",
     role: "Full-Stack Developer & Brand Designer",
     techStack: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Supabase", "Leaflet", "Resend", "Framer Motion"],
     heroImage: "/previews/kb_card.webp",
-    overview: "KB Travel is a calm, editorial travel planning platform featuring warm vintage motifs, a custom interactive compass cursor, destination mapping, and a bespoke itinerary request wizard.",
+    overview: "KB Travel is a calm, editorial travel planning platform featuring warm vintage motifs, a custom interactive compass cursor, destination mapping, and a tailored itinerary request wizard.",
     challenge: "In an era of generic AI travel aggregators, human luxury travel planners need a digital presence that feels deeply personal, discerning, and high-touch.",
     architecture: {
       framework: "Next.js 16 + React 19",
@@ -263,7 +222,7 @@ export const CASE_STUDIES: Record<string, CaseStudy> = {
       },
       {
         title: "Custom Compass Cursor & Micro-Interactions",
-        description: "A delightful, bespoke compass needle cursor that responds to mouse velocity and directional travel themes."
+        description: "A delightful, custom compass needle cursor that responds to mouse velocity and directional travel themes."
       },
       {
         title: "The 'Why Human Over AI' Value Proposition",

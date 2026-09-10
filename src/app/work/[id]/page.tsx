@@ -313,7 +313,7 @@ export default async function CaseStudyPage({ params }: Props) {
         <section className="p-8 md:p-12 rounded-sm border border-neon-cyan/30 bg-surface-card text-center space-y-4 shadow-[0_0_40px_rgba(0,255,255,0.05)]">
           <Sparkles className="w-8 h-8 text-neon-cyan mx-auto animate-pulse" />
           <h2 className="text-2xl md:text-3xl font-bold text-white">
-            Need a bespoke digital system like {cs.title}?
+            Need a custom digital system like {cs.title}?
           </h2>
           <p className="text-xs md:text-sm text-text-muted max-w-xl mx-auto font-sans leading-relaxed">
             MCB Systems LLC partners with businesses to engineer ultra-fast, high-converting web applications, mobile platforms, and digital flagships.

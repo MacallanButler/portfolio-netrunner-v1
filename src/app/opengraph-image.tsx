@@ -72,7 +72,7 @@ export default function Image() {
               lineHeight: 1.5,
             }}
           >
-            Bespoke digital experiences built with Next.js, React, TypeScript, and modern architecture.
+            Custom digital experiences built with Next.js, React, TypeScript, and modern architecture.
           </div>
         </div>
 

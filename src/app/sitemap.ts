@@ -65,7 +65,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'yearly',
       priority: 0.3,
     },
-    ...['wrought', 'apex_drop', 'ghost_mountain', 'drive', 'blue_horizon', 'proj_mom', 'cafe_du_monde'].map((slug) => ({
+    ...['wrought', 'apex_drop', 'ghost_mountain', 'blue_horizon', 'proj_mom', 'cafe_du_monde'].map((slug) => ({
       url: `${baseUrl}/work/${slug}`,
       lastModified: new Date('2026-09-09'),
       changeFrequency: 'monthly' as const,

@@ -55,11 +55,11 @@ export default function TermsPage() {
             <span className="text-neon-cyan text-xs">01.</span> Services & Scope of Work
           </h2>
           <p>
-            MCB Systems provides professional web development, UI/UX architecture, performance optimization, and maintenance services across standard packages and bespoke contracts:
+            MCB Systems provides professional web development, UI/UX architecture, performance optimization, and maintenance services across standard packages and custom contracts:
           </p>
           <ul className="list-disc pl-5 space-y-2 font-mono text-xs text-white/80">
             <li>
-              <strong className="text-white">One-Time Builds:</strong> Custom digital presences, marketing web builds, and bespoke web applications (including Starter, Standard, and Custom tiers). Each project includes agreed page architecture, mobile responsiveness, SEO foundations, and production hosting deployment.
+              <strong className="text-white">One-Time Builds:</strong> Custom digital presences, marketing web builds, and tailored web applications (including Starter, Standard, and Custom tiers). Each project includes agreed page architecture, mobile responsiveness, SEO foundations, and production hosting deployment.
             </li>
             <li>
               <strong className="text-white">Monthly Care Plans:</strong> Ongoing maintenance retainers (Basic, Growth, and Partner tiers) covering uptime monitoring, SSL certificate verification, dependency updates, search visibility reporting, and designated support hours.

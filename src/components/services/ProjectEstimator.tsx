@@ -33,7 +33,7 @@ interface PlatformType {
 const PLATFORMS: PlatformType[] = [
   {
     id: "flagship",
-    name: "Bespoke Digital Flagship",
+    name: "Custom Digital Flagship",
     tag: "Next.js · Tailwind · Sub-second LCP",
     icon: Sparkles,
     baseMin: 2000,
