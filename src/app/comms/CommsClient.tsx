@@ -12,17 +12,9 @@ import { trackContactSubmit } from "@/lib/analytics";
 export default function CommsClient() {
     const searchParams = useSearchParams();
     const packageInterest = searchParams.get("package") ?? "none";
-    const serviceParam = searchParams.get("service");
     const domainParam = searchParams.get("domain");
     const gradeParam = searchParams.get("grade");
     const projectParam = searchParams.get("project");
-    const typeParam = searchParams.get("type");
-    const scopeParam = searchParams.get("scope");
-    const addonsParam = searchParams.get("addons");
-    const planParam = searchParams.get("plan");
-    const estMinParam = searchParams.get("est_min");
-    const estMaxParam = searchParams.get("est_max");
-    const timelineParam = searchParams.get("timeline");
 
     const [formData, setFormData] = useState({
         name: "",
@@ -31,25 +23,7 @@ export default function CommsClient() {
     });
 
     useEffect(() => {
-        if (serviceParam === "estimator" && estMinParam && estMaxParam) {
-            const formattedAddons = addonsParam ? addonsParam.split(",").join(", ") : "Standard baseline";
-            const brief = [
-                `// --- MCB SYSTEMS PROJECT ESTIMATOR SPECIFICATION ---`,
-                `Platform: ${typeParam || "Custom Platform"}`,
-                `Scope Tier: ${scopeParam || "Standard"}`,
-                `Modules Included: ${formattedAddons}`,
-                `Retainer Selection: ${planParam || "None"}`,
-                `Projected Investment: ${estMinParam} – ${estMaxParam}`,
-                `Target Sprint Timeline: ${timelineParam || "TBD"}`,
-                `-------------------------------------------------------`,
-                `Hi Macallan, I configured the above specification in your Project Estimator and would like to schedule a discovery session to kick off this build.`
-            ].join("\n");
-
-            setFormData(prev => ({
-                ...prev,
-                message: prev.message || brief
-            }));
-        } else if (domainParam && gradeParam) {
+        if (domainParam && gradeParam) {
             setFormData(prev => ({
                 ...prev,
                 message: prev.message || `Hi Macallan, I just ran a SiteGrade audit on ${domainParam} (scored Grade ${gradeParam}). I'd like to discuss an optimization / takeover plan to fix these issues.`
@@ -60,7 +34,7 @@ export default function CommsClient() {
                 message: prev.message || `Hi Macallan, I was reviewing your case study for ${projectParam} and would like to explore building a similar digital system for our business.`
             }));
         }
-    }, [serviceParam, domainParam, gradeParam, projectParam, typeParam, scopeParam, addonsParam, planParam, estMinParam, estMaxParam, timelineParam]);
+    }, [domainParam, gradeParam, projectParam]);
     const [status, setStatus] = useState<"IDLE" | "SENDING" | "SUCCESS" | "ERROR">("IDLE");
     const [logs, setLogs] = useState<string[]>([]);
 
@@ -99,27 +73,27 @@ export default function CommsClient() {
     };
 
     return (
-        <div className="flex flex-col justify-start min-h-[calc(100vh-4rem)] lg:min-h-[calc(100vh-10rem)] w-full py-2 md:py-4 overflow-hidden">
+        <div className="flex flex-col justify-center w-full max-w-5xl mx-auto overflow-hidden">
             {/* Unified Page Header */}
-            <div className="border-b border-white/10 pb-3 md:pb-6 mb-4 md:mb-6">
-                <span className="text-[10px] font-mono text-neon-cyan tracking-widest uppercase mb-1 block font-normal">
+            <div className="border-b border-white/10 pb-2 md:pb-3 mb-3 md:mb-4">
+                <span className="text-[10px] font-mono text-neon-cyan tracking-widest uppercase mb-0.5 block font-normal">
                     {"// SECURE_CHANNEL"}
                 </span>
-                <h1 className="text-3xl md:text-4xl font-bold tracking-tighter text-white">
+                <h1 className="text-2xl md:text-3xl font-bold tracking-tighter text-white">
                     <GlitchText text="GET_IN_TOUCH" />
                 </h1>
             </div>
 
-            <div className="grid md:grid-cols-12 gap-4 md:gap-6 items-start max-w-6xl w-full mx-auto">
+            <div className="grid md:grid-cols-12 gap-4 md:gap-6 items-start w-full mx-auto">
                 
                 {/* ── LEFT COLUMN: SECURE CONNECTION INFO (Hidden on mobile) ── */}
-                <div className="hidden md:block md:col-span-5 space-y-4 md:border-r md:border-white/10 md:pr-6">
+                <div className="hidden md:block md:col-span-5 space-y-3 md:border-r md:border-white/10 md:pr-5">
                     <p className="text-text-muted font-mono text-xs leading-relaxed">
                         Have a project in mind, or want to collaborate? Send a message directly — no gatekeepers, no ticketing system. I read and respond to every submission personally.
                     </p>
 
                     {/* Node status details */}
-                    <div className="space-y-1.5 pt-3 border-t border-white/5 font-mono text-[10px] text-text-muted">
+                    <div className="space-y-1 pt-2 border-t border-white/5 font-mono text-[10px] text-text-muted">
                         <div className="flex justify-between">
                            <span>COMMS_PORT:</span>
                            <span className="text-white">PORT_443 (TLS)</span>
@@ -136,7 +110,7 @@ export default function CommsClient() {
 
                     {/* Transmission Logs */}
                     {logs.length > 0 && (
-                        <div className="bg-surface-dark/50 border border-white/5 p-3 rounded-sm font-mono text-[9px] space-y-1 max-h-[100px] overflow-y-auto scrollbar-none">
+                        <div className="bg-surface-dark/50 border border-white/5 p-2 rounded-sm font-mono text-[9px] space-y-1 max-h-[75px] overflow-y-auto scrollbar-none">
                             {logs.map((log, i) => (
                                 <div key={i} className={cn(
                                     "text-text-muted",
@@ -151,25 +125,13 @@ export default function CommsClient() {
 
                 {/* ── RIGHT COLUMN: CONTACT FORM ── */}
                 <div className="md:col-span-7">
-                    <HoloCard title="TRANSMIT_MESSAGE_PAYLOAD">
-                        <form onSubmit={handleSubmit} className="space-y-3.5">
-                            <div className="p-3 bg-surface-dark/70 border border-white/10 rounded-sm mb-1">
+                    <HoloCard title="TRANSMIT_MESSAGE_PAYLOAD" className="p-3.5 sm:p-5">
+                        <form onSubmit={handleSubmit} className="space-y-2.5 md:space-y-3">
+                            <div className="p-2.5 bg-surface-dark/70 border border-white/10 rounded-sm">
                                 <p className="text-[11px] font-mono text-white/90 leading-relaxed">
                                     You&apos;re reaching out to <span className="text-neon-cyan font-semibold">MCB Systems LLC</span>. Every inquiry gets a response within 1 business day.
                                 </p>
                             </div>
-
-                            {serviceParam === "estimator" && estMinParam && (
-                                <div className="p-3 bg-neon-cyan/10 border border-neon-cyan/40 rounded-sm font-mono text-[11px] text-neon-cyan flex flex-col sm:flex-row sm:items-center justify-between gap-1 mb-1">
-                                    <span className="font-bold flex items-center gap-1.5">
-                                        <span className="w-1.5 h-1.5 rounded-full bg-neon-cyan animate-pulse" />
-                                        ESTIMATOR_SPECIFICATION_LOADED
-                                    </span>
-                                    <span className="text-white font-semibold">
-                                        {estMinParam} – {estMaxParam} ({timelineParam})
-                                    </span>
-                                </div>
-                            )}
                             
                             <div className="space-y-1">
                                 <label className="text-[10px] font-mono text-neon-cyan uppercase tracking-wider">
@@ -180,7 +142,7 @@ export default function CommsClient() {
                                     required
                                     value={formData.name}
                                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                                    className="w-full bg-surface-dark border border-white/10 p-2.5 font-mono text-xs focus:border-neon-cyan focus:outline-none focus:bg-neon-cyan/5 transition-colors text-white placeholder-white/35"
+                                    className="w-full bg-surface-dark border border-white/10 p-2 font-mono text-xs focus:border-neon-cyan focus:outline-none focus:bg-neon-cyan/5 transition-colors text-white placeholder-white/35"
                                     placeholder="Provide identification tag..."
                                 />
                             </div>
@@ -194,7 +156,7 @@ export default function CommsClient() {
                                     required
                                     value={formData.email}
                                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                                    className="w-full bg-surface-dark border border-white/10 p-2.5 font-mono text-xs focus:border-neon-cyan focus:outline-none focus:bg-neon-cyan/5 transition-colors text-white placeholder-white/35"
+                                    className="w-full bg-surface-dark border border-white/10 p-2 font-mono text-xs focus:border-neon-cyan focus:outline-none focus:bg-neon-cyan/5 transition-colors text-white placeholder-white/35"
                                     placeholder="Enter communication address..."
                                 />
                             </div>
@@ -208,12 +170,12 @@ export default function CommsClient() {
                                     required
                                     value={formData.message}
                                     onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                                    className="w-full bg-surface-dark border border-white/10 p-2.5 font-mono text-xs focus:border-neon-cyan focus:outline-none focus:bg-neon-cyan/5 transition-colors text-white placeholder-white/35 resize-none scrollbar-none"
+                                    className="w-full bg-surface-dark border border-white/10 p-2 font-mono text-xs focus:border-neon-cyan focus:outline-none focus:bg-neon-cyan/5 transition-colors text-white placeholder-white/35 resize-none scrollbar-none"
                                     placeholder="Enter transmission details..."
                                 />
                             </div>
 
-                            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pt-2">
+                            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 pt-1">
                                 <p className="text-[10px] font-mono text-text-muted/75">
                                     By transmitting, you acknowledge our{" "}
                                     <Link href="/privacy" className="text-neon-cyan hover:underline">
@@ -225,7 +187,7 @@ export default function CommsClient() {
                                     variant="primary"
                                     type="submit"
                                     disabled={status === "SENDING" || status === "SUCCESS"}
-                                    className="w-full sm:w-auto text-xs py-2 flex-shrink-0"
+                                    className="w-full sm:w-auto text-xs py-1.5 px-4 flex-shrink-0"
                                 >
                                     {status === "SENDING" ? "TRANSMITTING..." : status === "SUCCESS" ? "MESSAGE DELIVERED" : "TRANSMIT MESSAGE"}
                                 </NeonButton>

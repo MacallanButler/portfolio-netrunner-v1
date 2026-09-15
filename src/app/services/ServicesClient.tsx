@@ -12,7 +12,6 @@ import { cn } from "@/lib/utils";
 import { Check, ChevronDown, ChevronUp, Cpu, ShieldCheck, X, Zap } from "lucide-react";
 import Link from "next/link";
 import { SiteGradeModule } from "@/components/core/SiteGradeModule";
-import { ProjectEstimator } from "@/components/services/ProjectEstimator";
 import { ClientCommandCenter } from "@/components/services/ClientCommandCenter";
 
 const OVERVIEW_PILLARS = [
@@ -325,15 +324,9 @@ export default function ServicesClient() {
           <div className="space-y-2">
             <h2 className="text-2xl font-bold text-white">One-Time Build Packages</h2>
             <p className="text-xs text-text-muted font-mono leading-relaxed max-w-3xl">
-              Every project starts with a conversation. These tiers are a starting point — your actual quote depends on what you need. Not sure which fits? Pick the one that sounds closest, or calculate your exact scope below.
+              Every project starts with a conversation. These tiers are a starting point — your actual quote depends on what you need. Not sure which fits? Pick the one that sounds closest, or contact us to discuss your project.
             </p>
           </div>
-          <a
-            href="#estimator"
-            className="inline-flex items-center gap-1.5 font-mono text-xs text-neon-cyan hover:underline flex-shrink-0"
-          >
-            <span>Launch Scope Calculator &darr;</span>
-          </a>
         </div>
 
         <div className="grid md:grid-cols-3 gap-6 items-stretch">
@@ -396,11 +389,6 @@ export default function ServicesClient() {
             <strong>A few things to know:</strong> All builds include deployment to a fast, reliable host. Copywriting and logo design are not included but can be quoted separately. A 50% deposit is required to begin — the remaining balance is due at launch. Retainer plans are month-to-month with no long-term commitment.
           </p>
         </div>
-      </section>
-
-      {/* ── INTERACTIVE PROJECT ESTIMATOR ── */}
-      <section className="pt-8 border-t border-white/10">
-        <ProjectEstimator />
       </section>
 
       {/* ── MONTHLY PLANS ── */}

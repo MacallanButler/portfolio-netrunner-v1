@@ -5,10 +5,14 @@ import Link from "next/link";
 import { BRAND } from "@/lib/brand";
 
 import { trackExternalLinkClick } from "@/lib/analytics";
+import { cn } from "@/lib/utils";
 
-export function Footer() {
+export function Footer({ isContact }: { isContact?: boolean }) {
   return (
-    <footer className="w-full border-t border-white/10 bg-surface-dark/40 py-6 px-6 md:px-12 lg:px-16 relative z-10">
+    <footer className={cn(
+      "w-full border-t border-white/10 bg-surface-dark/40 px-6 md:px-12 lg:px-16 relative z-10",
+      isContact ? "py-2.5 md:py-3" : "py-6"
+    )}>
       <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 font-mono text-[11px] text-text-muted">
         <div>
           &copy; 2026 {BRAND.legalName} &middot; by {BRAND.founder}. All rights reserved.

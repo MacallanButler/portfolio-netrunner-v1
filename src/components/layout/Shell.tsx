@@ -5,12 +5,14 @@ import { useRouter, usePathname } from "next/navigation";
 import { Sidebar } from "./Sidebar";
 import { Footer } from "./Footer";
 import { ScanlineOverlay } from "@/components/core/ScanlineOverlay";
+import { cn } from "@/lib/utils";
 
 const PAGES = ["/gigs", "/services", "/sitegrade", "/about", "/process", "/contact"];
 
 export function Shell({ children }: { children: React.ReactNode }) {
     const router = useRouter();
     const pathname = usePathname();
+    const isContact = pathname === "/contact" || pathname === "/comms";
     const touchStartRef = useRef<{ x: number; y: number } | null>(null);
 
     const handleTouchStart = (e: React.TouchEvent) => {
@@ -98,11 +100,17 @@ export function Shell({ children }: { children: React.ReactNode }) {
 
             <Sidebar />
 
-            <main className="flex-1 md:pl-64 relative z-10 overflow-x-hidden min-h-screen flex flex-col justify-between pt-14 md:pt-0">
-                <div className="p-4 sm:p-6 md:p-12 lg:p-16 max-w-7xl mx-auto w-full flex-1">
+            <main className={cn(
+                "flex-1 md:pl-64 relative z-10 overflow-x-hidden flex flex-col justify-between pt-14 md:pt-0",
+                isContact ? "min-h-screen md:h-screen md:max-h-screen md:overflow-hidden" : "min-h-screen"
+            )}>
+                <div className={cn(
+                    "p-4 sm:p-6 max-w-7xl mx-auto w-full flex-1",
+                    isContact ? "md:px-8 md:py-3 lg:px-12 lg:py-4 flex flex-col justify-center" : "md:p-12 lg:p-16"
+                )}>
                     {children}
                 </div>
-                <Footer />
+                <Footer isContact={isContact} />
             </main>
         </div>
     );
