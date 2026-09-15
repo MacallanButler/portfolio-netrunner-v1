@@ -16,7 +16,7 @@ import {
     User
 } from "lucide-react";
 import { GlitchText } from "@/components/core/GlitchText";
-import { trackNavClick, trackEmailClick } from "@/lib/analytics";
+import { trackNavClick } from "@/lib/analytics";
 
 const NAVIGATION = [
     { name: "ARCHIVE", path: "/gigs", icon: FolderKanban },
@@ -199,17 +199,6 @@ export function Sidebar() {
                             <div className="pt-4 flex items-center justify-between text-[10px] text-text-muted uppercase tracking-widest border-t border-white/5 mt-4">
                                 <span>Status:</span>
                                 <span className="text-neon-cyan animate-pulse">Online</span>
-                            </div>
-
-                            <div className="flex items-center justify-between text-[10px] text-text-muted uppercase tracking-widest pt-2">
-                                <span>Email:</span>
-                                <a 
-                                    href="mailto:macallan@macallanbutler.com"
-                                    onClick={() => trackEmailClick("sidebar")}
-                                    className="text-white hover:text-neon-cyan transition-colors"
-                                >
-                                    [ SEND ]
-                                </a>
                             </div>
                         </div>
                     </div>
