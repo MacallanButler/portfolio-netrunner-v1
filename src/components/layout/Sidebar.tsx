@@ -99,18 +99,24 @@ export function Sidebar() {
 
     return (
         <>
-            {/* Mobile Menu Toggle */}
-            <button
-                onClick={() => setIsOpen(!isOpen)}
-                className="fixed top-4 right-4 z-50 md:hidden p-2 border border-neon-cyan text-neon-cyan bg-surface-dark/90 backdrop-blur-sm"
-            >
-                {isOpen ? <X size={24} /> : <Menu size={24} />}
-            </button>
+            {/* Mobile Top Navigation Bar */}
+            <header className="fixed top-0 inset-x-0 h-14 bg-surface-dark/90 backdrop-blur-md border-b border-white/10 z-40 flex items-center justify-between px-4 md:hidden">
+                <Link href="/" onClick={() => setIsOpen(false)} className="text-base font-bold tracking-tighter hover:text-neon-cyan transition-colors">
+                    <GlitchText text="MCB_SYSTEMS" />
+                </Link>
+                <button
+                    onClick={() => setIsOpen(!isOpen)}
+                    aria-label={isOpen ? "Close navigation menu" : "Open navigation menu"}
+                    className="p-1.5 border border-neon-cyan text-neon-cyan bg-surface-card hover:bg-neon-cyan/10 transition-colors"
+                >
+                    {isOpen ? <X size={20} /> : <Menu size={20} />}
+                </button>
+            </header>
 
             {/* Sidebar Container */}
             <aside
                 className={cn(
-                    "fixed inset-y-0 left-0 z-40 w-64 transform bg-surface-card border-r border-white/10 transition-transform duration-300 md:translate-x-0",
+                    "fixed inset-y-0 left-0 z-50 w-64 transform bg-surface-card border-r border-white/10 transition-transform duration-300 md:translate-x-0",
                     isOpen ? "translate-x-0" : "-translate-x-full"
                 )}
             >
@@ -119,12 +125,19 @@ export function Sidebar() {
                     <div className="absolute inset-0 pointer-events-none bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.1)_50%),linear-gradient(90deg,rgba(255,0,0,0.03),rgba(0,255,0,0.01),rgba(0,0,255,0.03))] bg-[length:100%_2px,3px_100%] z-0" />
 
                     {/* Header */}
-                    <div className="p-6 border-b border-white/10 relative z-10">
+                    <div className="p-6 border-b border-white/10 relative z-10 flex items-center justify-between">
                         <Link href="/" onClick={() => setIsOpen(false)}>
                             <div className="text-xl font-bold tracking-tighter hover:text-neon-cyan transition-colors cursor-pointer">
                                 <GlitchText text="MCB_SYSTEMS" />
                             </div>
                         </Link>
+                        <button
+                            onClick={() => setIsOpen(false)}
+                            aria-label="Close navigation menu"
+                            className="md:hidden p-1.5 border border-white/20 text-text-muted hover:text-white hover:border-white/40 transition-colors"
+                        >
+                            <X size={18} />
+                        </button>
                     </div>
 
                     {/* Navigation */}
@@ -206,7 +219,7 @@ export function Sidebar() {
             {/* Overlay for mobile */}
             {isOpen && (
                 <div
-                    className="fixed inset-0 bg-black/80 z-30 md:hidden backdrop-blur-sm"
+                    className="fixed inset-0 bg-black/80 z-45 md:hidden backdrop-blur-sm"
                     onClick={() => setIsOpen(false)}
                 />
             )}

@@ -227,7 +227,7 @@ export function ClientCommandCenter() {
 
             {/* Synthetic Edge Response Latency */}
             <div className="space-y-2 pt-2 border-t border-white/5 font-mono">
-              <div className="flex items-center justify-between text-xs text-text-muted">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 text-xs text-text-muted">
                 <span className="flex items-center gap-1.5 uppercase text-[10px] tracking-wider">
                   <Activity size={12} className="text-neon-cyan" />
                   Global Edge Response Latency (Live CDN Ping)
@@ -377,7 +377,7 @@ export function ClientCommandCenter() {
               {/* Direct Link to Subscribe to Retainer */}
               <div className="pt-3 border-t border-white/10 space-y-2">
                 <Link href={`/contact?package=${client.planKey}`} className="block w-full">
-                  <NeonButton variant="secondary" className="w-full text-xs py-2.5 flex items-center justify-center gap-2">
+                  <NeonButton variant="secondary" className="w-full text-[11px] sm:text-xs py-2.5 px-3 flex items-center justify-center gap-2 tracking-wider">
                     <span>SUBSCRIBE TO {client.planKey.toUpperCase()} CARE PLAN</span>
                     <ArrowRight size={13} />
                   </NeonButton>

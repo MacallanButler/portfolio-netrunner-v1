@@ -4,6 +4,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { cn } from "@/lib/utils";
 import { trackTerminalCommand, trackExternalLinkClick, trackEmailClick } from "@/lib/analytics";
 import projectsData from "@/data/projects.json";
+import { BRAND } from "@/lib/brand";
 
 interface TerminalPromptProps {
     user?: string;
@@ -135,15 +136,15 @@ export function TerminalPrompt({
             case "github":
                 response = <p className="text-xs text-text-muted">Opening GitHub repository profile...</p>;
                 if (typeof window !== "undefined") {
-                    trackExternalLinkClick("https://github.com/MacallanButler");
-                    window.open("https://github.com/MacallanButler", "_blank");
+                    trackExternalLinkClick(BRAND.socials.github);
+                    window.open(BRAND.socials.github, "_blank");
                 }
                 break;
             case "linkedin":
                 response = <p className="text-xs text-text-muted">Opening LinkedIn network card...</p>;
                 if (typeof window !== "undefined") {
-                    trackExternalLinkClick("https://linkedin.com");
-                    window.open("https://linkedin.com", "_blank");
+                    trackExternalLinkClick(BRAND.socials.linkedin);
+                    window.open(BRAND.socials.linkedin, "_blank");
                 }
                 break;
             case "clear":

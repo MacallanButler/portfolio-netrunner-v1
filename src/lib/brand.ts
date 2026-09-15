@@ -5,4 +5,8 @@ export const BRAND = {
   siteUrl: "https://macallanbutler.com",
   contactEmail: "macallan@macallanbutler.com",
   governingState: "Illinois",
+  socials: {
+    github: "https://github.com/MacallanButler",
+    linkedin: "https://www.linkedin.com/in/macallanbutler",
+  },
 };

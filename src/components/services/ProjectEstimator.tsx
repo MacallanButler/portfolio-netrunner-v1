@@ -558,7 +558,7 @@ export function ProjectEstimator() {
                   <span className="font-mono text-[10px] text-neon-cyan uppercase tracking-widest block">
                     PROJECTED BUILD INVESTMENT:
                   </span>
-                  <div className="text-3xl md:text-4xl font-mono font-bold text-white tracking-tight">
+                  <div className="text-2xl sm:text-3xl md:text-4xl font-mono font-bold text-white tracking-tight break-words">
                     ${estimation.minPrice.toLocaleString()} – ${estimation.maxPrice.toLocaleString()}
                   </div>
                   {activePlan.price > 0 && (
@@ -593,7 +593,7 @@ export function ProjectEstimator() {
               {/* 1-Click Brief Transmission CTA */}
               <div className="space-y-2 pt-2">
                 <Link href={contactUrl} className="block w-full">
-                  <NeonButton variant="primary" className="w-full text-xs py-3.5 flex items-center justify-center gap-2">
+                  <NeonButton variant="primary" className="w-full text-[11px] sm:text-xs py-3.5 px-3 flex items-center justify-center gap-2 tracking-wider">
                     <span>LOCK IN SCOPE & TRANSMIT BRIEF</span>
                     <ArrowRight size={14} />
                   </NeonButton>

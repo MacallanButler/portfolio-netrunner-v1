@@ -81,7 +81,7 @@ export default function BootSequence() {
             variant="secondary"
             onClick={() => {
               trackPricingCtaClick("hero");
-              router.push("/comms");
+              router.push("/contact");
             }}
           >
             Contact

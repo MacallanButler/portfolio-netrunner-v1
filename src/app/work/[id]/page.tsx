@@ -88,7 +88,7 @@ export default async function CaseStudyPage({ params }: Props) {
 
       <article className="space-y-8 md:space-y-12 max-w-5xl mx-auto py-2 md:py-6">
         {/* Navigation Breadcrumb */}
-        <div className="flex items-center justify-between border-b border-white/10 pb-4">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 border-b border-white/10 pb-4">
           <Link
             href="/gigs"
             className="inline-flex items-center gap-2 font-mono text-xs text-text-muted hover:text-neon-cyan transition-colors"
@@ -163,14 +163,14 @@ export default async function CaseStudyPage({ params }: Props) {
           </div>
 
           {/* Action Bar */}
-          <div className="p-4 md:p-6 bg-surface-card border-t border-white/10 flex flex-wrap items-center justify-between gap-4">
-            <div className="flex items-center gap-3">
+          <div className="p-4 md:p-6 bg-surface-card border-t border-white/10 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div className="flex flex-wrap items-center gap-3">
               {cs.liveUrl && (
                 <a
                   href={cs.liveUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-4 py-2 bg-neon-cyan/10 border border-neon-cyan text-neon-cyan font-mono text-xs tracking-wider uppercase hover:bg-neon-cyan/20 transition-all shadow-[0_0_15px_rgba(0,255,255,0.15)]"
+                  className="inline-flex items-center justify-center gap-2 px-4 py-2 bg-neon-cyan/10 border border-neon-cyan text-neon-cyan font-mono text-xs tracking-wider uppercase hover:bg-neon-cyan/20 transition-all shadow-[0_0_15px_rgba(0,255,255,0.15)] flex-1 sm:flex-none text-center"
                 >
                   <span>LAUNCH LIVE APPLICATION</span>
                   <ExternalLink className="w-3.5 h-3.5" />
@@ -181,7 +181,7 @@ export default async function CaseStudyPage({ params }: Props) {
                   href={cs.repoUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-3 py-2 border border-white/15 text-text-muted hover:text-white font-mono text-xs tracking-wider uppercase transition-colors"
+                  className="inline-flex items-center justify-center gap-2 px-3 py-2 border border-white/15 text-text-muted hover:text-white font-mono text-xs tracking-wider uppercase transition-colors"
                 >
                   <Code2 className="w-3.5 h-3.5" />
                   <span>SOURCE</span>
@@ -189,8 +189,8 @@ export default async function CaseStudyPage({ params }: Props) {
               )}
             </div>
 
-            <Link href={`/contact?package=custom&project=${encodeURIComponent(cs.title)}`}>
-              <NeonButton variant="secondary" className="text-xs py-2">
+            <Link href={`/contact?package=custom&project=${encodeURIComponent(cs.title)}`} className="w-full sm:w-auto">
+              <NeonButton variant="secondary" className="w-full sm:w-auto text-xs py-2">
                 Inquire Similar Architecture &rarr;
               </NeonButton>
             </Link>

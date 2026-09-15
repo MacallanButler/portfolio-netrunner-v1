@@ -28,7 +28,7 @@ export default function AboutPage() {
                 STATUS: Online
               </span>
             </div>
-            <h1 className="text-3xl md:text-4xl font-bold tracking-tighter mb-1.5 text-white">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tighter mb-1.5 text-white">
               <GlitchText text="MCB Systems — built by Macallan Butler." />
             </h1>
           </div>
@@ -52,7 +52,7 @@ export default function AboutPage() {
       </div>
 
       {/* CTA */}
-      <SecureCTA location="about" title="Ready to start?" description="Have a project in mind? Let's scope it." buttonText="Start inquiry" />
+      <SecureCTA location="about" title="Ready to start?" description="Have a project in mind? Let's scope it." buttonText="Start inquiry" hideOnMobile={false} />
     </div>
   );
 }

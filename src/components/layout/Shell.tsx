@@ -98,8 +98,8 @@ export function Shell({ children }: { children: React.ReactNode }) {
 
             <Sidebar />
 
-            <main className="flex-1 md:pl-64 relative z-10 overflow-x-hidden min-h-screen flex flex-col justify-between">
-                <div className="p-6 md:p-12 lg:p-16 max-w-7xl mx-auto w-full flex-1">
+            <main className="flex-1 md:pl-64 relative z-10 overflow-x-hidden min-h-screen flex flex-col justify-between pt-14 md:pt-0">
+                <div className="p-4 sm:p-6 md:p-12 lg:p-16 max-w-7xl mx-auto w-full flex-1">
                     {children}
                 </div>
                 <Footer />

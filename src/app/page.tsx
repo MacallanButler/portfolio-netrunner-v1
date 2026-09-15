@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   title: {
     absolute: `${BRAND.displayName} | Full-Stack Development & UI Architecture Studio`,
   },
-  description: `Establish a secure node connection to ${BRAND.displayName}. Booting studio systems, project database, and interactive shell.`,
+  description: `${BRAND.legalName} is a web development and UI architecture studio founded by ${BRAND.founder}, specializing in high-fidelity React, Next.js, and custom software systems.`,
   alternates: {
     canonical: BRAND.siteUrl,
   },
@@ -36,7 +36,8 @@ export default function Page() {
         "url": BRAND.siteUrl,
         "image": `${BRAND.siteUrl}/icon.svg`,
         "sameAs": [
-          "https://github.com/MacallanButler"
+          BRAND.socials.github,
+          BRAND.socials.linkedin
         ],
         "worksFor": {
           "@type": "Organization",

@@ -57,7 +57,7 @@ const PROCESS_STEPS = [
 ];
 
 export default function ProcessClient() {
-  const [openSteps, setOpenSteps] = useState<Record<string, boolean>>({ "1": true });
+  const [openSteps, setOpenSteps] = useState<Record<string, boolean>>({ "01": true });
 
   const toggleStep = (stepId: string) => {
     setOpenSteps((prev) => ({ ...prev, [stepId]: !prev[stepId] }));
@@ -186,7 +186,7 @@ export default function ProcessClient() {
       </div>
 
       {/* CTA */}
-      <SecureCTA location="process" />
+      <SecureCTA location="process" hideOnMobile={false} />
     </div>
   );
 }
