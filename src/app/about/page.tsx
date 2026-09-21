@@ -52,7 +52,7 @@ export default function AboutPage() {
       </div>
 
       {/* CTA */}
-      <SecureCTA location="about" title="Ready to start?" description="Have a project in mind? Let's scope it." buttonText="Start inquiry" hideOnMobile={false} />
+      <SecureCTA location="about" title="Ready to start?" description="Have a project in mind? Let's scope it." buttonText="Get in touch" hideOnMobile={false} />
     </div>
   );
 }

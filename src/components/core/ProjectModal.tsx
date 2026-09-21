@@ -10,6 +10,7 @@ import { GlitchText } from "@/components/core/GlitchText";
 import { getTechColor } from "@/lib/techColors";
 import { cn } from "@/lib/utils";
 import { trackExternalLinkClick } from "@/lib/analytics";
+import { getCaseStudy } from "@/data/caseStudies";
 
 export function ProjectModal() {
   const { activeProject, isClosing, closeProject } = useProjectModal();
@@ -34,6 +35,7 @@ export function ProjectModal() {
   }, [handleClose, activeProject, isClosing]);
 
   const isVisible = !!activeProject || isClosing;
+  const hasCaseStudy = activeProject ? !!getCaseStudy(activeProject.id) : false;
   const previewSrc = activeProject
     ? (activeVariant === "B" && activeProject.previewUrlB ? activeProject.previewUrlB : activeProject.previewUrl)
     : null;
@@ -254,14 +256,21 @@ export function ProjectModal() {
 
                 {/* CASE STUDY & LAUNCH ACTION BUTTONS */}
                 <div className="mt-4 lg:mt-auto space-y-2 flex-shrink-0">
-                  <Link
-                    href={`/work/${activeProject?.id}`}
-                    onClick={handleClose}
-                    className="flex items-center justify-center gap-2 w-full px-4 py-2.5 bg-neon-cyan/10 border border-neon-cyan/60 text-neon-cyan hover:bg-neon-cyan/20 hover:border-neon-cyan font-mono text-xs tracking-widest uppercase transition-all duration-150 group"
-                  >
-                    <span>[ READ FULL CASE STUDY ]</span>
-                    <span className="transition-transform duration-150 group-hover:translate-x-1">&rarr;</span>
-                  </Link>
+                  {hasCaseStudy ? (
+                    <Link
+                      href={`/work/${activeProject?.id}`}
+                      onClick={handleClose}
+                      className="flex items-center justify-center gap-2 w-full px-4 py-2.5 bg-neon-cyan/10 border border-neon-cyan/60 text-neon-cyan hover:bg-neon-cyan/20 hover:border-neon-cyan font-mono text-xs tracking-widest uppercase transition-all duration-150 group"
+                    >
+                      <span>[ READ FULL CASE STUDY ]</span>
+                      <span className="transition-transform duration-150 group-hover:translate-x-1">&rarr;</span>
+                    </Link>
+                  ) : (
+                    <div className="flex items-center justify-center gap-2 w-full px-4 py-2.5 bg-white/5 border border-white/10 text-text-muted font-mono text-xs tracking-widest uppercase select-none">
+                      <span className="w-1.5 h-1.5 rounded-full bg-yellow-500 animate-pulse mr-1" />
+                      <span>[ CASE STUDY IN PRODUCTION ]</span>
+                    </div>
+                  )}
 
                   {activeProject?.liveUrl && (
                     <a

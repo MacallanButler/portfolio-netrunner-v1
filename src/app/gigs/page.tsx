@@ -28,7 +28,7 @@ export default function GigsPage() {
           "@type": "CreativeWork",
           "name": project.title,
           "description": project.description,
-          "url": project.liveUrl,
+          "url": project.liveUrl || `${BRAND.siteUrl}/gigs#${project.id}`,
           "genre": project.category,
           "keywords": project.techStack.join(", "),
           "creator": {

@@ -32,46 +32,46 @@ export interface CaseStudy {
 }
 
 export const CASE_STUDIES: Record<string, CaseStudy> = {
-  wrought: {
-    id: "proj_wrought",
-    title: "Wrought",
-    tagline: "Custom DTC Hardware Flagship & Interactive Product Configurator",
-    client: "Wrought (DTC Kitchenware Concept)",
-    sector: "Consumer Hardware & DTC E-Commerce",
-    timeline: "July 2026",
-    role: "Lead Full-Stack Developer & UI Architect",
-    techStack: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Supabase", "Stripe", "Framer Motion"],
-    heroImage: "/previews/proj_wrought.webp",
-    overview: "Wrought is a custom digital flagship engineered for a modular, dual-zone panini press. Rejecting standard, slow off-the-shelf templates, Wrought proves how custom software engineering and motion design elevate consumer hardware into an immersive brand experience.",
-    challenge: "Generic e-commerce platforms struggle to communicate multi-component industrial design and technical product benefits without degrading load speed and mobile responsiveness.",
+  slipspace: {
+    id: "proj_slipspace",
+    title: "Slipspace",
+    tagline: "Scientific Telemetry Observatory & Asymptotic Interplanetary Countdown Engine",
+    client: "Slipspace / Ad Astra Research Collective",
+    sector: "Aerospace Telemetry & Open Science",
+    timeline: "September 2026",
+    role: "Lead Systems Architect & Full-Stack Engineer",
+    techStack: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Supabase", "PostgreSQL"],
+    heroImage: "/previews/proj_slipspace.webp",
+    overview: "Slipspace (operating as Ad Astra Countdown) is a scientific telemetry platform and live observatory tracking humanity's trajectory toward personal interplanetary spaceflight. Synthesizing physics preprints, flight demonstrator metrics, and peer-reviewed aerospace breakthroughs, the platform calculates estimated time-to-threshold via a continuous asymptotic exponential decay model rather than arbitrary calendar dates.",
+    challenge: "Tracking multi-disciplinary aerospace progress across propulsion, life support, and radiation mitigation requires filtering noisy academic feeds, deduplicating preprints, and calibrating both technological leaps and programmatic setbacks on a unified mathematical curve.",
     architecture: {
-      framework: "Next.js 16 (App Router) + React 19",
-      database: "Supabase (PostgreSQL with Row-Level Security)",
-      styling: "Tailwind CSS v4 + Framer Motion spring physics",
-      deployment: "Vercel Edge Network + Stripe Checkout API",
-      rationale: "Next.js static site generation with edge dynamic routes provides sub-second initial page loads while enabling instant Stripe checkout sessions and Supabase inventory syncing."
+      framework: "Next.js 14 (App Router) + React 18 + TypeScript",
+      database: "Supabase (PostgreSQL with RLS & Curation Schemas)",
+      styling: "Tailwind CSS (Void-Black #0A0A0C Palette + JetBrains Mono Readouts)",
+      deployment: "Vercel Edge Network + Scheduled Cron Handlers",
+      rationale: "Next.js Incremental Static Regeneration (ISR) delivers sub-second cached telemetry views for public readers, while on-demand revalidation triggers instantly refresh the countdown score when curators publish verified breakthroughs."
     },
     keyFeatures: [
       {
-        title: "Interactive Exploded Component Diagram",
-        description: "A custom interactive CAD-style component breakdown allowing buyers to inspect the dual-zone cast iron plates, floating hinge mechanism, and thermal heating elements with fluid micro-interactions."
+        title: "Asymptotic Exponential Decay Scoring Engine",
+        description: "A continuous mathematical model calculating remaining years via remaining = baseline × e^(-decay × impact), naturally handling diminishing returns and programmatic setbacks (-10 to +10 impact scale) without arbitrary timeline resets."
       },
       {
-        title: "Real-Time Temperature & Cook Simulator",
-        description: "Interactive dual-dial temperature controls that visually demonstrate sear zones, cheese melt thresholds, and precision temperature regulation."
+        title: "Automated arXiv & NASA Data Ingestion Pipeline",
+        description: "A scheduled edge pipeline polling arXiv XML feeds and NASA research APIs, executing multi-category keyword classification, cross-source deduplication, and staging draft abstracts for curator review."
       },
       {
-        title: "Dynamic Product Configuration & Stripe Cart",
-        description: "A seamless cart drawer and single-page checkout flow integrated with Stripe test payment elements, eliminating third-party checkout redirects."
+        title: "Curator Mission Control & Inline Gated Administration",
+        description: "A utilitarian curation dashboard protected by Next.js middleware with HMAC SHA-256 session cookies, enabling instant parameter calibration, breakthrough moderation, and category multiplier adjustments."
       }
     ],
     performanceMetrics: [
-      { label: "Lighthouse Performance", value: "99/100", subtext: "Near-instant mobile FCP & LCP" },
-      { label: "Checkout Initiation", value: "< 400ms", subtext: "Direct API session creation" },
-      { label: "Core Web Vitals", value: "0.00 CLS", subtext: "Zero layout shift during animation" }
+      { label: "Lighthouse Performance", value: "99/100", subtext: "Zero layout shift with ISR hydration" },
+      { label: "Engine Recalculation", value: "< 5ms", subtext: "Deterministic asymptotic formula evaluation" },
+      { label: "Ingestion Deduplication", value: "100%", subtext: "External ID collision prevention" }
     ],
-    liveUrl: "https://wrought.macallanbutler.com",
-    repoUrl: "https://github.com/MacallanButler"
+    liveUrl: "https://slipspace.macallanbutler.com",
+    repoUrl: "https://github.com/MacallanButler/proj-slipspace"
   },
   apex_drop: {
     id: "apex_drop",

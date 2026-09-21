@@ -13,8 +13,11 @@ export default function GigsClient() {
   const { openProject } = useProjectModal();
 
   // Split projects based on dynamic brief groupings
+  const industryBuilds = projectsData.filter((p) =>
+    ["fox_valley_hvac", "bennett_cole_law", "ironclad_roofing", "maple_creek_vet"].includes(p.id)
+  );
   const independentBuilds = projectsData.filter((p) =>
-    ["ghost_mountain", "apex_drop", "blue_horizon", "proj_wrought"].includes(p.id)
+    ["ghost_mountain", "apex_drop", "blue_horizon", "proj_slipspace"].includes(p.id)
   );
   const conceptWork = projectsData.filter((p) =>
     ["cafe_du_monde", "proj_mom"].includes(p.id)
@@ -53,7 +56,12 @@ export default function GigsClient() {
           <h2 className="text-xl font-bold text-white group-hover:text-neon-cyan transition-colors">
             {project.title}
           </h2>
-          <SystemBadge label={project.category} status="neutral" />
+          <div className="flex items-center gap-1.5 flex-wrap justify-end">
+            <SystemBadge label={project.category} status="neutral" />
+            {project.status === "IN DEVELOPMENT" && (
+              <SystemBadge label="IN DEV" status="warning" />
+            )}
+          </div>
         </div>
 
         <div className="space-y-1 text-sm text-text-muted font-sans">
@@ -84,9 +92,16 @@ export default function GigsClient() {
         </div>
 
         {/* Open hint */}
-        <div className="mt-auto pt-2 flex items-center gap-2 font-mono text-[10px] text-text-muted group-hover:text-neon-cyan/60 transition-colors">
-          <span className="inline-block w-1 h-1 bg-current rounded-full animate-pulse" />
-          CLICK TO EXPAND
+        <div className="mt-auto pt-2 flex items-center justify-between font-mono text-[10px] text-text-muted group-hover:text-neon-cyan/60 transition-colors">
+          <div className="flex items-center gap-2">
+            <span className="inline-block w-1 h-1 bg-current rounded-full animate-pulse" />
+            <span>{project.status === "IN DEVELOPMENT" ? "SPEC & ROADMAP" : "CLICK TO EXPAND"}</span>
+          </div>
+          {project.status === "IN DEVELOPMENT" && (
+            <span className="text-[9px] uppercase tracking-wider text-yellow-500/80 font-mono">
+              [ QUEUED_BUILD ]
+            </span>
+          )}
         </div>
       </div>
     </motion.a>
@@ -106,12 +121,25 @@ export default function GigsClient() {
         </div>
       </div>
 
-      {/* ── SECTION 1: INDEPENDENT BUILDS ── */}
+      {/* ── SECTION 1: INDUSTRIES ── */}
       <section className="space-y-4">
+        <div>
+          <h2 className="text-xl font-bold text-white mb-1">Industries</h2>
+          <p className="text-xs text-text-muted/65 italic font-sans max-w-3xl">
+            Commercial systems, lead-generation engines, and high-conversion platforms engineered for service businesses and trades.
+          </p>
+        </div>
+        <div className="grid md:grid-cols-2 gap-8">
+          {industryBuilds.map(renderProjectCard)}
+        </div>
+      </section>
+
+      {/* ── SECTION 2: INDEPENDENT BUILDS ── */}
+      <section className="space-y-4 pt-8 border-t border-white/5">
         <div>
           <h2 className="text-xl font-bold text-white mb-1">Independent Builds</h2>
           <p className="text-xs text-text-muted/65 italic font-sans max-w-3xl">
-            Self-directed projects, built end-to-end to demonstrate range across industries — built to the same standard I&apos;d bring to yours.
+            Self-directed projects, built end-to-end to demonstrate range across creative and technical domains — built to the same standard I&apos;d bring to yours.
           </p>
         </div>
         <div className="grid md:grid-cols-2 gap-8">
@@ -119,7 +147,7 @@ export default function GigsClient() {
         </div>
       </section>
 
-      {/* ── SECTION 2: CONCEPT WORK ── */}
+      {/* ── SECTION 3: CONCEPT WORK ── */}
       <section className="space-y-4 pt-8 border-t border-white/5">
         <div>
           <h2 className="text-xl font-bold text-white mb-1">Concept Work</h2>

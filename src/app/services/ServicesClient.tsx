@@ -12,7 +12,6 @@ import { cn } from "@/lib/utils";
 import { Check, ChevronDown, ChevronUp, Cpu, ShieldCheck, X, Zap } from "lucide-react";
 import Link from "next/link";
 import { SiteGradeModule } from "@/components/core/SiteGradeModule";
-import { ClientCommandCenter } from "@/components/services/ClientCommandCenter";
 
 const OVERVIEW_PILLARS = [
   {
@@ -547,10 +546,6 @@ export default function ServicesClient() {
         </div>
       </section>
 
-      {/* ── CLIENT COMMAND CENTER (RETAINER DEMO) ── */}
-      <section className="pt-8 border-t border-white/10">
-        <ClientCommandCenter />
-      </section>
 
       {/* ── WHAT'S ACTUALLY INCLUDED (ACCORDION DETAILS) ── */}
       <section className="space-y-6 pt-8 border-t border-white/10">

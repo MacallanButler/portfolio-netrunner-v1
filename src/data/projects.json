@@ -94,24 +94,101 @@
     "previewUrl": "/previews/kb_card.webp"
   },
   {
-    "id": "proj_wrought",
-    "title": "Wrought",
-    "client": "DTC Kitchenware Concept",
-    "category": "E-Commerce Platform",
-    "description": "A premium e-commerce platform for 'Wrought', a modular, dual-zone panini press featuring interactive temperature control demos, an exploded component diagram, dynamic product configuration, and Stripe test integration.",
+    "id": "proj_slipspace",
+    "title": "Slipspace",
+    "client": "Aerospace & Open Science",
+    "category": "Telemetry Platform",
+    "description": "A live scientific telemetry observatory and asymptotic countdown engine tracking humanity's trajectory toward personal interplanetary spaceflight. Features automated arXiv & NASA paper ingestion, continuous exponential decay scoring, and real-time category telemetry.",
     "techStack": [
       "Next.js",
       "React",
       "TypeScript",
       "Tailwind CSS",
       "Supabase",
-      "Stripe",
-      "Framer Motion"
+      "PostgreSQL"
     ],
     "status": "COMPLETED",
-    "completionDate": "2026-07-20",
+    "completionDate": "2026-09-13",
+    "repoUrl": "https://github.com/MacallanButler/proj-slipspace",
+    "liveUrl": "https://slipspace.macallanbutler.com",
+    "previewUrl": "/previews/proj_slipspace.webp"
+  },
+  {
+    "id": "fox_valley_hvac",
+    "title": "Fox Valley Heating & Air",
+    "client": "HVAC & Home Services",
+    "category": "Lead-Gen & Scheduling",
+    "description": "A high-conversion marketing and lead-generation platform for residential HVAC contractors featuring persistent tap-to-call, Cal.com scheduling embed, emergency request routing, and local service SEO.",
+    "techStack": [
+      "Next.js",
+      "React",
+      "TypeScript",
+      "Tailwind CSS",
+      "Supabase",
+      "Cal.com"
+    ],
+    "status": "IN DEVELOPMENT",
+    "completionDate": "2026-10-01",
     "repoUrl": "https://github.com/MacallanButler",
-    "liveUrl": "https://wrought.macallanbutler.com",
-    "previewUrl": "/previews/proj_wrought.webp"
+    "liveUrl": null,
+    "previewUrl": null
+  },
+  {
+    "id": "bennett_cole_law",
+    "title": "Bennett & Cole Injury Law",
+    "client": "Legal & Personal Injury",
+    "category": "Intake & Practice Areas",
+    "description": "A high-stakes intake and practice-area platform for a personal injury law firm, featuring a multi-step client intake wizard, MDX-driven case results, and rapid mobile load times.",
+    "techStack": [
+      "Next.js",
+      "React",
+      "TypeScript",
+      "Tailwind CSS",
+      "Supabase",
+      "MDX"
+    ],
+    "status": "IN DEVELOPMENT",
+    "completionDate": "2026-10-05",
+    "repoUrl": "https://github.com/MacallanButler",
+    "liveUrl": null,
+    "previewUrl": null
+  },
+  {
+    "id": "ironclad_roofing",
+    "title": "Ironclad Roofing Co.",
+    "client": "Roofing & Construction",
+    "category": "Lead Capture & Claims",
+    "description": "A commercial-grade lead generation platform for storm-damage roof restoration, featuring an interactive before/after gallery filter, step-by-step insurance claims breakdown, and urgent inspection requests.",
+    "techStack": [
+      "Next.js",
+      "React",
+      "TypeScript",
+      "Tailwind CSS",
+      "Supabase"
+    ],
+    "status": "IN DEVELOPMENT",
+    "completionDate": "2026-10-10",
+    "repoUrl": "https://github.com/MacallanButler",
+    "liveUrl": null,
+    "previewUrl": null
+  },
+  {
+    "id": "maple_creek_vet",
+    "title": "Maple Creek Animal Hospital",
+    "client": "Veterinary & Healthcare",
+    "category": "Appointment & Patient Intake",
+    "description": "A warm, accessible clinic platform featuring a dual-mode patient appointment request engine (new vs. returning pet profiles), comprehensive wellness service catalog, and local practice schema.",
+    "techStack": [
+      "Next.js",
+      "React",
+      "TypeScript",
+      "Tailwind CSS",
+      "Supabase"
+    ],
+    "status": "IN DEVELOPMENT",
+    "completionDate": "2026-10-15",
+    "repoUrl": "https://github.com/MacallanButler",
+    "liveUrl": null,
+    "previewUrl": null
   }
 ]

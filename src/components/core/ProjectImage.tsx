@@ -48,8 +48,15 @@ export function ProjectImage({ id, title, className }: ProjectImageProps) {
             }}
           />
           <div className="relative z-0 flex flex-col items-center justify-center h-full min-h-[200px] text-center px-4 gap-2">
-            <span className="font-mono text-[10px] text-neon-cyan/50 uppercase tracking-[0.2em]">ASSET_PENDING</span>
-            <span className="font-mono text-xs text-white/30">{title}</span>
+            <span className="font-mono text-[10px] text-neon-cyan/50 uppercase tracking-[0.2em]">
+              {project?.status === "IN DEVELOPMENT" ? "IN_DEVELOPMENT // QUEUED" : "ASSET_PENDING"}
+            </span>
+            <span className="font-mono text-xs text-white/40 font-medium">{title}</span>
+            {project?.status === "IN DEVELOPMENT" && (
+              <span className="font-mono text-[9px] text-yellow-500/70 uppercase tracking-widest border border-yellow-500/20 px-2 py-0.5 rounded bg-yellow-500/5">
+                Target Build Q4 2026
+              </span>
+            )}
           </div>
         </>
       )}
