@@ -181,8 +181,11 @@ export function Sidebar() {
                                 <span>EXPLORATION_SYNC</span>
                                 <span>{progress}%</span>
                             </div>
-                            <div className="w-full h-1 bg-surface-dark">
-                                <div className="h-full bg-neon-cyan/50 transition-all duration-1000" style={{ width: `${progress}%` }} />
+                            <div className="w-full h-1 bg-surface-dark overflow-hidden">
+                                <div
+                                    className="h-full w-full bg-neon-cyan/50 transition-transform duration-1000 origin-left"
+                                    style={{ transform: `scaleX(${Math.max(0, Math.min(1, Number(progress) / 100))})` }}
+                                />
                             </div>
                             <span className="text-[9px] font-mono text-text-muted/80 block leading-tight">
                                 Visit core site sectors to sync site data link

@@ -24,11 +24,11 @@ export function StatBar({ label, value, color = "bg-neon-cyan", className, showV
                 <div className="absolute inset-0 w-full h-full bg-[linear-gradient(90deg,transparent_2px,rgba(0,0,0,1)_2px)] bg-[size:4px_100%] opacity-20 z-10" />
 
                 <motion.div
-                    initial={{ width: 0 }}
-                    whileInView={{ width: `${value}%` }}
+                    initial={{ scaleX: 0 }}
+                    whileInView={{ scaleX: Math.max(0, Math.min(1, value / 100)) }}
                     transition={{ duration: 1, ease: "easeOut" }}
                     viewport={{ once: true }}
-                    className={cn("h-full relative shadow-[0_0_10px_currentColor]", color)}
+                    className={cn("h-full w-full origin-left relative shadow-[0_0_10px_currentColor]", color)}
                     style={{ backgroundColor: color.startsWith("bg-") ? undefined : color }}
                 >
                     <div className="absolute right-0 top-0 h-full w-1 bg-white/50 animate-pulse" />

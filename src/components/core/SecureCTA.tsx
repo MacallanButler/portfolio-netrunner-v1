@@ -27,22 +27,22 @@ export function SecureCTA({
   return (
     <div
       className={cn(
-        "pt-8 border-t border-white/10 w-full",
+        "pt-4 border-t border-white/10 w-full",
         hideOnMobile && "hidden sm:block",
         className
       )}
     >
-      <HoloCard className="p-6 sm:p-8">
-        <div className="flex flex-col items-center justify-center text-center space-y-3 sm:space-y-4">
-          <p className="text-base sm:text-lg font-bold text-white tracking-wide">
+      <HoloCard className="p-3 sm:p-4">
+        <div className="flex flex-col items-center justify-center text-center space-y-1.5 sm:space-y-2">
+          <p className="text-sm sm:text-base font-bold text-white tracking-wide">
             {title}
           </p>
-          <div className="text-xs sm:text-sm text-text-muted font-mono max-w-lg mx-auto whitespace-pre-line leading-relaxed">
+          <div className="text-xs text-text-muted font-mono max-w-md mx-auto whitespace-pre-line leading-normal">
             {description}
           </div>
-          <div className="pt-4 sm:pt-6 flex justify-center w-full">
+          <div className="pt-1.5 sm:pt-2 flex justify-center w-full">
             <Link href="/contact" onClick={() => trackPricingCtaClick(location)}>
-              <NeonButton variant="primary" className="text-xs sm:text-sm py-2.5 px-6">
+              <NeonButton variant="primary" className="text-xs py-1.5 px-4">
                 {buttonText}
               </NeonButton>
             </Link>

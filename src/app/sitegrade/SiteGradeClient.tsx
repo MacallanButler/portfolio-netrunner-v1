@@ -335,8 +335,8 @@ export default function SiteGradeClient() {
                     {/* Background Grid/Tick marks */}
                     <div className="absolute inset-0 w-full h-full bg-[linear-gradient(90deg,transparent_2px,rgba(0,0,0,1)_2px)] bg-[size:4px_100%] opacity-20 z-10" />
                     <div 
-                      className="h-full bg-neon-cyan relative shadow-[0_0_10px_var(--neon-cyan)] transition-all duration-300" 
-                      style={{ width: `${auditProgress}%`, backgroundColor: "var(--neon-cyan)" }} 
+                      className="h-full w-full bg-neon-cyan relative shadow-[0_0_10px_var(--neon-cyan)] transition-transform duration-300 origin-left" 
+                      style={{ transform: `scaleX(${Math.max(0, Math.min(1, auditProgress / 100))})`, backgroundColor: "var(--neon-cyan)" }} 
                     />
                   </div>
                 </div>
